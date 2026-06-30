@@ -16,7 +16,7 @@
     </div>
 </nav>
 
-{{-- ── SIGNUP SPLIT LAYOUT ── --}}
+{{-- SIGNUP SPLIT LAYOUT }}
 <div class="auth-wrapper">
 
     {{-- Hero panel --}}
