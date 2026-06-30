@@ -22,3 +22,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Express 
+Express_Backend/node_modules
+Express_Backend/.env
+
+# Laravel
