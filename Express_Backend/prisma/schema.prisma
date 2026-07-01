@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Role {
+  user
+  artisan
+  admin
+}
+
+enum BookingStatus {
+  pending
+  accepted
+  rejected
+  completed
+}
+
+model User {
+  id              String         @id @default(uuid(7))
+  // Role related stuff
+  role            Role           @default(user)
+  artisan_id      String?        @unique
+  // Authentication Information
+  email           String         @unique()
+  password        String
+  // Contact Information
+  phone_no        String?        @unique()
+  whatsapp_no     String?        @unique()
+  // Personal Information
+  f_name          String
+  l_name          String
+  profile_pic_url String?
+  nin             String?        @unique()
+  // Bank details relation
+  account_details Bank_Details?
+  reviews         Review[]
+  artisan         Artisan?
+  notifications   Notification[]
+  bookings        Booking[]
+  // Timestamps
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+}
+
+model Bank_Details {
+  id           String @id @default(uuid(7))
+  account_no   String
+  bank_name    String
+  account_name String
+  user         User   @relation(fields: [user_id], references: [id])
+  user_id      String @unique()
+}
+
+model Review {
+  id String @id @default(uuid(7))
+
+  // Customer relation
+  customer    User   @relation(fields: [customer_id], references: [id])
+  customer_id String
+
+  // Artisan relation
+  artisan    Artisan @relation(fields: [artisan_id], references: [id])
+  artisan_id String
+}
+
+model Artisan {
+  id         String    @id @default(uuid(7))
+  user       User      @relation(fields: [user_id], references: [id])
+  user_id    String    @unique
+  // Artisan related stuff
+  skills     Skill[]
+  location   String
+  experience Int
+  rating     Float
+  reviews    Review[]
+  bookings   Booking[]
+}
+
+model Skill {
+  id       String    @id @default(uuid(7))
+  name     String    @unique()
+  artisans Artisan[]
+}
+
+model Notification {
+  id         String   @id @default(uuid(7))
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  message    String
+  read       Boolean  @default(false)
+  created_at DateTime @default(now())
+}
+
+model Booking {
+  id                  String        @id @default(uuid(7))
+  customer            User          @relation(fields: [customer_id], references: [id])
+  customer_id         String
+  artisan             Artisan       @relation(fields: [artisan_id], references: [id])
+  artisan_id          String
+  status              BookingStatus @default(pending)
+  service_description String
+  created_at          DateTime      @default(now())
+  updated_at          DateTime      @updatedAt
+}
