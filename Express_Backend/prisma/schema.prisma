@@ -74,11 +74,11 @@ model Review {
 }
 
 model Artisan {
-  id         String    @id @default(uuid(7))
-  user       User      @relation(fields: [user_id], references: [id])
-  user_id    String    @unique
+  id         String          @id @default(uuid(7))
+  user       User            @relation(fields: [user_id], references: [id])
+  user_id    String          @unique
   // Artisan related stuff
-  skills     Skill[]
+  skills     Artisan_Skill[]
   location   String
   experience Int
   rating     Float
@@ -87,9 +87,9 @@ model Artisan {
 }
 
 model Skill {
-  id       String    @id @default(uuid(7))
-  name     String    @unique()
-  artisans Artisan[]
+  id       String          @id @default(uuid(7))
+  name     String          @unique()
+  artisans Artisan_Skill[]
 }
 
 model Notification {
@@ -111,4 +111,14 @@ model Booking {
   service_description String
   created_at          DateTime      @default(now())
   updated_at          DateTime      @updatedAt
+}
+
+model Artisan_Skill {
+  // id         String  @id @default(uuid(7))
+  artisan    Artisan @relation(fields: [artisan_id], references: [id])
+  artisan_id String
+  skill      Skill   @relation(fields: [skill_id], references: [id])
+  skill_id   String
+
+  @@id(name: "ArtisanSkill", fields: [artisan_id, skill_id])
 }
