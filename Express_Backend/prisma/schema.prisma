@@ -29,7 +29,6 @@ model User {
   id              String         @id @default(uuid(7))
   // Role related stuff
   role            Role           @default(user)
-  artisan_id      String?        @unique
   // Authentication Information
   email           String         @unique()
   password        String
