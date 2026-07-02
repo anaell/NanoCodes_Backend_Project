@@ -62,7 +62,9 @@ model Bank_Details {
 }
 
 model Review {
-  id String @id @default(uuid(7))
+  id      String  @id @default(uuid(7))
+  comment String?
+  rating  Int
 
   // Customer relation
   customer    User   @relation(fields: [customer_id], references: [id])
