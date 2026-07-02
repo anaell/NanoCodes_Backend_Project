@@ -1,5 +1,6 @@
 # Express 
 Express_Backend/node_modules
 Express_Backend/.env
+Express_Backend/generated/prisma
 
 # Laravel
