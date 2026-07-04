@@ -45,3 +45,10 @@ Route::get('/dashboard', fn() => 'Welcome to dashboard')
 Route::get('/', function () {
     return redirect('/login');
 });
+
+// Protected routes (require token)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', fn() => \Illuminate\Support\Facades\Auth::user());
+    Route::post('/logout', [AuthController::class, 'apiLogout']);
+    Route::get('/artisans', [AuthController::class, 'getArtisans']);
+});
