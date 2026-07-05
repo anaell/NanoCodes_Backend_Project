@@ -42,7 +42,4 @@ Route::get('/dashboard', fn() => 'Welcome to dashboard')
     ->name('dashboard');
 
 // Redirect root to login
-Route::get('/', function () {
-    return redirect('/login');
-});
-
+Route::get('/', fn() => redirect()->route('login'));

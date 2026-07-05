@@ -76,14 +76,4 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
-
-     // Create a new token. You can set abilities (optional)
-        $token = $user->createToken('auth-token', ['job:create', 'candidate:view'])->plainTextToken;
-
-        return response()->json([
-            'token' => $token,
-            'role'  => $user->role,
-            'user'  => $user,
-        ]);
-    }
 }

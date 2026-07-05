@@ -6,22 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('booking', function (Blueprint $table) {
-            $table->id();
+        Schema::create('bookings', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('customer_id');
+            $table->uuid('artisan_id');
+            $table->enum('status', ['pending', 'accepted', 'rejected', 'completed'])->default('pending');
+            $table->text('service_description');
             $table->timestamps();
+            
+            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('artisan_id')->references('id')->on('artisans')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('booking');
+        Schema::dropIfExists('bookings');
     }
 };

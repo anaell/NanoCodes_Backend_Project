@@ -55,7 +55,6 @@
 
         <form method="POST" action="{{ route('register') }}" id="registerForm">
             @csrf
-
             {{-- Role selector --}}
             <div class="role-selector">
                 <button type="button"

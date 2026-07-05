@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Skill extends Model
+class BankDetails extends Model
 {
     use HasUuids;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['account_no', 'bank_name', 'account_name', 'user_id'];
     public $timestamps = false;
 
-    public function artisans()
+    public function user()
     {
-        return $this->belongsToMany(Artisan::class, 'artisan_skill');
+        return $this->belongsTo(User::class);
     }
 }

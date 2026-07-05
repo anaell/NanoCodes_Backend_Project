@@ -6,22 +6,35 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
-            $table->id();
+        Schema::create('users', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            
+            // Role
+            $table->enum('role', ['user', 'artisan', 'admin'])->default('user');
+            
+            // Authentication
+            $table->string('email')->unique();
+            $table->string('password');
+            
+            // Contact
+            $table->string('phone_no')->nullable()->unique();
+            $table->string('whatsapp_no')->nullable()->unique();
+            
+            // Personal
+            $table->string('f_name');
+            $table->string('l_name');
+            $table->string('profile_pic_url')->nullable();
+            $table->string('nin')->nullable()->unique();
+            
+            // Timestamps
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('user');
+        Schema::dropIfExists('users');
     }
 };
