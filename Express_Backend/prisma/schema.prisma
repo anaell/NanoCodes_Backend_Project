@@ -25,40 +25,63 @@ enum BookingStatus {
   accepted
   rejected
   in_progress
+  cancelled
   completed
+}
+
+enum PaymentStatus {
+  processing
+  successful
+}
+
+enum ArtisanVerificationDocumentsStatus {
+  pending
+  accepted
+  rejected
+  more_info_required
+}
+
+enum BookingReviewStatus {
+  published
+  deleted
+  reported
 }
 
 // This is for the Users that will be using the application. It is a one-to-many relationship between Users and Reviews, Users and Notifications, Users and Bookings, Users and Favourites, and a one-to-one relationship between Users and Bank_Details.
 model User {
-  id                        String         @id @default(uuid(7))
+  id                             String           @id @default(uuid(7))
   // Role related stuff
-  role                      Role           @default(user)
+  role                           Role             @default(user)
   // Authentication Information
-  email                     String         @unique()
-  password                  String
+  email                          String           @unique()
+  password                       String
   // Contact Information
-  phone_no                  String?        @unique()
-  whatsapp_no               String?        @unique()
+  phone_no                       String?          @unique()
+  whatsapp_no                    String?          @unique()
   // Personal Information
-  f_name                    String
-  l_name                    String
-  profile_pic_url           String?
-  nin                       String?        @unique()
+  f_name                         String
+  l_name                         String
+  profile_pic_url                String?
+  nin                            String?          @unique()
   // Bank details relation
-  account_details           Bank_Details?
-  reviews                   Review[]
-  artisan                   Artisan?
-  notifications             Notification[]
-  bookings                  Booking[]
-  preferred_booking_address String?
-  favourite_artisans        Favourite[]
+  account_details                Bank_Detail?
+  reviews                        Booking_Review[]
+  artisan                        Artisan?
+  notifications                  Notification[]
+  bookings                       Booking[]
+  preferred_booking_address      String?
+  favourite_artisans             Favourite[]
   // Timestamps
-  created_at                DateTime       @default(now())
-  updated_at                DateTime       @updatedAt
+  created_at                     DateTime         @default(now())
+  updated_at                     DateTime         @updatedAt
+  payments                       Payment[]
+  total_amount_spent_on_bookings Float?
+  is_suspended                   Boolean          @default(false)
+  is_deleted                     Boolean          @default(false)
 }
 
 // This is for the Bank Details that a User can have. It is a one-to-one relationship between Users and Bank_Details.
-model Bank_Details {
+model Bank_Detail {
   id           String @id @default(uuid(7))
   account_no   String
   bank_name    String
@@ -68,42 +91,54 @@ model Bank_Details {
 }
 
 // This is for Reviews that a User can leave for an Artisan. It is a many-to-many relationship between Users and Artisans, with additional fields for the review details.
-model Review {
-  id      String  @id @default(uuid(7))
+model Booking_Review {
+  id      String                @id @default(uuid(7))
   comment String?
   rating  Int
+  reply   Artisan_Review_Reply?
+  status  BookingReviewStatus   @default(published)
 
   // Customer relation
   customer    User   @relation(fields: [customer_id], references: [id])
   customer_id String
 
   // Artisan relation
-  artisan    Artisan  @relation(fields: [artisan_id], references: [id])
-  artisan_id String
-  booking    Booking?
+  // artisan    Artisan @relation(fields: [artisan_id], references: [id])
+  // artisan_id String
+
+  // Booking relation
+  booking    Booking @relation(fields: [booking_id], references: [id])
+  booking_id String  @unique
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  artisan    Artisan? @relation(fields: [artisanId], references: [id])
+  artisanId  String?
 }
 
 // This is for the Artisans that a User can hire. Users that are artisans get this included for them. It is a one-to-one relationship between Users and Artisans.
 model Artisan {
-  id                 String          @id @default(uuid(7))
-  user               User            @relation(fields: [user_id], references: [id])
-  user_id            String          @unique
+  id                           String                          @id @default(uuid(7))
+  user                         User                            @relation(fields: [user_id], references: [id])
+  user_id                      String                          @unique
   // Artisan related stuff
-  main_skill         String?
-  skills             Artisan_Skill[]
-  location           String
-  experience         Int
-  rating             Float
-  reviews            Review[]
-  bookings           Booking[]
-  verified           Boolean         @default(false)
-  about_artisan      String?
-  response_time      Int?
-  services           Service[]
-  favourited_by      Favourite[]
-  min_price_per_hour Float?
+  main_skill                   String?
+  skills                       Artisan_Skill[]
+  location                     String
+  experience                   Int
+  rating                       Float
+  reviews                      Booking_Review[]
+  bookings                     Booking[]
+  verified                     Boolean                         @default(false)
+  about_artisan                String?
+  response_time                Int?
+  services                     Service[]
+  favourited_by                Favourite[]
+  min_price_per_hour           Float?
+  payments                     Payment[]
+  total_money_made             Float?
+  total_money_withdrawn        Float?
+  artisanVerificationDocuments Artisan_Verification_Documents?
 }
 
 // This is for the Skills that an Artisan can have. It is a many-to-many relationship between Artisans and Skills.
@@ -138,8 +173,8 @@ model Booking {
   booking_start_date       DateTime
   booking_end_date         DateTime?
   booking_address          String?
-  review                   Review?           @relation(fields: [review_id], references: [id])
-  review_id                String?           @unique()
+  review                   Booking_Review?
+  payment_details          Payment?
   created_at               DateTime          @default(now())
   updated_at               DateTime          @updatedAt
 }
@@ -190,4 +225,56 @@ model Booking_Picture {
   booking    Booking @relation(fields: [booking_id], references: [id])
   booking_id String
   url        String
+}
+
+model Artisan_Review_Reply {
+  id        String         @id @default(uuid(7))
+  reply     String
+  review    Booking_Review @relation(fields: [review_id], references: [id])
+  review_id String         @unique
+
+  created_at DateTime @default(now())
+}
+
+model Payment {
+  id             String        @id @default(uuid())
+  amount         Float
+  status         PaymentStatus @default(processing)
+  payment_method String
+
+  artisan    Artisan @relation(fields: [artisan_id], references: [id])
+  artisan_id String
+
+  customer    User   @relation(fields: [customer_id], references: [id])
+  customer_id String
+
+  booking    Booking @relation(fields: [booking_id], references: [id])
+  booking_id String  @unique
+
+  payment_completed_at DateTime
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+}
+
+model Artisan_Verification_Documents {
+  id     String                             @id @default(uuid())
+  status ArtisanVerificationDocumentsStatus @default(pending)
+
+  nin_doc_url                   String?
+  profession_credential_doc_url String?
+
+  artisan    Artisan @relation(fields: [artisan_id], references: [id])
+  artisan_id String  @unique
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model System_Info {
+  id                String   @id @default(uuid(7))
+  platform_name     String
+  platform_logo_url String
+  support_email     String
+  maintenance_mode  Boolean  @default(false)
+  updated_at        DateTime @updatedAt
 }
