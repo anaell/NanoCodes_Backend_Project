@@ -1,9 +1,9 @@
-{
+/**
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    "rootDir": ".",
+    "outDir": "./dist",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
@@ -26,6 +26,7 @@
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
+    
 
     // Style Options
     // "noImplicitReturns": true,
@@ -44,4 +45,53 @@
     "moduleDetection": "force",
     "skipLibCheck": true
   }
+}*/
+{
+  "compilerOptions": {
+    // File Layout
+    "rootDir": ".",              // keep source files inside src/
+    "outDir": "./dist", 
+    "noEmit": true,
+    "allowImportingTsExtensions": true,             // compiled JS goes here
+
+    // Environment Settings
+    "module": "NodeNext",            // ESM support
+    "moduleResolution": "NodeNext",  // resolves imports correctly
+    "target": "ESNext",              // modern JS output
+    "lib": ["ESNext"],               // latest JS features
+    "types": ["node"],               // Node.js type definitions
+    "esModuleInterop": true,         // allow default imports from CJS
+    "verbatimModuleSyntax": true,    // keep import/export syntax exact
+
+    // Outputs
+    "sourceMap": true,               // useful for debugging
+    "declaration": true,             // emit .d.ts files
+    "declarationMap": true,          // map declarations back to TS
+
+    // Stricter Typechecking
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "isolatedModules": true,         // required for NodeNext
+    "noUncheckedSideEffectImports": true,
+
+    // Style Options (optional, uncomment if you want stricter linting)
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Misc
+    "skipLibCheck": true,            // skip type checks in node_modules
+    "moduleDetection": "force"       // force module detection
+  },
+  "include": ["src"],                // only compile files inside src/
+  "exclude": [
+    "node_modules",
+    "dist",
+    "generated",                     // Prisma generated files
+    "prisma.config.ts"               // config file outside src
+  ]
 }

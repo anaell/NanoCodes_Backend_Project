@@ -30,4 +30,14 @@ const adapter = new PrismaMariaDb({
   connectionLimit: 5,
 });
 const prisma = new PrismaClient({ adapter });
+const connectDB = async () => {
+  try{
+    await prisma.$connect();
+    console.log("Your Database is connected Successfully")
+  }catch(err){
+    console.error("Database connection failed", err)
+  }
+}
+
+connectDB();
 export { prisma };

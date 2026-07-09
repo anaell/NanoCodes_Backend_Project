@@ -1,5 +1,5 @@
 import express from 'express'
-import { CreateArtisan } from '../controllers/Artisanscontrollers.js';
+import { CreateArtisan } from '../controllers/Artisanscontrollers.ts';
 
 export const  ArtisansRouts = express.Router();
 
