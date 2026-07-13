@@ -49,35 +49,46 @@ enum BookingReviewStatus {
 
 // This is for the Users that will be using the application. It is a one-to-many relationship between Users and Reviews, Users and Notifications, Users and Bookings, Users and Favourites, and a one-to-one relationship between Users and Bank_Details.
 model User {
-  id                             String           @id @default(uuid(7))
+  id String @id @default(uuid(7))
+
   // Role related stuff
-  role                           Role             @default(user)
+  role Role @default(user)
+
   // Authentication Information
-  email                          String           @unique()
-  password                       String
+  email    String @unique()
+  password String
+
+  // MISSING LARAVEL AUTH FIELDS:
+  email_verified_at DateTime? @db.Timestamp(0) // Tracks if the user verified their email
+  remember_token    String?   @db.VarChar(100) // Used for standard web "Remember Me" sessions
+
   // Contact Information
-  phone_no                       String?          @unique()
-  whatsapp_no                    String?          @unique()
+  phone_no    String? @unique()
+  whatsapp_no String? @unique()
+
   // Personal Information
-  f_name                         String
-  l_name                         String
-  profile_pic_url                String?
-  nin                            String?          @unique()
+  f_name          String
+  l_name          String
+  profile_pic_url String?
+  nin             String? @unique()
+
   // Bank details relation
-  account_details                Bank_Detail?
-  reviews                        Booking_Review[]
-  artisan                        Artisan?
-  notifications                  Notification[]
-  bookings                       Booking[]
-  preferred_booking_address      String?
-  favourite_artisans             Favourite[]
+  account_details           Bank_Detail?
+  reviews                   Booking_Review[]
+  artisan                   Artisan?
+  notifications             Notification[]
+  bookings                  Booking[]
+  preferred_booking_address String?
+  favourite_artisans        Favourite[]
+
   // Timestamps
-  created_at                     DateTime         @default(now())
-  updated_at                     DateTime         @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
   payments                       Payment[]
   total_amount_spent_on_bookings Float?
-  is_suspended                   Boolean          @default(false)
-  is_deleted                     Boolean          @default(false)
+  is_suspended                   Boolean   @default(false)
+  is_deleted                     Boolean   @default(false)
 }
 
 // This is for the Bank Details that a User can have. It is a one-to-one relationship between Users and Bank_Details.
@@ -277,4 +288,103 @@ model System_Info {
   support_email     String
   maintenance_mode  Boolean  @default(false)
   updated_at        DateTime @updatedAt
+}
+
+// THE BELOW IS FOR LARAVEL AUTHENTICATION. THE AUTH IS BEING HANDLED BY LARAVEL SO THAT IS WHY THESE WERE ADDED.
+// 1. LARAVEL SESSION TABLE (Required by SESSION_DRIVER=database)
+model Session {
+  id            String  @id @db.VarChar(255)
+  user_id       String? // Matches your User id String/UUID type
+  ip_address    String? @db.VarChar(45)
+  user_agent    String? @db.Text
+  payload       String  @db.LongText
+  last_activity Int
+
+  @@index([user_id])
+  @@index([last_activity])
+  @@map("sessions")
+}
+
+// 2. LARAVEL CACHE TABLES (Required by CACHE_STORE=database)
+model Cache {
+  key        String @id @db.VarChar(255)
+  value      String @db.MediumText
+  expiration Int
+
+  @@map("cache")
+}
+
+model CacheLock {
+  key        String @id @db.VarChar(255)
+  owner      String @db.VarChar(255)
+  expiration Int
+
+  @@map("cache_locks")
+}
+
+// 3. LARAVEL QUEUE/JOBS TABLES (Required by QUEUE_CONNECTION=database)
+model Job {
+  id           BigInt @id @default(autoincrement()) @db.UnsignedBigInt
+  queue        String @db.VarChar(255)
+  payload      String @db.LongText
+  attempts     Int    @db.UnsignedTinyInt
+  reserved_at  Int?   @db.UnsignedInt
+  available_at Int    @db.UnsignedInt
+  created_at   Int    @db.UnsignedInt
+
+  @@index([queue])
+  @@map("jobs")
+}
+
+model JobBatch {
+  id             String  @id @db.VarChar(255)
+  name           String  @db.VarChar(255)
+  total_jobs     Int
+  pending_jobs   Int
+  failed_jobs    Int
+  failed_job_ids String  @db.LongText
+  options        String? @db.LongText
+  cancelled_at   Int?
+  created_at     Int
+  finished_at    Int?
+
+  @@map("job_batches")
+}
+
+model FailedJob {
+  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.VarChar(255)
+  connection String   @db.Text
+  queue      String   @db.Text
+  payload    String   @db.LongText
+  exception  String   @db.LongText
+  failed_at  DateTime @default(now()) @db.Timestamp(0)
+
+  @@map("failed_jobs")
+}
+
+// 4. LARAVEL PASSWORD RESET TOKENS (Built-in Auth Core)
+model PasswordResetToken {
+  email      String    @id @db.VarChar(255)
+  token      String    @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+
+  @@map("password_reset_tokens")
+}
+
+// 5. LARAVEL SANCTUM TOKENS (Required by laravel/sanctum dependency)
+model PersonalAccessToken {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   String // Matches your User id String/UUID type
+  name           String    @db.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
+  abilities      String?   @db.Text
+  last_used_at   DateTime? @db.Timestamp(0)
+  expires_at     DateTime? @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id])
+  @@map("personal_access_tokens")
 }
