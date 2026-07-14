@@ -150,6 +150,9 @@ model Artisan {
   total_money_made             Float?
   total_money_withdrawn        Float?
   artisanVerificationDocuments Artisan_Verification_Documents?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 // This is for the Skills that an Artisan can have. It is a many-to-many relationship between Artisans and Skills.
@@ -387,4 +390,13 @@ model PersonalAccessToken {
 
   @@index([tokenable_type, tokenable_id])
   @@map("personal_access_tokens")
+}
+
+// END OF LARAVEL ADDITIONS
+
+model Admin_User {
+  admin_id String @id @default(uuid())
+  name     String
+  password String
+  email    String @unique
 }
