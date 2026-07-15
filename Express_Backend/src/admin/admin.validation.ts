@@ -50,3 +50,8 @@ export const reviewArtisanDocumentVerificationRequest_RequestParamValidation =
   z.object({
     artisan_id: z.uuidv7(),
   });
+
+export const getArtisanPendingDocumentVerificationRequest_RequestParamValidation =
+  z.object({
+    artisan_id: z.uuidv7(),
+  });

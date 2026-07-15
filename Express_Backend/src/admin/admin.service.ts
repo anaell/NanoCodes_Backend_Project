@@ -2,6 +2,7 @@ import { formatGrowthData } from "../utils/format_date.js";
 import type { AdminRepository } from "./admin.repository.js";
 import type {
   deletePlatformUser_InputType,
+  getArtisanPendingDocumentVerificationRequest_InputType,
   getPlatformUsers_InputType,
   reviewArtisanDocumentVerificationRequest_InputType,
 } from "./admin.types.js";
@@ -67,6 +68,24 @@ export class AdminService {
       await this.adminRepository.reviewArtisanDocumentVerificationRequest({
         artisan_id,
         application_status_chosen,
+      });
+
+    return db_response;
+  }
+
+  async getAllArtisansWithPendingDocumentVerificationRequestService() {
+    const db_response =
+      await this.adminRepository.getAllArtisansWithPendingDocumentVerificationRequest();
+
+    return db_response;
+  }
+
+  async getArtisanPendingDocumentVerificationRequestService({
+    artisan_id,
+  }: getArtisanPendingDocumentVerificationRequest_InputType) {
+    const db_response =
+      await this.adminRepository.getArtisanPendingDocumentVerificationRequest({
+        artisan_id,
       });
 
     return db_response;

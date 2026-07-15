@@ -2,6 +2,7 @@ import { prisma } from "../lib/prisma.js";
 import type {
   delete_User_Artisan_Account_InputType,
   deletePlatformUser_InputType,
+  getArtisanPendingDocumentVerificationRequest_InputType,
   getPlatformUsers_InputType,
   getPlatformUsers_WhereType,
   reviewArtisanDocumentVerificationRequest_InputType,
@@ -207,6 +208,10 @@ export class AdminRepository {
 
   async deletePlatformUser({ user_id }: deletePlatformUser_InputType) {
     try {
+      console.log(
+        `deletePlatformUser repository function started \nTime: ${Date.now()}`,
+      );
+
       const delete_user = await prisma.user.update({
         where: { id: user_id, is_deleted: { not: true } },
         data: { is_deleted: true },
@@ -219,12 +224,16 @@ export class AdminRepository {
         },
       });
 
+      console.log(
+        `deletePlatformUser repository completed \nTime: ${Date.now()}`,
+      );
+
       return delete_user;
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
       console.error(
-        `getPlatformUsers repository function Execution failed: ${error_message}`,
+        `deletePlatformUser repository function Execution failed: ${error_message}`,
       );
       throw error;
     }
@@ -236,7 +245,7 @@ export class AdminRepository {
   }: reviewArtisanDocumentVerificationRequest_InputType) {
     try {
       console.log(
-        `reviewArtisanDocumentVerificationApplication repository function started \nTime: ${Date.now()}`,
+        `reviewArtisanDocumentVerificationRequest repository function started \nTime: ${Date.now()}`,
       );
 
       const artisan = await prisma.artisan.update({
@@ -259,7 +268,113 @@ export class AdminRepository {
       });
 
       console.log(
-        `reviewArtisanDocumentVerificationApplication repository completed \nTime: ${Date.now()}`,
+        `reviewArtisanDocumentVerificationRequest repository completed \nTime: ${Date.now()}`,
+      );
+
+      return artisan;
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationRequest repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getAllArtisansWithPendingDocumentVerificationRequest() {
+    try {
+      console.log(
+        `getArtisansWithPendingVerificationRequest repository function started \nTime: ${Date.now()}`,
+      );
+
+      const [
+        total_artisans_with_pending_reviews,
+        artisans_with_pending_reviews,
+      ] = await prisma.$transaction([
+        prisma.artisan.count({
+          where: {
+            artisanVerificationDocuments: { status: "pending" },
+            user: { is_deleted: false },
+          },
+        }),
+        prisma.artisan.findMany({
+          where: {
+            artisanVerificationDocuments: { status: "pending" },
+            user: { is_deleted: false },
+          },
+          select: {
+            id: true,
+            user_id: true,
+            main_skill: true,
+            location: true,
+            artisanVerificationDocuments: {
+              select: { status: true, created_at: true },
+            },
+            user: {
+              select: {
+                f_name: true,
+                l_name: true,
+                profile_pic_url: true,
+              },
+            },
+          },
+          orderBy: { artisanVerificationDocuments: { created_at: "desc" } },
+        }),
+      ]);
+      console.log(
+        `getArtisansWithPendingVerificationRequest repository completed \nTime: ${Date.now()}`,
+      );
+
+      return {
+        total_artisans_with_pending_reviews,
+        artisans_with_pending_reviews,
+      };
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getArtisanPendingDocumentVerificationRequest({
+    artisan_id,
+  }: getArtisanPendingDocumentVerificationRequest_InputType) {
+    try {
+      console.log(
+        `getArtisanPendingDocumentVerificationRequest repository function started \nTime: ${Date.now()}`,
+      );
+
+      const artisan = await prisma.artisan.findFirstOrThrow({
+        where: {
+          id: artisan_id,
+          user: { is_deleted: false, is_suspended: false },
+          artisanVerificationDocuments: { status: "pending" },
+        },
+        select: {
+          id: true,
+          user_id: true,
+          about_artisan: true,
+          main_skill: true,
+          location: true,
+          artisanVerificationDocuments: {
+            select: {
+              status: true,
+              nin_doc_url: true,
+              profession_credential_doc_url: true,
+            },
+          },
+          user: {
+            select: { f_name: true, l_name: true, profile_pic_url: true },
+          },
+        },
+      });
+
+      console.log(
+        `getArtisanPendingDocumentVerificationRequest repository completed \nTime: ${Date.now()}`,
       );
 
       return artisan;
@@ -272,8 +387,4 @@ export class AdminRepository {
       throw error;
     }
   }
-
-  async delete_User_Artisan_Account({
-    artisan_id,
-  }: delete_User_Artisan_Account_InputType) {}
 }

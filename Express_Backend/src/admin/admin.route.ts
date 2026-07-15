@@ -23,8 +23,22 @@ route.delete(
   adminController.deletePlatformUserController.bind(adminController),
 );
 
+route.get(
+  "/admin/artisans/pending_document_verification",
+  adminController.getAllArtisansWithPendingDocumentVerificationRequestController.bind(
+    adminController,
+  ),
+);
+
+route.get(
+  "/admin/artisans/pending_document_verification/:artisan_id",
+  adminController.getArtisanPendingDocumentVerificationRequestController.bind(
+    adminController,
+  ),
+);
+
 route.post(
-  "/admin/artisans/:artisan_id/document_verification",
+  "/admin/artisans/pending_document_verification/:artisan_id",
   adminController.reviewArtisanDocumentVerificationRequestController.bind(
     adminController,
   ),

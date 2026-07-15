@@ -33,3 +33,7 @@ export interface deletePlatformUser_InputType {
 export interface delete_User_Artisan_Account_InputType {
   artisan_id: string;
 }
+
+export interface getArtisanPendingDocumentVerificationRequest_InputType {
+  artisan_id: string;
+}
