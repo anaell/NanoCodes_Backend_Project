@@ -1,11 +1,20 @@
 import { prisma } from "../lib/prisma.js";
+import { getToday } from "../utils/format_date.js";
 import type {
   delete_User_Artisan_Account_InputType,
   deletePlatformUser_InputType,
+  getAllBookings_InputType,
+  getAllBookings_WhereType,
+  getAllReviews_InputType,
+  getAllReviews_WhereType,
+  getAllTransactionLogs_InputType,
+  getAllTransactionLogs_WhereType,
   getArtisanPendingDocumentVerificationRequest_InputType,
   getPlatformUsers_InputType,
   getPlatformUsers_WhereType,
+  getRevenueTrend_InputType,
   reviewArtisanDocumentVerificationRequest_InputType,
+  updatePlatformSettings_InputType,
 } from "./admin.types.js";
 
 export class AdminRepository {
@@ -129,10 +138,10 @@ export class AdminRepository {
 
       if (search_term) {
         baseWhere.OR = [
-          { f_name: { contains: search_term, mode: "insensitive" } },
-          { l_name: { contains: search_term, mode: "insensitive" } },
-          { email: { contains: search_term, mode: "insensitive" } },
-          { id: { contains: search_term, mode: "insensitive" } },
+          { f_name: { contains: search_term.toLowerCase() } },
+          { l_name: { contains: search_term.toLowerCase() } },
+          { email: { contains: search_term.toLowerCase() } },
+          { id: { contains: search_term.toLowerCase() } },
         ];
       }
 
@@ -378,6 +387,507 @@ export class AdminRepository {
       );
 
       return artisan;
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getAllBookings({
+    search_term,
+    no_of_days,
+    status,
+    page = 1,
+    limit = 10,
+  }: getAllBookings_InputType) {
+    try {
+      const whereBase: getAllBookings_WhereType = { is_cancelled: false };
+
+      if (status) {
+        whereBase.status = status;
+      }
+
+      if (search_term) {
+        whereBase.OR = [
+          {
+            customer: {
+              f_name: { contains: search_term },
+              l_name: { contains: search_term },
+            },
+          },
+          {
+            artisan: {
+              user: {
+                f_name: { contains: search_term },
+                l_name: { contains: search_term },
+              },
+            },
+          },
+        ];
+      }
+
+      // 1. Initialize an empty filter object
+      const dateFilter: { gte?: Date } = {};
+
+      // 2. Only apply the filter if the user explicitly provided a number of days
+      if (no_of_days !== undefined && no_of_days !== null) {
+        const date_range = new Date();
+        date_range.setDate(date_range.getDate() - no_of_days);
+        dateFilter.gte = date_range;
+
+        whereBase.created_at = dateFilter;
+      }
+
+      const number_to_skip: number = (page - 1) * limit;
+
+      const [total_bookings, bookings] = await prisma.$transaction([
+        prisma.booking.count({ where: whereBase }),
+        prisma.booking.findMany({
+          where: whereBase,
+          take: limit,
+          skip: number_to_skip,
+          orderBy: { created_at: "desc" },
+          select: {
+            id: true,
+            work_to_be_done: true,
+            customer: { select: { f_name: true, l_name: true } },
+            artisan: {
+              select: { user: { select: { f_name: true, l_name: true } } },
+            },
+            created_at: true,
+            booking_price: true,
+            status: true,
+          },
+        }),
+      ]);
+
+      const totalPages = Math.ceil(total_bookings / limit);
+
+      return {
+        total_bookings,
+        bookings,
+        meta: {
+          total_bookings,
+          current_page: page,
+          per_page: limit,
+          total_pages: totalPages,
+          has_next_page: page < totalPages,
+          has_previous_page: page > 1,
+        },
+      };
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getAllBookingsStatCard() {
+    try {
+      const fixed_reference_day_to_calc_growth_rating = 30;
+      const date_range_to_use_for_growth_rating_calc = new Date();
+      date_range_to_use_for_growth_rating_calc.setDate(
+        date_range_to_use_for_growth_rating_calc.getDate() -
+          fixed_reference_day_to_calc_growth_rating,
+      );
+
+      const today = getToday();
+
+      const [bookings_completed_today, total_revenue] =
+        await prisma.$transaction([
+          prisma.booking.count({
+            where: { status: "completed", booking_end_date: today },
+          }),
+          prisma.booking.aggregate({
+            where: { status: "completed" },
+            _sum: { booking_price: true },
+          }),
+        ]);
+
+      const [active_bookings, active_booking_past_month_count] =
+        await prisma.$transaction([
+          prisma.booking.count({
+            where: {
+              OR: [{ status: "in_progress" }, { status: "pending" }],
+            },
+          }),
+          prisma.booking.count({
+            where: {
+              OR: [{ status: "in_progress" }, { status: "pending" }],
+              created_at: {
+                lte: date_range_to_use_for_growth_rating_calc,
+              },
+            },
+          }),
+        ]);
+
+      const [pending_bookings, pending_booking_past_month_count] =
+        await prisma.$transaction([
+          prisma.booking.count({
+            where: {
+              status: "pending",
+            },
+          }),
+          prisma.booking.count({
+            where: {
+              status: "pending",
+              created_at: {
+                lte: date_range_to_use_for_growth_rating_calc,
+              },
+            },
+          }),
+        ]);
+
+      return {
+        bookings_completed_today,
+        total_revenue,
+        active_bookings,
+        active_booking_past_month_count,
+        pending_bookings,
+        pending_booking_past_month_count,
+      };
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getAllReviews({
+    reported_reviews,
+    limit = 10,
+    page = 1,
+    search_term,
+  }: getAllReviews_InputType) {
+    try {
+      const whereBase: getAllReviews_WhereType = {};
+
+      if (reported_reviews) {
+        whereBase.reply = { report_customer_review: reported_reviews };
+      }
+
+      if (search_term) {
+        whereBase.OR = [
+          { comment: { contains: search_term } },
+          {
+            customer: {
+              f_name: { contains: search_term },
+              l_name: { contains: search_term },
+            },
+            artisan: {
+              user: {
+                f_name: { contains: search_term },
+                l_name: { contains: search_term },
+              },
+            },
+          },
+        ];
+      }
+
+      const number_to_skip: number = (page - 1) * limit;
+
+      const [
+        total_all_artisans_reviews,
+        all_artisans_reviews,
+        reported_reviews_count,
+      ] = await prisma.$transaction([
+        prisma.booking_Review.count({ where: whereBase }),
+        prisma.booking_Review.findMany({
+          where: whereBase,
+          orderBy: { created_at: "desc" },
+          take: limit,
+          skip: number_to_skip,
+          select: {
+            customer: { select: { f_name: true, l_name: true } },
+            artisan: {
+              select: { user: { select: { f_name: true, l_name: true } } },
+            },
+            rating: true,
+            comment: true,
+            created_at: true,
+            status: true,
+          },
+        }),
+        prisma.booking_Review.count({
+          where: { reply: { report_customer_review: true } },
+        }),
+      ]);
+
+      const totalPages = Math.ceil(total_all_artisans_reviews / limit);
+
+      return {
+        all_artisans_reviews,
+        meta: {
+          total_reported_reviews: reported_reviews_count,
+          total_reviews: total_all_artisans_reviews,
+          current_page: page,
+          per_page: limit,
+          total_pages: totalPages,
+          has_next_page: page < totalPages,
+          has_previous_page: page > 1,
+        },
+      };
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getEarningsOverviewCards() {
+    try {
+      const fixed_reference_day_to_calc_growth_rating = 30;
+      const date_range_to_use_for_growth_rating_calc = new Date();
+      date_range_to_use_for_growth_rating_calc.setDate(
+        date_range_to_use_for_growth_rating_calc.getDate() -
+          fixed_reference_day_to_calc_growth_rating,
+      );
+
+      const [
+        past_total_revenue,
+        total_revenue,
+        platform_commission,
+        processing_transactions,
+        completed_transactions,
+      ] = await prisma.$transaction([
+        prisma.payment.aggregate({
+          where: {
+            status: "successful",
+            payment_completed_at: {
+              lte: date_range_to_use_for_growth_rating_calc,
+            },
+          },
+          _sum: { amount: true },
+        }),
+        prisma.payment.aggregate({
+          where: { status: "successful" },
+          _sum: { amount: true },
+        }),
+        prisma.payment.aggregate({
+          where: { status: "successful" },
+          _sum: { commission: true },
+        }),
+        prisma.payment.count({
+          where: {
+            status: "processing",
+          },
+        }),
+        prisma.payment.count({
+          where: { status: "successful" },
+        }),
+      ]);
+
+      const [pending_payouts, number_of_artisans_with_pending_payouts] =
+        await prisma.$transaction([
+          prisma.booking.aggregate({
+            where: {
+              status: "completed",
+              none: {
+                payment_details: true,
+              },
+            },
+            _sum: { booking_price: true },
+          }),
+          prisma.artisan.count({
+            where: {
+              bookings: {
+                some: { status: "completed", payment_details: { is: null } },
+              },
+            },
+          }),
+        ]);
+
+      return {
+        past_total_revenue,
+        total_revenue,
+        platform_commission,
+        processing_transactions,
+        completed_transactions,
+        pending_payouts,
+        number_of_artisans_with_pending_payouts,
+      };
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getAllTransactionLogs({
+    limit = 10,
+    page = 1,
+    search_term,
+  }: getAllTransactionLogs_InputType) {
+    try {
+      const whereBase: getAllTransactionLogs_WhereType = {
+        OR: [{ status: "processing" }, { status: "successful" }],
+        booking: { status: "completed" },
+      };
+
+      if (search_term) {
+        const add_to_whereBase = [
+          {
+            artisan: {
+              user: {
+                f_name: { contains: search_term },
+                l_name: { contains: search_term },
+              },
+            },
+          },
+          {
+            customer: {
+              f_name: { contains: search_term },
+              l_name: { contains: search_term },
+            },
+          },
+          { booking: { work_to_be_done: { contains: search_term } } },
+          { id: search_term },
+        ];
+        whereBase.OR.push(add_to_whereBase);
+      }
+
+      const number_to_skip = (page - 1) * limit;
+
+      const [total_all_transactions, all_transactions] =
+        await prisma.$transaction([
+          prisma.payment.count({
+            where: whereBase,
+          }),
+          prisma.payment.findMany({
+            where: whereBase,
+            orderBy: { created_at: "desc" },
+            take: limit,
+            skip: number_to_skip,
+            select: {
+              id: true,
+              created_at: true,
+              payment_completed_at: true,
+              commission: true,
+              amount: true,
+              booking: { select: { work_to_be_done: true } },
+              artisan: {
+                select: { user: { select: { f_name: true, l_name: true } } },
+              },
+              customer: {
+                select: { f_name: true, l_name: true },
+              },
+              status: true,
+            },
+          }),
+        ]);
+
+      const totalPages = Math.ceil(total_all_transactions / limit);
+
+      return {
+        all_transactions,
+        meta: {
+          total_transactions: total_all_transactions,
+          current_page: page,
+          per_page: limit,
+          total_pages: totalPages,
+          has_next_page: page < totalPages,
+          has_previous_page: page > 1,
+        },
+      };
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getRevenueTrend({ days }: getRevenueTrend_InputType) {
+    try {
+      const date_range = new Date();
+      date_range.setDate(Date.now() - (days || 30));
+
+      const revenue_trend_data = await prisma.payment.groupBy({
+        where: {
+          status: "successful",
+          payment_completed_at: { gte: date_range },
+        },
+        by: "payment_completed_at",
+        _sum: { amount: true },
+      });
+
+      return revenue_trend_data;
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getPlatformSettings() {
+    try {
+      const platform_settings = await prisma.system_Info.findUniqueOrThrow({
+        where: { is_singleton: true },
+        select: {
+          maintenance_mode: true,
+          platform_logo_url: true,
+          platform_name: true,
+          support_email: true,
+        },
+      });
+
+      return platform_settings;
+    } catch (error) {
+      const error_message =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(
+        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      );
+      throw error;
+    }
+  }
+
+  async updatePlatformSettings({
+    new_platform_name,
+    new_support_email_address,
+    maintenance_mode,
+    new_platform_logo_url,
+  }: updatePlatformSettings_InputType) {
+    try {
+      const updated_platform_settings = await prisma.system_Info.upsert({
+        where: { is_singleton: true },
+        create: {
+          platform_name: "ServiceConnect Nigeria",
+          platform_logo_url:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS75pE9KTptcKc2aYczaY9RiGfawSYIi8KAY9UVuLpExUsKXSAkW2VOUIo&s",
+          support_email: "support@serviceconnect.com.ng",
+        },
+        update: {
+          maintenance_mode: maintenance_mode,
+          platform_logo_url: new_platform_logo_url,
+          platform_name: new_platform_name,
+          support_email: new_support_email_address,
+        },
+        omit: { id: true, is_singleton: true, updated_at: true },
+      });
+
+      return updated_platform_settings;
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";

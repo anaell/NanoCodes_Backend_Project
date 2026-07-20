@@ -37,3 +37,65 @@ export interface delete_User_Artisan_Account_InputType {
 export interface getArtisanPendingDocumentVerificationRequest_InputType {
   artisan_id: string;
 }
+
+export interface getAllBookings_InputType {
+  search_term?: string | undefined;
+  status?:
+    | "pending"
+    | "accepted"
+    | "rejected"
+    | "in_progress"
+    | "cancelled"
+    | "completed"
+    | undefined;
+  no_of_days?: number | undefined;
+  page?: number | undefined;
+  limit?: number | undefined;
+}
+
+export interface getAllBookings_WhereType {
+  status?:
+    | "pending"
+    | "accepted"
+    | "rejected"
+    | "in_progress"
+    | "cancelled"
+    | "completed";
+  is_cancelled: boolean;
+  OR?: {}[];
+  created_at?: {};
+}
+
+export interface getAllReviews_InputType {
+  search_term?: string | undefined;
+  page?: number | undefined;
+  limit?: number | undefined;
+  reported_reviews?: boolean | undefined;
+}
+
+export interface getAllReviews_WhereType {
+  OR?: {}[];
+  reply?: {};
+}
+
+export interface getAllTransactionLogs_InputType {
+  search_term?: string | undefined;
+  page?: number | undefined;
+  limit?: number | undefined;
+}
+
+export interface getAllTransactionLogs_WhereType {
+  OR: {}[];
+  booking: {};
+}
+
+export interface getRevenueTrend_InputType {
+  days?: number | undefined;
+}
+
+export interface updatePlatformSettings_InputType {
+  new_platform_name: string;
+  new_support_email_address: string;
+  maintenance_mode: boolean;
+  new_platform_logo_url: string;
+}

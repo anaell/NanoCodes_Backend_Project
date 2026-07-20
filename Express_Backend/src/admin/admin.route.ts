@@ -43,3 +43,43 @@ route.post(
     adminController,
   ),
 );
+
+route.get(
+  "/admin/bookings",
+  adminController.getAllBookingsController.bind(adminController),
+);
+
+route.get(
+  "/admin/bookings/stat_card",
+  adminController.getAllBookingsStatCardController.bind(adminController),
+);
+
+route.get(
+  "/admin/reviews",
+  adminController.getAllReviewsController.bind(adminController),
+);
+
+route.get(
+  "/admin/earnings_management/stats_card",
+  adminController.getEarningsOverviewCardsController.bind(adminController),
+);
+
+route.get(
+  "/admin/earnings_management/transaction_logs",
+  adminController.getAllTransactionLogsController.bind(adminController),
+);
+
+route.get(
+  "/admin/earnings_management/revenue_trend",
+  adminController.getRevenueTrendController.bind(adminController),
+);
+
+route.get(
+  "/admin/system_settings",
+  adminController.getPlatformSettingsController.bind(adminController),
+);
+
+route.post(
+  "/admin/system_settings",
+  adminController.updatePlatformSettingsController.bind(adminController),
+);

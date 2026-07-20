@@ -6,11 +6,16 @@ import type { Request, Response } from "express";
 import type { AdminService } from "./admin.service.js";
 import {
   deletePlatformUser_RequestValidation,
+  getAllBookings_RequestQueryValidation,
+  getAllReviews_RequestQueryValidation,
+  getAllTransactionLogs_RequestQueryValidation,
   getArtisanPendingDocumentVerificationRequest_RequestParamValidation,
-  getPlatformStatsController_RequestValidation,
+  getPlatformStatsController_RequestQueryValidation,
   getPlatformUsersController_RequestValidation,
+  getRevenueTrend_RequestQueryValidation,
   reviewArtisanDocumentVerificationRequest_RequestBodyValidation,
   reviewArtisanDocumentVerificationRequest_RequestParamValidation,
+  updatePlatformSettings_RequestBodyValidation,
 } from "./admin.validation.js";
 import { ZodError } from "zod";
 
@@ -20,7 +25,7 @@ export class AdminController {
   async getPlatformStatsController(req: Request, res: Response) {
     try {
       const validated_query =
-        getPlatformStatsController_RequestValidation.parse(req.query);
+        getPlatformStatsController_RequestQueryValidation.parse(req.query);
 
       const days = validated_query.days;
 
@@ -213,13 +218,267 @@ export class AdminController {
       const { artisan_id } = validated_param;
 
       const service_data =
-        this.adminService.getArtisanPendingDocumentVerificationRequestService({
-          artisan_id,
-        });
+        await this.adminService.getArtisanPendingDocumentVerificationRequestService(
+          {
+            artisan_id,
+          },
+        );
 
       const success_response = SuccessResponseStructure(service_data);
 
       return res.status(200).json(success_response);
+    } catch (error) {
+      let error_response;
+      if (error instanceof ZodError) {
+        console.error(error);
+
+        error_response = ErrorResponseStructure(error.message);
+
+        return res.status(400).json(error_response);
+      }
+
+      const public_message =
+        "Something went wrong on our end. Please try again later.";
+
+      error_response = ErrorResponseStructure(public_message);
+      return res.status(500).json(error_response);
+    }
+  }
+
+  async getAllBookingsController(req: Request, res: Response) {
+    try {
+      const validated_query = getAllBookings_RequestQueryValidation.parse(
+        req.query,
+      );
+
+      const { status, days, limit, page, q } = validated_query;
+
+      const service_data = await this.adminService.getAllBookingsService({
+        limit,
+        no_of_days: days,
+        page,
+        search_term: q,
+        status,
+      });
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
+    } catch (error) {
+      let error_response;
+      if (error instanceof ZodError) {
+        console.error(error);
+
+        error_response = ErrorResponseStructure(error.message);
+
+        return res.status(400).json(error_response);
+      }
+
+      const public_message =
+        "Something went wrong on our end. Please try again later.";
+
+      error_response = ErrorResponseStructure(public_message);
+      return res.status(500).json(error_response);
+    }
+  }
+
+  async getAllBookingsStatCardController(req: Request, res: Response) {
+    try {
+      const service_data =
+        await this.adminService.getAllBookingsStatCardService();
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
+    } catch (error) {
+      let error_response;
+      if (error instanceof ZodError) {
+        console.error(error);
+
+        error_response = ErrorResponseStructure(error.message);
+
+        return res.status(400).json(error_response);
+      }
+
+      const public_message =
+        "Something went wrong on our end. Please try again later.";
+
+      error_response = ErrorResponseStructure(public_message);
+      return res.status(500).json(error_response);
+    }
+  }
+
+  async getAllReviewsController(req: Request, res: Response) {
+    try {
+      const validated_query = getAllReviews_RequestQueryValidation.parse(
+        req.query,
+      );
+
+      const { limit, page, q, reported_reviews } = validated_query;
+
+      const service_data = this.adminService.getAllReviewsService({
+        limit,
+        page,
+        reported_reviews,
+        search_term: q,
+      });
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.json(200).json(success_response);
+    } catch (error) {
+      let error_response;
+      if (error instanceof ZodError) {
+        console.error(error);
+
+        error_response = ErrorResponseStructure(error.message);
+
+        return res.status(400).json(error_response);
+      }
+
+      const public_message =
+        "Something went wrong on our end. Please try again later.";
+
+      error_response = ErrorResponseStructure(public_message);
+      return res.status(500).json(error_response);
+    }
+  }
+
+  async getEarningsOverviewCardsController(req: Request, res: Response) {
+    try {
+      const service_data =
+        await this.adminService.getEarningsOverviewCardsService();
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
+    } catch (error) {
+      let error_response;
+      if (error instanceof ZodError) {
+        console.error(error);
+
+        error_response = ErrorResponseStructure(error.message);
+
+        return res.status(400).json(error_response);
+      }
+
+      const public_message =
+        "Something went wrong on our end. Please try again later.";
+
+      error_response = ErrorResponseStructure(public_message);
+      return res.status(500).json(error_response);
+    }
+  }
+
+  async getAllTransactionLogsController(req: Request, res: Response) {
+    try {
+      const validated_query =
+        getAllTransactionLogs_RequestQueryValidation.parse(req.query);
+
+      const { limit, page, q } = validated_query;
+
+      const service_data = this.adminService.getAllTransactionLogsService({
+        limit,
+        page,
+        search_term: q,
+      });
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
+    } catch (error) {
+      let error_response;
+      if (error instanceof ZodError) {
+        console.error(error);
+
+        error_response = ErrorResponseStructure(error.message);
+
+        return res.status(400).json(error_response);
+      }
+
+      const public_message =
+        "Something went wrong on our end. Please try again later.";
+
+      error_response = ErrorResponseStructure(public_message);
+      return res.status(500).json(error_response);
+    }
+  }
+
+  async getRevenueTrendController(req: Request, res: Response) {
+    try {
+      const validated_query = getRevenueTrend_RequestQueryValidation.parse(
+        req.query,
+      );
+
+      const { days } = validated_query;
+
+      const service_data = this.adminService.getRevenueTrendService({ days });
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
+    } catch (error) {
+      let error_response;
+      if (error instanceof ZodError) {
+        console.error(error);
+
+        error_response = ErrorResponseStructure(error.message);
+
+        return res.status(400).json(error_response);
+      }
+
+      const public_message =
+        "Something went wrong on our end. Please try again later.";
+
+      error_response = ErrorResponseStructure(public_message);
+      return res.status(500).json(error_response);
+    }
+  }
+
+  async getPlatformSettingsController(req: Request, res: Response) {
+    try {
+      const service_data = await this.adminService.getPlatformSettingsService();
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
+    } catch (error) {
+      let error_response;
+      if (error instanceof ZodError) {
+        console.error(error);
+
+        error_response = ErrorResponseStructure(error.message);
+
+        return res.status(400).json(error_response);
+      }
+
+      const public_message =
+        "Something went wrong on our end. Please try again later.";
+
+      error_response = ErrorResponseStructure(public_message);
+      return res.status(500).json(error_response);
+    }
+  }
+
+  async updatePlatformSettingsController(req: Request, res: Response) {
+    try {
+      const validated_body = updatePlatformSettings_RequestBodyValidation.parse(
+        req.body,
+      );
+
+      const { logo_url, maintenance_mode, platform_name, support_email } =
+        validated_body;
+
+      const service_data = this.adminService.updatePlatformSettingsService({
+        maintenance_mode: maintenance_mode,
+        new_platform_logo_url: logo_url,
+        new_platform_name: platform_name,
+        new_support_email_address: support_email,
+      });
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(201).json(success_response);
     } catch (error) {
       let error_response;
       if (error instanceof ZodError) {

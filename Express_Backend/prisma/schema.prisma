@@ -189,6 +189,7 @@ model Booking {
   booking_address          String?
   review                   Booking_Review?
   payment_details          Payment?
+  is_cancelled             Boolean           @default(false)
   created_at               DateTime          @default(now())
   updated_at               DateTime          @updatedAt
 }
@@ -247,6 +248,8 @@ model Artisan_Review_Reply {
   review    Booking_Review @relation(fields: [review_id], references: [id])
   review_id String         @unique
 
+  report_customer_review Boolean @default(false)
+
   created_at DateTime @default(now())
 }
 
@@ -255,6 +258,7 @@ model Payment {
   amount         Float
   status         PaymentStatus @default(processing)
   payment_method String
+  commission     Int
 
   artisan    Artisan @relation(fields: [artisan_id], references: [id])
   artisan_id String
@@ -285,7 +289,11 @@ model Artisan_Verification_Documents {
 }
 
 model System_Info {
-  id                String   @id @default(uuid(7))
+  id String @id @default(uuid(7))
+
+  // This row below guarantees a singleton row in this model/table
+  is_singleton Boolean @unique @default(true)
+
   platform_name     String
   platform_logo_url String
   support_email     String
