@@ -3,7 +3,7 @@ import { AdminController } from "./admin.controller.js";
 import { AdminService } from "./admin.service.js";
 import { AdminRepository } from "./admin.repository.js";
 
-const route = Router();
+const route: Router = Router();
 const adminRepository = new AdminRepository();
 const adminService = new AdminService(adminRepository);
 const adminController = new AdminController(adminService);
@@ -83,3 +83,5 @@ route.post(
   "/admin/system_settings",
   adminController.updatePlatformSettingsController.bind(adminController),
 );
+
+export default route;
