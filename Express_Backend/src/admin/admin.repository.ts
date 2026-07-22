@@ -20,9 +20,9 @@ import type {
 export class AdminRepository {
   async getPlatformStats(no_of_days?: number) {
     try {
-      console.log(
-        `getPlatformStats repository function has started execution \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `getPlatformStats repository function has started execution \nTime: ${Date.now()}`,
+      // );
 
       // 1. Initialize an empty filter object
       const dateFilter: { gte?: Date } = {};
@@ -103,16 +103,16 @@ export class AdminRepository {
         artisan_platform_growth,
       };
 
-      console.log(
-        `getPlatformStats repository completed successfully \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `getPlatformStats repository completed successfully \nTime: ${Date.now()}`,
+      // );
       return data;
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `getPlatformStats repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `getPlatformStats repository function Execution failed: ${error_message}`,
+      // );
 
       // Successfully passes the error up to the service/controller layer
       throw error;
@@ -128,9 +128,9 @@ export class AdminRepository {
     limit = 10, // Default to 10 users per page
   }: getPlatformUsers_InputType) {
     try {
-      console.log(
-        `getPlatformUsers repository function started \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `getPlatformUsers repository function started \nTime: ${Date.now()}`,
+      // );
 
       const baseWhere: getPlatformUsers_WhereType = { is_deleted: false };
 
@@ -190,9 +190,9 @@ export class AdminRepository {
       // Calculate simple metadata totals
       const totalPages = Math.ceil(totalItems / limit);
 
-      console.log(
-        `getPlatformUsers repository completed \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `getPlatformUsers repository completed \nTime: ${Date.now()}`,
+      // );
 
       return {
         users,
@@ -208,18 +208,18 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `getPlatformUsers repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `getPlatformUsers repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
 
   async deletePlatformUser({ user_id }: deletePlatformUser_InputType) {
     try {
-      console.log(
-        `deletePlatformUser repository function started \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `deletePlatformUser repository function started \nTime: ${Date.now()}`,
+      // );
 
       const delete_user = await prisma.user.update({
         where: { id: user_id, is_deleted: { not: true } },
@@ -233,17 +233,17 @@ export class AdminRepository {
         },
       });
 
-      console.log(
-        `deletePlatformUser repository completed \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `deletePlatformUser repository completed \nTime: ${Date.now()}`,
+      // );
 
       return delete_user;
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `deletePlatformUser repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `deletePlatformUser repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -253,9 +253,9 @@ export class AdminRepository {
     application_status_chosen,
   }: reviewArtisanDocumentVerificationRequest_InputType) {
     try {
-      console.log(
-        `reviewArtisanDocumentVerificationRequest repository function started \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `reviewArtisanDocumentVerificationRequest repository function started \nTime: ${Date.now()}`,
+      // );
 
       const artisan = await prisma.artisan.update({
         where: {
@@ -276,26 +276,26 @@ export class AdminRepository {
         },
       });
 
-      console.log(
-        `reviewArtisanDocumentVerificationRequest repository completed \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `reviewArtisanDocumentVerificationRequest repository completed \nTime: ${Date.now()}`,
+      // );
 
       return artisan;
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationRequest repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationRequest repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
 
   async getAllArtisansWithPendingDocumentVerificationRequest() {
     try {
-      console.log(
-        `getArtisansWithPendingVerificationRequest repository function started \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `getArtisansWithPendingVerificationRequest repository function started \nTime: ${Date.now()}`,
+      // );
 
       const [
         total_artisans_with_pending_reviews,
@@ -331,9 +331,9 @@ export class AdminRepository {
           orderBy: { artisanVerificationDocuments: { created_at: "desc" } },
         }),
       ]);
-      console.log(
-        `getArtisansWithPendingVerificationRequest repository completed \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `getArtisansWithPendingVerificationRequest repository completed \nTime: ${Date.now()}`,
+      // );
 
       return {
         total_artisans_with_pending_reviews,
@@ -342,9 +342,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -353,9 +353,9 @@ export class AdminRepository {
     artisan_id,
   }: getArtisanPendingDocumentVerificationRequest_InputType) {
     try {
-      console.log(
-        `getArtisanPendingDocumentVerificationRequest repository function started \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `getArtisanPendingDocumentVerificationRequest repository function started \nTime: ${Date.now()}`,
+      // );
 
       const artisan = await prisma.artisan.findFirstOrThrow({
         where: {
@@ -382,17 +382,17 @@ export class AdminRepository {
         },
       });
 
-      console.log(
-        `getArtisanPendingDocumentVerificationRequest repository completed \nTime: ${Date.now()}`,
-      );
+      // console.log(
+      //   `getArtisanPendingDocumentVerificationRequest repository completed \nTime: ${Date.now()}`,
+      // );
 
       return artisan;
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -482,9 +482,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -556,9 +556,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -640,9 +640,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -722,9 +722,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -808,9 +808,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -833,9 +833,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   // `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -856,9 +856,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   // `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }
@@ -891,9 +891,9 @@ export class AdminRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(
-        `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
-      );
+      // console.error(
+      //   `reviewArtisanDocumentVerificationApplication repository function Execution failed: ${error_message}`,
+      // );
       throw error;
     }
   }

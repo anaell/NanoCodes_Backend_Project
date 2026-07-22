@@ -2,11 +2,18 @@ import { Router } from "express";
 import { AdminController } from "./admin.controller.js";
 import { AdminService } from "./admin.service.js";
 import { AdminRepository } from "./admin.repository.js";
+import { AdminAuthRepository } from "./admin_auth/admin_auth.repository.js";
+import { AdminAuthService } from "./admin_auth/admin_auth.service.js";
+import { AdminAuthController } from "./admin_auth/admin_auth.controller.js";
 
 const route: Router = Router();
 const adminRepository = new AdminRepository();
 const adminService = new AdminService(adminRepository);
 const adminController = new AdminController(adminService);
+
+const adminAuthRepository = new AdminAuthRepository();
+const adminAuthService = new AdminAuthService(adminAuthRepository);
+const adminAuthController = new AdminAuthController(adminAuthService);
 
 route.get(
   "/admin/analytics",
@@ -82,6 +89,26 @@ route.get(
 route.post(
   "/admin/system_settings",
   adminController.updatePlatformSettingsController.bind(adminController),
+);
+
+route.post(
+  "/admin/login",
+  adminAuthController.LoginController.bind(adminAuthController),
+);
+
+route.post(
+  "/admin/sign-up",
+  adminAuthController.SignupController.bind(adminAuthController),
+);
+
+route.get(
+  "/admin/logout",
+  adminAuthController.LogoutController.bind(adminAuthController),
+);
+
+route.get(
+  "/admin/refresh-token",
+  adminAuthController.RefreshAccessTokenController.bind(adminAuthController),
 );
 
 export default route;
