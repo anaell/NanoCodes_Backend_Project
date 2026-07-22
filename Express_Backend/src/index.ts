@@ -4,6 +4,7 @@ import cors from "cors";
 
 import type { Request, Response } from "express";
 import AdminRoutes from "./admin/admin.route.js";
+import AdminAuthRoutes from "./admin/admin_auth/admin_auth.route.js";
 import cookieParser from "cookie-parser";
 import { verifyAdminJWTMiddleware } from "./admin/admin.middleware.js";
 
@@ -17,6 +18,8 @@ app.use(cookieParser());
 app.get("/", (req: Request, res: Response) => {
   res.send("Your Project Backend Server is Running Now");
 });
+
+app.use("/api", AdminAuthRoutes);
 
 app.use("/api", verifyAdminJWTMiddleware, AdminRoutes);
 
