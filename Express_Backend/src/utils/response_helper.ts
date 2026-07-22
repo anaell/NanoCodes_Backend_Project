@@ -1,4 +1,4 @@
-export function ErrorResponseStructure(error_message: string): {} {
+export function ErrorResponseStructure(error_message: string | {} | []): {} {
   return { status: "error", message: error_message };
 }
 

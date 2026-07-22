@@ -40,7 +40,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -85,7 +91,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -117,7 +129,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -165,7 +183,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -193,7 +217,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -232,7 +262,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -269,7 +305,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -295,7 +337,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -331,7 +379,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -357,7 +411,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -391,7 +451,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -422,7 +488,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -447,7 +519,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -484,7 +562,13 @@ export class AdminController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
