@@ -35,6 +35,8 @@ export class AdminAuthRepository {
     } catch (error) {
       const error_message =
         error instanceof Error ? error.message : "An unknown error occurred";
+      console.error(error);
+
       throw error;
     }
   }
