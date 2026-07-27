@@ -5,3 +5,27 @@ Express_Backend/generated/prisma
 Express_Backend/ca.pem
 
 # Laravel
+Laravel_Backend/*.log
+Laravel_Backend/.DS_Store
+Laravel_Backend/.env
+Laravel_Backend/.env.backup
+Laravel_Backend/.env.production
+Laravel_Backend/.phpactor.json
+Laravel_Backend/.phpunit.result.cache
+Laravel_Backend/.fleet
+Laravel_Backend/.idea
+Laravel_Backend/.nova
+Laravel_Backend/.phpunit.cache
+Laravel_Backend/.vscode
+Laravel_Backend/.zed
+Laravel_Backend/auth.json
+Laravel_Backend/node_modules
+Laravel_Backend/public/build
+Laravel_Backend/public/hot
+Laravel_Backend/public/storage
+Laravel_Backend/storage/*.key
+Laravel_Backend/storage/pail
+Laravel_Backend/vendor
+Laravel_Backend/Homestead.json
+Laravel_Backend/Homestead.yaml
+Laravel_Backend/Thumbs.db
