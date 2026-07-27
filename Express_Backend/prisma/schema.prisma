@@ -207,10 +207,10 @@ model Artisan_Skill {
 
 // For services that an Artisan can provide. This is a one-to-many relationship between Artisans and Services.
 model Service {
-  id          String @id @default(uuid(7))
+  id          String  @id @default(uuid(7))
   name        String
   description String
-  price       Float
+  price       Decimal @db.Decimal(20, 2)
 
   artisan    Artisan @relation(fields: [artisan_id], references: [id])
   artisan_id String
