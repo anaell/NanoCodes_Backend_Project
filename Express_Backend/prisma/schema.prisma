@@ -86,7 +86,7 @@ model User {
   updated_at DateTime @updatedAt
 
   payments                       Payment[]
-  total_amount_spent_on_bookings Float?
+  total_amount_spent_on_bookings Decimal?  @db.Decimal(20, 2)
   is_suspended                   Boolean   @default(false)
   is_deleted                     Boolean   @default(false)
 }
@@ -145,10 +145,10 @@ model Artisan {
   response_time                Int?
   services                     Service[]
   favourited_by                Favourite[]
-  min_price_per_hour           Float?
+  min_price_per_hour           Decimal?                        @db.Decimal(20, 2)
   payments                     Payment[]
-  total_money_made             Float?
-  total_money_withdrawn        Float?
+  total_money_made             Decimal?                        @db.Decimal(20, 2)
+  total_money_withdrawn        Decimal?                        @db.Decimal(20, 2)
   artisanVerificationDocuments Artisan_Verification_Documents?
 
   created_at DateTime @default(now())
@@ -182,7 +182,7 @@ model Booking {
   status                   BookingStatus     @default(pending)
   problem_description      String
   work_to_be_done          String
-  booking_price            Float
+  booking_price            Decimal           @db.Decimal(20, 2)
   booking_related_pictures Booking_Picture[]
   booking_start_date       DateTime
   booking_end_date         DateTime?
@@ -255,7 +255,7 @@ model Artisan_Review_Reply {
 
 model Payment {
   id             String        @id @default(uuid())
-  amount         Float
+  amount         Decimal       @db.Decimal(20, 2)
   status         PaymentStatus @default(processing)
   payment_method String
   commission     Int
