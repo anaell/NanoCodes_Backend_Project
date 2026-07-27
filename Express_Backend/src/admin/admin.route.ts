@@ -8,7 +8,6 @@ const adminRepository = new AdminRepository();
 const adminService = new AdminService(adminRepository);
 const adminController = new AdminController(adminService);
 
-
 route.get(
   "/admin/analytics",
   adminController.getPlatformStatsController.bind(adminController),
@@ -84,6 +83,5 @@ route.post(
   "/admin/system_settings",
   adminController.updatePlatformSettingsController.bind(adminController),
 );
-
 
 export default route;

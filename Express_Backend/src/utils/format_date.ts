@@ -1,3 +1,5 @@
+import { Prisma } from "../../generated/prisma/client.js";
+
 // 1. Match Prisma's native groupBy output shape
 interface PrismaGroupResult {
   created_at: Date;
@@ -52,18 +54,18 @@ export function getToday() {
 
 interface revenue_trend_data_input_type {
   payment_completed_at: Date;
-  _sum: { amount: number | null };
+  _sum: { amount: Prisma.Decimal | null };
 }
 
 export interface formatRevenueTrendData_OutputType {
   date: string; // 'YYYY-MM'
-  sum: number;
+  sum: Prisma.Decimal;
 }
 
 export function formatRevenueTrendData(
   data_to_format: revenue_trend_data_input_type[],
 ): formatRevenueTrendData_OutputType[] {
-  const formatted_data: Record<string, number> = {};
+  const formatted_data: Record<string, Prisma.Decimal> = {};
 
   data_to_format.forEach((data) => {
     if (!data.payment_completed_at) return;
@@ -77,17 +79,24 @@ export function formatRevenueTrendData(
     const date_parts = year_month_day_date_format.split("-"); // ['YYYY', 'MM', 'DD']
     const date_to_use = `${date_parts[0]}-${date_parts[1]}`; // 'YYYY-MM'
 
-    const amount = data._sum.amount || 0;
+    // const amount = data._sum.amount || 0;
 
     // 3. Accumulate the values into the Record object
-    formatted_data[date_to_use] = (formatted_data[date_to_use] || 0) + amount;
+
+    // The below was for when the amount type was still "number".
+    // formatted_data[date_to_use] = (formatted_data[date_to_use] || 0) + amount;
+
+    // The amount type is now "Prisma.Decimal" so the below was done
+    formatted_data[date_to_use] = (
+      formatted_data[date_to_use] ?? new Prisma.Decimal(0)
+    ).plus(data._sum.amount ?? 0);
   });
 
   // 4. Convert the Record object back into the array expected by your interface
   return Object.entries(formatted_data).map(
     ([date, sum]): formatRevenueTrendData_OutputType => ({
       date,
-      sum,
+      sum, // sum here is of type "Prisma.Decimal" and not number.
     }),
   );
 }

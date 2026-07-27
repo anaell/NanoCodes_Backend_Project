@@ -1,6 +1,6 @@
-import express from 'express'
-import { CreateArtisan } from '../controllers/Artisanscontrollers.js';
+import { Router } from "express";
+import { CreateArtisan } from "../controllers/Artisanscontrollers.js";
 
-export const  ArtisansRouts = express.Router();
+export const ArtisansRouts: Router = Router();
 
-ArtisansRouts.post("/api/Artisans", CreateArtisan)
+ArtisansRouts.post("/api/Artisans", CreateArtisan);
