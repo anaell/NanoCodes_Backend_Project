@@ -1,5 +1,8 @@
 import { prisma } from "../lib/prisma.js";
-import type { getArtisanById_InputType } from "./artisan.types.js";
+import type {
+  getArtisanById_InputType,
+  getArtisanIncomingJobRequests_InputType,
+} from "./artisan.types.js";
 
 export class ArtisanRepository {
   async getArtisanById({ artisan_id }: getArtisanById_InputType) {
@@ -55,6 +58,44 @@ export class ArtisanRepository {
         artisan_total_pending_bookings,
         artisan_total_completed_bookings,
         artisan_earnings_overview,
+      };
+
+      return data;
+    } catch (error) {
+      // Successfully passes the error up to the service/controller layer
+      throw error;
+    }
+  }
+
+  async getArtisanIncomingJobRequests({
+    artisan_id,
+  }: getArtisanIncomingJobRequests_InputType) {
+    try {
+      const [
+        total_artisan_incoming_booking_requests,
+        artisan_incoming_booking_requests,
+      ] = await prisma.$transaction([
+        prisma.booking.count({ where: { artisan_id, status: "pending" } }),
+        prisma.booking.findMany({
+          where: { artisan_id, status: "pending" },
+          select: {
+            status: true,
+            artisan: {
+              select: { user: { select: { profile_pic_url: true } } },
+            },
+            customer: { select: { profile_pic_url: true } },
+            created_at: true,
+            booking_address: true,
+            work_to_be_done: true,
+            problem_description: true,
+          },
+        }),
+      ]);
+
+      const data = {
+        total_requests: total_artisan_incoming_booking_requests,
+        artisan_incoming_booking_requests_info:
+          artisan_incoming_booking_requests,
       };
 
       return data;

@@ -14,4 +14,11 @@ route.get(
   artisanController.getArtisanByIdController.bind(artisanController),
 );
 
+route.get(
+  "/artisan/:artisan_id/requests/incoming",
+  artisanController.getArtisanIncomingJobRequestsController.bind(
+    artisanController,
+  ),
+);
+
 export default route;
