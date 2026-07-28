@@ -1,5 +1,6 @@
 import type { ArtisanRepository } from "./artisan.repository.js";
 import type {
+  artisanBookingRequestResponse_InputType,
   getArtisanById_InputType,
   getArtisanIncomingJobRequests_InputType,
 } from "./artisan.types.js";
@@ -15,14 +16,27 @@ export class ArtisanService {
     return db_response;
   }
 
-  async getArtisanIncomingJobRequestsService({
+  async getArtisanIncomingBookingRequestsService({
     artisan_id,
   }: getArtisanIncomingJobRequests_InputType) {
     const db_response =
-      await this.artisanRepository.getArtisanIncomingJobRequests({
+      await this.artisanRepository.getArtisanIncomingBookingRequests({
         artisan_id,
       });
 
     return db_response;
+  }
+
+  async artisanBookingRequestResponseService({
+    artisan_booking_response,
+    artisan_id,
+    booking_id,
+  }: artisanBookingRequestResponse_InputType) {
+    const db_response =
+      await this.artisanRepository.artisanBookingRequestResponse({
+        artisan_booking_response,
+        artisan_id,
+        booking_id,
+      });
   }
 }

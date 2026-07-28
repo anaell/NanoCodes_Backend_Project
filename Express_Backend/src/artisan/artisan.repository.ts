@@ -1,5 +1,6 @@
 import { prisma } from "../lib/prisma.js";
 import type {
+  artisanBookingRequestResponse_InputType,
   getArtisanById_InputType,
   getArtisanIncomingJobRequests_InputType,
 } from "./artisan.types.js";
@@ -67,7 +68,7 @@ export class ArtisanRepository {
     }
   }
 
-  async getArtisanIncomingJobRequests({
+  async getArtisanIncomingBookingRequests({
     artisan_id,
   }: getArtisanIncomingJobRequests_InputType) {
     try {
@@ -99,6 +100,43 @@ export class ArtisanRepository {
       };
 
       return data;
+    } catch (error) {
+      // Successfully passes the error up to the service/controller layer
+      throw error;
+    }
+  }
+
+  async artisanBookingRequestResponse({
+    artisan_id,
+    booking_id,
+    artisan_booking_response,
+  }: artisanBookingRequestResponse_InputType) {
+    try {
+      const apply_artisan_booking_response = await prisma.booking.update({
+        where: { id: booking_id, artisan_id, status: "pending" },
+        data: { status: artisan_booking_response },
+        select: {
+          status: true,
+          artisan: {
+            select: { user: { select: { profile_pic_url: true } } },
+          },
+          customer: { select: { profile_pic_url: true } },
+          created_at: true,
+          booking_address: true,
+          work_to_be_done: true,
+          problem_description: true,
+        },
+      });
+
+      return apply_artisan_booking_response;
+    } catch (error) {
+      // Successfully passes the error up to the service/controller layer
+      throw error;
+    }
+  }
+
+  async next() {
+    try {
     } catch (error) {
       // Successfully passes the error up to the service/controller layer
       throw error;

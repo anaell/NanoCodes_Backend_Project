@@ -16,7 +16,14 @@ route.get(
 
 route.get(
   "/artisan/:artisan_id/requests/incoming",
-  artisanController.getArtisanIncomingJobRequestsController.bind(
+  artisanController.getArtisanIncomingBookingRequestsController.bind(
+    artisanController,
+  ),
+);
+
+route.patch(
+  "/artisan/:artisan_id/requests/incoming/:booking_id",
+  artisanController.artisanBookingRequestResponseController.bind(
     artisanController,
   ),
 );

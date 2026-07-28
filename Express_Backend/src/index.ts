@@ -26,7 +26,7 @@ app.use("/api", AdminAuthRoutes);
 
 app.use("/api", verifyAdminJWTMiddleware, AdminRoutes);
 
-app.use("/api", ArtisanRoutes);
+app.use("/api", ArtisanRoutes );
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running on http://localhost:${process.env.PORT}`);
