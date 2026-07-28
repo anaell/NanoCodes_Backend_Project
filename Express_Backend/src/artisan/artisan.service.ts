@@ -1,0 +1,14 @@
+import type { ArtisanRepository } from "./artisan.repository.js";
+import type { getArtisanById_InputType } from "./artisan.types.js";
+
+export class ArtisanService {
+  constructor(private readonly artisanRepository: ArtisanRepository) {}
+
+  async getArtisanByIdService({ artisan_id }: getArtisanById_InputType) {
+    const db_response = await this.artisanRepository.getArtisanById({
+      artisan_id,
+    });
+
+    return db_response;
+  }
+}
