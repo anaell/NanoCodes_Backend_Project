@@ -457,34 +457,19 @@ export class ArtisanRepository {
     recent,
   }: getArtisanTransactions_InputType) {
     try {
-      let artisan_transactions;
-
-      if (recent) {
-        artisan_transactions = await prisma.payment.findMany({
-          where: { artisan_id },
-          orderBy: { created_at: "desc" },
-          take: 5,
-          select: {
-            amount: true,
-            status: true,
-            id: true,
-            payment_method: true,
-            created_at: true,
-          },
-        });
-      } else {
-        artisan_transactions = await prisma.payment.findMany({
-          where: { artisan_id },
-          orderBy: { created_at: "desc" },
-          select: {
-            amount: true,
-            status: true,
-            id: true,
-            payment_method: true,
-            created_at: true,
-          },
-        });
-      }
+      const artisan_transactions = await prisma.payment.findMany({
+        where: { artisan_id },
+        orderBy: { created_at: "desc" },
+        // Only spreads `{ take: 5 }` into the object if recent is true
+        ...(recent && { take: 5 }),
+        select: {
+          amount: true,
+          status: true,
+          id: true,
+          payment_method: true,
+          created_at: true,
+        },
+      });
 
       return { artisan_transactions };
     } catch (error) {
