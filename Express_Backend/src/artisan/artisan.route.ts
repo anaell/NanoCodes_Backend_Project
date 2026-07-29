@@ -28,4 +28,32 @@ route.patch(
   ),
 );
 
+route.get(
+  "/artisan/:artisan_id/job-history",
+  artisanController.getArtisanBookingHistoryController.bind(artisanController),
+);
+
+route.get(
+  "/artisan/:artisan_id/reviews",
+  artisanController.getArtisanReviewsAndRatingController.bind(
+    artisanController,
+  ),
+);
+
+route.get(
+  "/artisan/:artisan_id/reviews/stats",
+  artisanController.getArtisanReviewAndRatingStatsController.bind(
+    artisanController,
+  ),
+);
+
+route.post(
+  "/artisan/:artisan_id/reviews/:review_id/reply",
+  artisanController.createOrUpdateArtisanReplyToReviewController.bind(
+    artisanController,
+  ),
+);
+
+route.get("/artisan/:artisan_id/earnings");
+
 export default route;
