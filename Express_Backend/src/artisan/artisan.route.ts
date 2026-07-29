@@ -54,6 +54,18 @@ route.post(
   ),
 );
 
-route.get("/artisan/:artisan_id/earnings");
+route.get(
+  "/artisan/:artisan_id/earnings/stats",
+  artisanController.getArtisanEarningsStatsCardController.bind(
+    artisanController,
+  ),
+);
+
+route.get("/artisan/:artisan_id/earnings/trend_chart");
+
+route.get(
+  "/artisan/:artisan_id/transactions",
+  artisanController.getArtisanTransactionsController.bind(artisanController),
+);
 
 export default route;

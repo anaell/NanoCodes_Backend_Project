@@ -1,12 +1,15 @@
+import { Prisma } from "../../generated/prisma/client.js";
 import type { ArtisanRepository } from "./artisan.repository.js";
 import type {
   artisanBookingRequestResponse_InputType,
   createOrUpdateArtisanReplyToReview_InputType,
   getArtisanBookingHistory_InputType,
   getArtisanById_InputType,
+  getArtisanEarningsStatsCard_InputType,
   getArtisanIncomingJobRequests_InputType,
   getArtisanReviewAndRatingStats_InputType,
   getArtisanReviewsAndRating_InputType,
+  getArtisanTransactions_InputType,
 } from "./artisan.types.js";
 
 export class ArtisanService {
@@ -106,6 +109,60 @@ export class ArtisanService {
         reply,
         review_id,
       });
+
+    return db_response;
+  }
+
+  async getArtisanEarningsStatsCardService({
+    artisan_id,
+  }: getArtisanEarningsStatsCard_InputType) {
+    const db_response =
+      await this.artisanRepository.getArtisanEarningsStatsCard({ artisan_id });
+
+    const {
+      total_money_made: artisan_total_money_made,
+      total_money_withdrawn: artisan_total_money_withdrawn,
+    } = db_response.artisan_available_balance;
+
+    const artisan_current_available_balance = artisan_total_money_made
+      ? artisan_total_money_made.minus(artisan_total_money_withdrawn || 0)
+      : new Prisma.Decimal(0);
+
+    const artisan_current_month_earnings =
+      db_response.artisan_current_month_earnings._sum.amount ||
+      new Prisma.Decimal(0);
+    const artisan_previous_month_earnings =
+      db_response.artisan_previous_month_earnings._sum.amount ||
+      new Prisma.Decimal(0);
+
+    const artisan_current_previous_month_earning_difference =
+      artisan_current_month_earnings.minus(artisan_previous_month_earnings);
+
+    const artisan_earning_percentage_increase =
+      artisan_current_previous_month_earning_difference.isZero() &&
+      artisan_previous_month_earnings.isZero()
+        ? new Prisma.Decimal(0)
+        : artisan_current_previous_month_earning_difference
+            .dividedBy(artisan_previous_month_earnings)
+            .times(100);
+
+    const adjusted_db_response = {
+      ...db_response,
+      artisan_current_available_balance,
+      artisan_earning_percentage_increase,
+    };
+
+    return adjusted_db_response;
+  }
+
+  async getArtisanTransactionsService({
+    artisan_id,
+    recent,
+  }: getArtisanTransactions_InputType) {
+    const db_response = await this.artisanRepository.getArtisanTransactions({
+      artisan_id,
+      recent,
+    });
 
     return db_response;
   }

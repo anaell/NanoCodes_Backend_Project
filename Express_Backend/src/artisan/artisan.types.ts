@@ -56,3 +56,13 @@ export interface createOrUpdateArtisanReplyToReview_InputType {
   review_id: string;
   reply: string;
 }
+
+export interface getArtisanEarningsStatsCard_InputType {
+  artisan_id: string;
+}
+
+export interface getArtisanTransactions_InputType {
+  artisan_id: string;
+  // limit?: number | undefined;
+  recent?: boolean | undefined;
+}

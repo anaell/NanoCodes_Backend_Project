@@ -1,13 +1,19 @@
 import { prisma } from "../lib/prisma.js";
+import {
+  setDateToMonthStart,
+  setDateToPreviousMonthStart,
+} from "../utils/format_date.js";
 import type {
   artisanBookingRequestResponse_InputType,
   createOrUpdateArtisanReplyToReview_InputType,
   getArtisanBookingHistory_InputType,
   getArtisanBookingHistory_WhereType,
   getArtisanById_InputType,
+  getArtisanEarningsStatsCard_InputType,
   getArtisanIncomingJobRequests_InputType,
   getArtisanReviewAndRatingStats_InputType,
   getArtisanReviewsAndRating_InputType,
+  getArtisanTransactions_InputType,
 } from "./artisan.types.js";
 
 export class ArtisanRepository {
@@ -374,8 +380,113 @@ export class ArtisanRepository {
     }
   }
 
+  async getArtisanEarningsStatsCard({
+    artisan_id,
+  }: getArtisanEarningsStatsCard_InputType) {
+    try {
+      const current_month_beginning = setDateToMonthStart();
+      const previous_month_beginning = setDateToPreviousMonthStart();
+
+      const [
+        artisan_available_balance,
+        artisan_current_month_earnings,
+        artisan_previous_month_earnings,
+        artisan_pending_payouts,
+      ] = await prisma.$transaction([
+        prisma.artisan.findUniqueOrThrow({
+          where: { id: artisan_id },
+          select: { total_money_made: true, total_money_withdrawn: true },
+        }),
+        prisma.payment.aggregate({
+          where: {
+            artisan_id,
+            status: "successful",
+            payment_completed_at: { gte: current_month_beginning },
+          },
+          _sum: { amount: true },
+        }),
+        prisma.payment.aggregate({
+          where: {
+            artisan_id,
+            status: "successful",
+            payment_completed_at: {
+              lte: current_month_beginning,
+              gte: previous_month_beginning,
+            },
+          },
+          _sum: { amount: true },
+        }),
+        prisma.booking.aggregate({
+          where: {
+            artisan_id,
+            status: "completed",
+            OR: [
+              { payment_details: { is: null } },
+              { payment_details: { status: "processing" } },
+            ],
+          },
+          _sum: { booking_price: true },
+          _count: { id: true },
+        }),
+      ]);
+
+      const data = {
+        artisan_available_balance,
+        artisan_current_month_earnings,
+        artisan_previous_month_earnings,
+        artisan_pending_payouts,
+      };
+
+      return data;
+    } catch (error) {
+      // Successfully passes the error up to the service/controller layer
+      throw error;
+    }
+  }
+
   async next() {
     try {
+    } catch (error) {
+      // Successfully passes the error up to the service/controller layer
+      throw error;
+    }
+  }
+
+  async getArtisanTransactions({
+    artisan_id,
+    recent,
+  }: getArtisanTransactions_InputType) {
+    try {
+      let artisan_transactions;
+
+      if (recent) {
+        artisan_transactions = await prisma.payment.findMany({
+          where: { artisan_id },
+          orderBy: { created_at: "desc" },
+          take: 5,
+          select: {
+            amount: true,
+            status: true,
+            id: true,
+            payment_method: true,
+            created_at: true,
+          },
+        });
+      } else {
+        artisan_transactions = await prisma.payment.findMany({
+          where: { artisan_id },
+          orderBy: { created_at: "desc" },
+          select: {
+            amount: true,
+            status: true,
+            id: true,
+            payment_method: true,
+            created_at: true,
+          },
+        });
+      }
+
+      return { artisan_transactions };
     } catch (error) {
       // Successfully passes the error up to the service/controller layer
       throw error;
