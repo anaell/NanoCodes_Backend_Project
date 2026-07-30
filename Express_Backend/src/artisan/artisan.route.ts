@@ -10,66 +10,66 @@ const artisanController = new ArtisanController(artisanService);
 const route: Router = Router();
 
 route.get(
-  "/artisan/:artisan_id",
+  "/artisans/:artisan_id",
   artisanController.getArtisanByIdController.bind(artisanController),
 );
 
 route.get(
-  "/artisan/:artisan_id/requests/incoming",
+  "/artisans/:artisan_id/requests/incoming",
   artisanController.getArtisanIncomingBookingRequestsController.bind(
     artisanController,
   ),
 );
 
 route.patch(
-  "/artisan/:artisan_id/requests/incoming/:booking_id",
+  "/artisans/:artisan_id/requests/incoming/:booking_id",
   artisanController.artisanBookingRequestResponseController.bind(
     artisanController,
   ),
 );
 
 route.get(
-  "/artisan/:artisan_id/job-history",
+  "/artisans/:artisan_id/job-history",
   artisanController.getArtisanBookingHistoryController.bind(artisanController),
 );
 
 route.get(
-  "/artisan/:artisan_id/reviews",
+  "/artisans/:artisan_id/reviews",
   artisanController.getArtisanReviewsAndRatingController.bind(
     artisanController,
   ),
 );
 
 route.get(
-  "/artisan/:artisan_id/reviews/stats",
+  "/artisans/:artisan_id/reviews/stats",
   artisanController.getArtisanReviewAndRatingStatsController.bind(
     artisanController,
   ),
 );
 
 route.post(
-  "/artisan/:artisan_id/reviews/:review_id/reply",
+  "/artisans/:artisan_id/reviews/:review_id/reply",
   artisanController.createOrUpdateArtisanReplyToReviewController.bind(
     artisanController,
   ),
 );
 
 route.get(
-  "/artisan/:artisan_id/earnings/stats",
+  "/artisans/:artisan_id/earnings/stats",
   artisanController.getArtisanEarningsStatsCardController.bind(
     artisanController,
   ),
 );
 
 route.get(
-  "/artisan/:artisan_id/earnings/trend_chart",
+  "/artisans/:artisan_id/earnings/trend_chart",
   artisanController.getArtisanEarningsTrendDataController.bind(
     artisanController,
   ),
 );
 
 route.get(
-  "/artisan/:artisan_id/transactions",
+  "/artisans/:artisan_id/transactions",
   artisanController.getArtisanTransactionsController.bind(artisanController),
 );
 
