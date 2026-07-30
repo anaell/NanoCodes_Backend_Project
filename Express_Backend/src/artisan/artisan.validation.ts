@@ -133,3 +133,17 @@ export const getArtisanTransactionsController_RequestQueryValidation = z.object(
       .optional(),
   },
 );
+
+export const getArtisanEarningsTrendDataController_RequestParamValidation =
+  z.object({
+    artisan_id: z.uuidv7({
+      error: "artisan_id is missing or invalid. It must be a uuidv7 string",
+    }),
+  });
+
+export const getArtisanEarningsTrendDataController_RequestQueryValidation =
+  z.object({
+    days: z.coerce
+      .number({ error: '"days" query param must be a number' })
+      .positive('"days" must be greater than 0'),
+  });

@@ -10,6 +10,8 @@ import {
   getArtisanBookingHistoryController_RequestQueryValidation,
   getArtisanByIdController_RequestParamValidation,
   getArtisanEarningsStatsCardController_RequestParamValidation,
+  getArtisanEarningsTrendDataController_RequestParamValidation,
+  getArtisanEarningsTrendDataController_RequestQueryValidation,
   getArtisanIncomingBookingRequestsController_RequestParamValidation,
   getArtisanReviewAndRatingStatsController_RequestParamValidation,
   getArtisanReviewsAndRatingController_RequestParamValidation,
@@ -385,24 +387,24 @@ export class ArtisanController {
     }
   }
 
-  async getArtisanTransactionsController(req: Request, res: Response) {
+  async getArtisanEarningsTrendDataController(req: Request, res: Response) {
     try {
       const validated_param =
-        getArtisanTransactionsController_RequestParamValidation.parse(
+        getArtisanEarningsTrendDataController_RequestParamValidation.parse(
           req.params,
         );
       const validated_query =
-        getArtisanTransactionsController_RequestQueryValidation.parse(
+        getArtisanEarningsTrendDataController_RequestQueryValidation.parse(
           req.query,
         );
 
       const { artisan_id } = validated_param;
-      const { recent } = validated_query;
+      const { days } = validated_query;
 
       const service_data =
-        await this.artisanService.getArtisanTransactionsService({
+        await this.artisanService.getArtisanEarningsTrendDataService({
           artisan_id,
-          recent,
+          no_of_days: days,
         });
 
       const success_response = SuccessResponseStructure(service_data);
@@ -432,8 +434,29 @@ export class ArtisanController {
     }
   }
 
-  async next(req: Request, res: Response) {
+  async getArtisanTransactionsController(req: Request, res: Response) {
     try {
+      const validated_param =
+        getArtisanTransactionsController_RequestParamValidation.parse(
+          req.params,
+        );
+      const validated_query =
+        getArtisanTransactionsController_RequestQueryValidation.parse(
+          req.query,
+        );
+
+      const { artisan_id } = validated_param;
+      const { recent } = validated_query;
+
+      const service_data =
+        await this.artisanService.getArtisanTransactionsService({
+          artisan_id,
+          recent,
+        });
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
     } catch (error) {
       let error_response;
       if (error instanceof ZodError) {

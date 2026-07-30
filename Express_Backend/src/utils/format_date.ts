@@ -121,3 +121,52 @@ export function setDateToPreviousMonthStart() {
 
   return date;
 }
+
+interface artisan_earnings_trend_data_input_type {
+  payment_completed_at: Date;
+  _sum: { amount: Prisma.Decimal | null };
+}
+
+export interface formatArtisanEarningsTrendData_OutputType {
+  date: string; // 'YYYY-MM'
+  sum: Prisma.Decimal;
+}
+
+export function formatArtisanEarningsTrendData(
+  data_to_format: artisan_earnings_trend_data_input_type[],
+): formatArtisanEarningsTrendData_OutputType[] {
+  const formatted_data: Record<string, Prisma.Decimal> = {};
+
+  data_to_format.forEach((data) => {
+    if (!data.payment_completed_at) return;
+
+    // 1. Get 'YYYY-MM-DD'
+    const normalized_date = data.payment_completed_at.toISOString();
+    const year_month_day_date_format = normalized_date.split("T")[0];
+    if (!year_month_day_date_format) return;
+
+    // 2. Extract just the Year and Month ('YYYY-MM')
+    const date_parts = year_month_day_date_format.split("-"); // ['YYYY', 'MM', 'DD']
+    const date_to_use = `${date_parts[0]}-${date_parts[1]}`; // 'YYYY-MM'
+
+    // const amount = data._sum.amount || 0;
+
+    // 3. Accumulate the values into the Record object
+
+    // The below was for when the amount type was still "number".
+    // formatted_data[date_to_use] = (formatted_data[date_to_use] || 0) + amount;
+
+    // The amount type is now "Prisma.Decimal" so the below was done
+    formatted_data[date_to_use] = (
+      formatted_data[date_to_use] ?? new Prisma.Decimal(0)
+    ).plus(data._sum.amount ?? 0);
+  });
+
+  // 4. Convert the Record object back into the array expected by your interface
+  return Object.entries(formatted_data).map(
+    ([date, sum]): formatArtisanEarningsTrendData_OutputType => ({
+      date,
+      sum, // sum here is of type "Prisma.Decimal" and not number.
+    }),
+  );
+}

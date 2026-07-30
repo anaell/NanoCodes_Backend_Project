@@ -63,6 +63,10 @@ export interface getArtisanEarningsStatsCard_InputType {
 
 export interface getArtisanTransactions_InputType {
   artisan_id: string;
-  // limit?: number | undefined;
   recent?: boolean | undefined;
+}
+
+export interface getArtisanEarningsTrendData_InputType {
+  artisan_id: string;
+  no_of_days: number;
 }

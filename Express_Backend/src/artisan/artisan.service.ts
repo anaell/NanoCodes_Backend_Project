@@ -1,4 +1,5 @@
 import { Prisma } from "../../generated/prisma/client.js";
+import { formatArtisanEarningsTrendData } from "../utils/format_date.js";
 import type { ArtisanRepository } from "./artisan.repository.js";
 import type {
   artisanBookingRequestResponse_InputType,
@@ -6,6 +7,7 @@ import type {
   getArtisanBookingHistory_InputType,
   getArtisanById_InputType,
   getArtisanEarningsStatsCard_InputType,
+  getArtisanEarningsTrendData_InputType,
   getArtisanIncomingJobRequests_InputType,
   getArtisanReviewAndRatingStats_InputType,
   getArtisanReviewsAndRating_InputType,
@@ -153,6 +155,24 @@ export class ArtisanService {
     };
 
     return adjusted_db_response;
+  }
+
+  async getArtisanEarningsTrendDataService({
+    artisan_id,
+    no_of_days,
+  }: getArtisanEarningsTrendData_InputType) {
+    const db_response =
+      await this.artisanRepository.getArtisanEarningsTrendData({
+        artisan_id,
+        no_of_days,
+      });
+
+    const formatted_artisan_earnings_trend_data =
+      formatArtisanEarningsTrendData(db_response.artisan_earnings_trend_data);
+
+    return {
+      artisan_earnings_trend_data: formatted_artisan_earnings_trend_data,
+    };
   }
 
   async getArtisanTransactionsService({

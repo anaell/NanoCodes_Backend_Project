@@ -10,6 +10,7 @@ import type {
   getArtisanBookingHistory_WhereType,
   getArtisanById_InputType,
   getArtisanEarningsStatsCard_InputType,
+  getArtisanEarningsTrendData_InputType,
   getArtisanIncomingJobRequests_InputType,
   getArtisanReviewAndRatingStats_InputType,
   getArtisanReviewsAndRating_InputType,
@@ -395,7 +396,10 @@ export class ArtisanRepository {
       ] = await prisma.$transaction([
         prisma.artisan.findUniqueOrThrow({
           where: { id: artisan_id },
-          select: { total_money_made: true, total_money_withdrawn: true },
+          select: {
+            total_money_made: true,
+            total_money_withdrawn: true,
+          },
         }),
         prisma.payment.aggregate({
           where: {
@@ -444,8 +448,25 @@ export class ArtisanRepository {
     }
   }
 
-  async next() {
+  async getArtisanEarningsTrendData({
+    artisan_id,
+    no_of_days,
+  }: getArtisanEarningsTrendData_InputType) {
     try {
+      const date_range = new Date();
+      date_range.setDate(date_range.getDate() - no_of_days);
+
+      const artisan_earnings_trend_data = await prisma.payment.groupBy({
+        where: {
+          artisan_id,
+          status: "successful",
+          payment_completed_at: { gte: date_range },
+        },
+        by: "payment_completed_at",
+        _sum: { amount: true },
+      });
+
+      return { artisan_earnings_trend_data };
     } catch (error) {
       // Successfully passes the error up to the service/controller layer
       throw error;

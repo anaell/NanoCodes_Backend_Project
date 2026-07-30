@@ -61,7 +61,12 @@ route.get(
   ),
 );
 
-route.get("/artisan/:artisan_id/earnings/trend_chart");
+route.get(
+  "/artisan/:artisan_id/earnings/trend_chart",
+  artisanController.getArtisanEarningsTrendDataController.bind(
+    artisanController,
+  ),
+);
 
 route.get(
   "/artisan/:artisan_id/transactions",
