@@ -18,4 +18,27 @@ route.get(
   ),
 );
 
-route.get("/artisans/:artisan_id");
+route.get(
+  "/artisans/:artisan_id",
+  publicArtisanController.getArtisanByIdController.bind(
+    publicArtisanController,
+  ),
+);
+
+route.get(
+  "/artisans/:artisan_id/bookings_completed",
+  publicArtisanController.getArtisanCompletedBookingsController.bind(
+    publicArtisanController,
+  ),
+);
+
+route.get(
+  "/artisans/:artisan_id/reviews",
+  publicArtisanController.getArtisanReviewsController.bind(
+    publicArtisanController,
+  ),
+);
+
+route.get("/artisans");
+
+export default route;
