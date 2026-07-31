@@ -74,6 +74,7 @@
     "exactOptionalPropertyTypes": true,
     "isolatedModules": true,         // required for NodeNext
     "noUncheckedSideEffectImports": true,
+    "allowSyntheticDefaultImports": true,
 
     // Style Options (optional, uncomment if you want stricter linting)
     // "noImplicitReturns": true,
