@@ -39,6 +39,9 @@ route.get(
   ),
 );
 
-route.get("/artisans");
+route.get(
+  "/artisans",
+  publicArtisanController.getArtisansController.bind(publicArtisanController),
+);
 
 export default route;

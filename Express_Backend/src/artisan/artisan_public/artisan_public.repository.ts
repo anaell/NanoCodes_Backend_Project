@@ -1,5 +1,7 @@
 import { prisma } from "../../lib/prisma.js";
 import type {
+  getArtisans_InputType,
+  getArtisans_WhereType,
   getArtisanById_InputType,
   getArtisanCompletedBookings_InputType,
   getArtisanReviews_InputType,
@@ -197,8 +199,92 @@ export class PublicArtisanRepository {
     }
   }
 
-  async next() {
+  async getArtisans({
+    search_term,
+    experience,
+    location,
+    min_rating,
+    limit = 9,
+    page = 1,
+  }: getArtisans_InputType) {
     try {
+      const baseWhere: getArtisans_WhereType = {
+        user: { is_deleted: false, is_suspended: false },
+      };
+
+      if (location) {
+        baseWhere.location = location;
+      }
+
+      if (experience) {
+        baseWhere.experience = { gte: experience };
+      }
+
+      if (min_rating) {
+        baseWhere.rating = { gte: min_rating };
+      }
+
+      if (search_term) {
+        baseWhere.OR = [
+          {
+            user: {
+              OR: [
+                { f_name: { contains: search_term } },
+                { l_name: { contains: search_term } },
+              ],
+            },
+          },
+          { main_skill: { contains: search_term } },
+          {
+            skills: {
+              some: { skill: { name: { contains: search_term } } },
+            },
+          },
+        ];
+      }
+
+      const number_to_skip = (page - 1) * limit;
+
+      const [total_artisans, artisans] = await prisma.$transaction([
+        prisma.artisan.count({
+          where: baseWhere,
+        }),
+        prisma.artisan.findMany({
+          where: baseWhere,
+          take: limit,
+          skip: number_to_skip,
+          orderBy: [{ created_at: "desc" }, { id: "asc" }],
+          select: {
+            user: {
+              select: { f_name: true, l_name: true, profile_pic_url: true },
+            },
+            rating: true,
+            experience: true,
+            location: true,
+            verified: true,
+            main_skill: true,
+            min_price_per_hour: true,
+            _count: { select: { reviews: true } },
+          },
+        }),
+      ]);
+
+      const totalPages = Math.ceil(total_artisans / limit);
+
+      const data = {
+        artisans,
+        total_artisans,
+        meta: {
+          total_artisans,
+          current_page: page,
+          per_page: limit,
+          total_pages: totalPages,
+          has_next_page: page < totalPages,
+          has_previous_page: page > 1,
+        },
+      };
+
+      return data;
     } catch (error) {
       // Successfully passes the error up to the service/controller layer
       throw error;

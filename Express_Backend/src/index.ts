@@ -7,6 +7,7 @@ import type { Request, Response } from "express";
 import AdminRoutes from "./admin/admin.route.js";
 import AdminAuthRoutes from "./admin/admin_auth/admin_auth.route.js";
 import ArtisanRoutes from "./artisan/artisan.route.js";
+import PublicArtisanRoutes from "./artisan/artisan_public/artisan_public.route.js";
 
 import cookieParser from "cookie-parser";
 import { verifyAdminJWTMiddleware } from "./admin/admin.middleware.js";
@@ -26,7 +27,9 @@ app.use("/api", AdminAuthRoutes);
 
 app.use("/api", verifyAdminJWTMiddleware, AdminRoutes);
 
-app.use("/api", ArtisanRoutes );
+app.use("/api", ArtisanRoutes);
+
+app.use("/api/public", PublicArtisanRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running on http://localhost:${process.env.PORT}`);

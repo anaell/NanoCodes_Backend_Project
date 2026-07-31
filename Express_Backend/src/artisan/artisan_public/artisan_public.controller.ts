@@ -12,6 +12,7 @@ import {
   getArtisanCompletedBookingsController_RequestQueryValidation,
   getArtisanReviewsController_RequestParamValidation,
   getArtisanReviewsController_RequestQueryValidation,
+  getArtisansController_RequestQueryValidation,
 } from "./artisan_public.validation.js";
 
 export class PublicArtisanController {
@@ -177,10 +178,26 @@ export class PublicArtisanController {
     }
   }
 
-  async next(req: Request, res: Response) {
+  async getArtisansController(req: Request, res: Response) {
     try {
-      // const success_response = SuccessResponseStructure(service_data);
-      // return res.status(200).json(success_response)
+      const validated_query =
+        getArtisansController_RequestQueryValidation.parse(req.query);
+
+      const { experience, limit, location, min_rating, page, q } =
+        validated_query;
+
+      const service_data = await this.publicArtisanService.getArtisansService({
+        experience,
+        limit,
+        location,
+        min_rating,
+        page,
+        search_term: q,
+      });
+
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
     } catch (error) {
       let error_response;
       if (error instanceof ZodError) {

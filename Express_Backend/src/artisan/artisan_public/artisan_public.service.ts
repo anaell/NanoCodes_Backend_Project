@@ -3,6 +3,7 @@ import type {
   getArtisanById_InputType,
   getArtisanCompletedBookings_InputType,
   getArtisanReviews_InputType,
+  getArtisans_InputType,
 } from "./artisan_public.types.js";
 
 export class PublicArtisanService {
@@ -49,6 +50,26 @@ export class PublicArtisanService {
       artisan_id,
       limit,
       page,
+    });
+
+    return db_response;
+  }
+
+  async getArtisansService({
+    experience,
+    limit,
+    location,
+    min_rating,
+    page,
+    search_term,
+  }: getArtisans_InputType) {
+    const db_response = await this.publicArtisanRepository.getArtisans({
+      experience,
+      limit,
+      location,
+      min_rating,
+      page,
+      search_term,
     });
 
     return db_response;
