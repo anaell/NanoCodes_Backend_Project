@@ -1,26 +1,22 @@
-datasource db {
-  provider = "mysql"
-}
-
 generator client {
   provider = "prisma-client-js"
   output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
 }
 
 model cache {
   key        String @id @db.VarChar(255)
   value      String @db.MediumText
   expiration Int
-
-  @@index([expiration], map: "cache_expiration_index")
 }
 
 model cache_locks {
   key        String @id @db.VarChar(255)
   owner      String @db.VarChar(255)
   expiration Int
-
-  @@index([expiration], map: "cache_locks_expiration_index")
 }
 
 model failed_jobs {
@@ -40,7 +36,7 @@ model job_batches {
   pending_jobs   Int
   failed_jobs    Int
   failed_job_ids String  @db.LongText
-  options        String? @db.MediumText
+  options        String? @db.LongText
   cancelled_at   Int?
   created_at     Int
   finished_at    Int?
@@ -55,13 +51,7 @@ model jobs {
   available_at Int    @db.UnsignedInt
   created_at   Int    @db.UnsignedInt
 
-  @@index([queue], map: "jobs_queue_index")
-}
-
-model migrations {
-  id        Int    @id @default(autoincrement()) @db.UnsignedInt
-  migration String @db.VarChar(255)
-  batch     Int
+  @@index([queue])
 }
 
 model password_reset_tokens {
@@ -72,25 +62,14 @@ model password_reset_tokens {
 
 model sessions {
   id            String  @id @db.VarChar(255)
-  user_id       BigInt? @db.UnsignedBigInt
+  user_id       String?
   ip_address    String? @db.VarChar(45)
   user_agent    String? @db.Text
   payload       String  @db.LongText
   last_activity Int
 
-  @@index([last_activity], map: "sessions_last_activity_index")
-  @@index([user_id], map: "sessions_user_id_index")
-}
-
-model users {
-  id                BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
-  name              String    @db.VarChar(255)
-  email             String    @unique(map: "users_email_unique") @db.VarChar(255)
-  email_verified_at DateTime? @db.Timestamp(0)
-  password          String    @db.VarChar(255)
-  remember_token    String?   @db.VarChar(100)
-  created_at        DateTime? @db.Timestamp(0)
-  updated_at        DateTime? @db.Timestamp(0)
+  @@index([last_activity])
+  @@index([user_id])
 }
 
 model Artisan {
@@ -101,11 +80,13 @@ model Artisan {
   rating                         Float
   about_artisan                  String?
   main_skill                     String?
-  min_price_per_hour             Float?
+  min_price_per_hour             Decimal?                        @db.Decimal(20, 2)
   response_time                  Int?
   verified                       Boolean                         @default(false)
-  total_money_made               Float?
-  total_money_withdrawn          Float?
+  total_money_made               Decimal?                        @db.Decimal(20, 2)
+  total_money_withdrawn          Decimal?                        @db.Decimal(20, 2)
+  created_at                     DateTime                        @default(now())
+  updated_at                     DateTime
   User                           User                            @relation(fields: [user_id], references: [id])
   Artisan_Skill                  Artisan_Skill[]
   Artisan_Verification_Documents Artisan_Verification_Documents?
@@ -117,11 +98,12 @@ model Artisan {
 }
 
 model Artisan_Review_Reply {
-  id             String         @id
-  reply          String
-  review_id      String         @unique
-  created_at     DateTime       @default(now())
-  Booking_Review Booking_Review @relation(fields: [review_id], references: [id])
+  id                     String         @id
+  reply                  String
+  review_id              String         @unique
+  created_at             DateTime       @default(now())
+  report_customer_review Boolean        @default(false)
+  Booking_Review         Booking_Review @relation(fields: [review_id], references: [id])
 }
 
 model Artisan_Skill {
@@ -163,10 +145,11 @@ model Booking {
   updated_at          DateTime
   booking_address     String?
   booking_end_date    DateTime?
-  booking_price       Float
+  booking_price       Decimal           @db.Decimal(20, 2)
   booking_start_date  DateTime
   problem_description String
   work_to_be_done     String
+  is_cancelled        Boolean           @default(false)
   Artisan             Artisan           @relation(fields: [artisan_id], references: [id])
   User                User              @relation(fields: [customer_id], references: [id])
   Booking_Picture     Booking_Picture[]
@@ -206,7 +189,7 @@ model Booking_Review {
 }
 
 model Favourite {
-  id         String  @id
+  id         String  @id @default(cuid())
   user_id    String
   artisan_id String
   Artisan    Artisan @relation(fields: [artisan_id], references: [id])
@@ -235,7 +218,7 @@ model Notification {
 
 model Payment {
   id                   String         @id
-  amount               Float
+  amount               Decimal        @db.Decimal(20, 2)
   status               Payment_status @default(processing)
   payment_method       String
   artisan_id           String
@@ -244,6 +227,7 @@ model Payment {
   payment_completed_at DateTime
   created_at           DateTime       @default(now())
   updated_at           DateTime
+  commission           Int
   Artisan              Artisan        @relation(fields: [artisan_id], references: [id])
   Booking              Booking        @relation(fields: [booking_id], references: [id])
   User                 User           @relation(fields: [customer_id], references: [id])
@@ -256,7 +240,7 @@ model Service {
   id          String  @id
   name        String
   description String
-  price       Float
+  price       Decimal @db.Decimal(20, 2)
   artisan_id  String
   Artisan     Artisan @relation(fields: [artisan_id], references: [id])
 
@@ -276,6 +260,7 @@ model System_Info {
   support_email     String
   maintenance_mode  Boolean  @default(false)
   updated_at        DateTime
+  is_singleton      Boolean  @unique @default(true)
 }
 
 model User {
@@ -294,7 +279,9 @@ model User {
   preferred_booking_address      String?
   is_deleted                     Boolean          @default(false)
   is_suspended                   Boolean          @default(false)
-  total_amount_spent_on_bookings Float?
+  total_amount_spent_on_bookings Decimal?         @db.Decimal(20, 2)
+  email_verified_at              DateTime?        @db.Timestamp(0)
+  remember_token                 String?          @db.VarChar(100)
   Artisan                        Artisan?
   Bank_Detail                    Bank_Detail?
   Booking                        Booking[]
@@ -302,6 +289,28 @@ model User {
   Favourite                      Favourite[]
   Notification                   Notification[]
   Payment                        Payment[]
+}
+
+model Admin_User {
+  admin_id String @id
+  name     String
+  password String
+  email    String @unique
+}
+
+model personal_access_tokens {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   String
+  name           String    @db.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
+  abilities      String?   @db.Text
+  last_used_at   DateTime? @db.Timestamp(0)
+  expires_at     DateTime? @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id])
 }
 
 enum Artisan_Verification_Documents_status {

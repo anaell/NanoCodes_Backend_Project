@@ -165,12 +165,6 @@ exports.Prisma.JobsScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.MigrationsScalarFieldEnum = {
-  id: 'id',
-  migration: 'migration',
-  batch: 'batch'
-};
-
 exports.Prisma.Password_reset_tokensScalarFieldEnum = {
   email: 'email',
   token: 'token',
@@ -186,17 +180,6 @@ exports.Prisma.SessionsScalarFieldEnum = {
   last_activity: 'last_activity'
 };
 
-exports.Prisma.UsersScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  email_verified_at: 'email_verified_at',
-  password: 'password',
-  remember_token: 'remember_token',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.ArtisanScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -209,14 +192,17 @@ exports.Prisma.ArtisanScalarFieldEnum = {
   response_time: 'response_time',
   verified: 'verified',
   total_money_made: 'total_money_made',
-  total_money_withdrawn: 'total_money_withdrawn'
+  total_money_withdrawn: 'total_money_withdrawn',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.Artisan_Review_ReplyScalarFieldEnum = {
   id: 'id',
   reply: 'reply',
   review_id: 'review_id',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  report_customer_review: 'report_customer_review'
 };
 
 exports.Prisma.Artisan_SkillScalarFieldEnum = {
@@ -254,7 +240,8 @@ exports.Prisma.BookingScalarFieldEnum = {
   booking_price: 'booking_price',
   booking_start_date: 'booking_start_date',
   problem_description: 'problem_description',
-  work_to_be_done: 'work_to_be_done'
+  work_to_be_done: 'work_to_be_done',
+  is_cancelled: 'is_cancelled'
 };
 
 exports.Prisma.Booking_PictureScalarFieldEnum = {
@@ -305,7 +292,8 @@ exports.Prisma.PaymentScalarFieldEnum = {
   booking_id: 'booking_id',
   payment_completed_at: 'payment_completed_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  commission: 'commission'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -327,7 +315,8 @@ exports.Prisma.System_InfoScalarFieldEnum = {
   platform_logo_url: 'platform_logo_url',
   support_email: 'support_email',
   maintenance_mode: 'maintenance_mode',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  is_singleton: 'is_singleton'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -346,7 +335,29 @@ exports.Prisma.UserScalarFieldEnum = {
   preferred_booking_address: 'preferred_booking_address',
   is_deleted: 'is_deleted',
   is_suspended: 'is_suspended',
-  total_amount_spent_on_bookings: 'total_amount_spent_on_bookings'
+  total_amount_spent_on_bookings: 'total_amount_spent_on_bookings',
+  email_verified_at: 'email_verified_at',
+  remember_token: 'remember_token'
+};
+
+exports.Prisma.Admin_UserScalarFieldEnum = {
+  admin_id: 'admin_id',
+  name: 'name',
+  password: 'password',
+  email: 'email'
+};
+
+exports.Prisma.Personal_access_tokensScalarFieldEnum = {
+  id: 'id',
+  tokenable_type: 'tokenable_type',
+  tokenable_id: 'tokenable_id',
+  name: 'name',
+  token: 'token',
+  abilities: 'abilities',
+  last_used_at: 'last_used_at',
+  expires_at: 'expires_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -389,10 +400,6 @@ exports.Prisma.jobsOrderByRelevanceFieldEnum = {
   payload: 'payload'
 };
 
-exports.Prisma.migrationsOrderByRelevanceFieldEnum = {
-  migration: 'migration'
-};
-
 exports.Prisma.password_reset_tokensOrderByRelevanceFieldEnum = {
   email: 'email',
   token: 'token'
@@ -400,16 +407,10 @@ exports.Prisma.password_reset_tokensOrderByRelevanceFieldEnum = {
 
 exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
   id: 'id',
+  user_id: 'user_id',
   ip_address: 'ip_address',
   user_agent: 'user_agent',
   payload: 'payload'
-};
-
-exports.Prisma.usersOrderByRelevanceFieldEnum = {
-  name: 'name',
-  email: 'email',
-  password: 'password',
-  remember_token: 'remember_token'
 };
 
 exports.Prisma.ArtisanOrderByRelevanceFieldEnum = {
@@ -523,7 +524,23 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   l_name: 'l_name',
   profile_pic_url: 'profile_pic_url',
   nin: 'nin',
-  preferred_booking_address: 'preferred_booking_address'
+  preferred_booking_address: 'preferred_booking_address',
+  remember_token: 'remember_token'
+};
+
+exports.Prisma.Admin_UserOrderByRelevanceFieldEnum = {
+  admin_id: 'admin_id',
+  name: 'name',
+  password: 'password',
+  email: 'email'
+};
+
+exports.Prisma.personal_access_tokensOrderByRelevanceFieldEnum = {
+  tokenable_type: 'tokenable_type',
+  tokenable_id: 'tokenable_id',
+  name: 'name',
+  token: 'token',
+  abilities: 'abilities'
 };
 exports.Artisan_Verification_Documents_status = exports.$Enums.Artisan_Verification_Documents_status = {
   pending: 'pending',
@@ -564,10 +581,8 @@ exports.Prisma.ModelName = {
   failed_jobs: 'failed_jobs',
   job_batches: 'job_batches',
   jobs: 'jobs',
-  migrations: 'migrations',
   password_reset_tokens: 'password_reset_tokens',
   sessions: 'sessions',
-  users: 'users',
   Artisan: 'Artisan',
   Artisan_Review_Reply: 'Artisan_Review_Reply',
   Artisan_Skill: 'Artisan_Skill',
@@ -583,7 +598,9 @@ exports.Prisma.ModelName = {
   Service: 'Service',
   Skill: 'Skill',
   System_Info: 'System_Info',
-  User: 'User'
+  User: 'User',
+  Admin_User: 'Admin_User',
+  personal_access_tokens: 'personal_access_tokens'
 };
 
 /**

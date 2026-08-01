@@ -39,11 +39,6 @@ export type job_batches = $Result.DefaultSelection<Prisma.$job_batchesPayload>
  */
 export type jobs = $Result.DefaultSelection<Prisma.$jobsPayload>
 /**
- * Model migrations
- * 
- */
-export type migrations = $Result.DefaultSelection<Prisma.$migrationsPayload>
-/**
  * Model password_reset_tokens
  * 
  */
@@ -53,11 +48,6 @@ export type password_reset_tokens = $Result.DefaultSelection<Prisma.$password_re
  * 
  */
 export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
-/**
- * Model users
- * 
- */
-export type users = $Result.DefaultSelection<Prisma.$usersPayload>
 /**
  * Model Artisan
  * 
@@ -138,6 +128,16 @@ export type System_Info = $Result.DefaultSelection<Prisma.$System_InfoPayload>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Admin_User
+ * 
+ */
+export type Admin_User = $Result.DefaultSelection<Prisma.$Admin_UserPayload>
+/**
+ * Model personal_access_tokens
+ * 
+ */
+export type personal_access_tokens = $Result.DefaultSelection<Prisma.$personal_access_tokensPayload>
 
 /**
  * Enums
@@ -384,16 +384,6 @@ export class PrismaClient<
   get jobs(): Prisma.jobsDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.migrations`: Exposes CRUD operations for the **migrations** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Migrations
-    * const migrations = await prisma.migrations.findMany()
-    * ```
-    */
-  get migrations(): Prisma.migrationsDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.password_reset_tokens`: Exposes CRUD operations for the **password_reset_tokens** model.
     * Example usage:
     * ```ts
@@ -412,16 +402,6 @@ export class PrismaClient<
     * ```
     */
   get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.users`: Exposes CRUD operations for the **users** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Users
-    * const users = await prisma.users.findMany()
-    * ```
-    */
-  get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.artisan`: Exposes CRUD operations for the **Artisan** model.
@@ -582,6 +562,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.admin_User`: Exposes CRUD operations for the **Admin_User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Admin_Users
+    * const admin_Users = await prisma.admin_User.findMany()
+    * ```
+    */
+  get admin_User(): Prisma.Admin_UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.personal_access_tokens`: Exposes CRUD operations for the **personal_access_tokens** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Personal_access_tokens
+    * const personal_access_tokens = await prisma.personal_access_tokens.findMany()
+    * ```
+    */
+  get personal_access_tokens(): Prisma.personal_access_tokensDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1021,10 +1021,8 @@ export namespace Prisma {
     failed_jobs: 'failed_jobs',
     job_batches: 'job_batches',
     jobs: 'jobs',
-    migrations: 'migrations',
     password_reset_tokens: 'password_reset_tokens',
     sessions: 'sessions',
-    users: 'users',
     Artisan: 'Artisan',
     Artisan_Review_Reply: 'Artisan_Review_Reply',
     Artisan_Skill: 'Artisan_Skill',
@@ -1040,7 +1038,9 @@ export namespace Prisma {
     Service: 'Service',
     Skill: 'Skill',
     System_Info: 'System_Info',
-    User: 'User'
+    User: 'User',
+    Admin_User: 'Admin_User',
+    personal_access_tokens: 'personal_access_tokens'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1056,7 +1056,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "cache" | "cache_locks" | "failed_jobs" | "job_batches" | "jobs" | "migrations" | "password_reset_tokens" | "sessions" | "users" | "artisan" | "artisan_Review_Reply" | "artisan_Skill" | "artisan_Verification_Documents" | "bank_Detail" | "booking" | "booking_Picture" | "booking_Review" | "favourite" | "newsletter" | "notification" | "payment" | "service" | "skill" | "system_Info" | "user"
+      modelProps: "cache" | "cache_locks" | "failed_jobs" | "job_batches" | "jobs" | "password_reset_tokens" | "sessions" | "artisan" | "artisan_Review_Reply" | "artisan_Skill" | "artisan_Verification_Documents" | "bank_Detail" | "booking" | "booking_Picture" | "booking_Review" | "favourite" | "newsletter" | "notification" | "payment" | "service" | "skill" | "system_Info" | "user" | "admin_User" | "personal_access_tokens"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1390,72 +1390,6 @@ export namespace Prisma {
           }
         }
       }
-      migrations: {
-        payload: Prisma.$migrationsPayload<ExtArgs>
-        fields: Prisma.migrationsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.migrationsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.migrationsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload>
-          }
-          findFirst: {
-            args: Prisma.migrationsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.migrationsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload>
-          }
-          findMany: {
-            args: Prisma.migrationsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload>[]
-          }
-          create: {
-            args: Prisma.migrationsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload>
-          }
-          createMany: {
-            args: Prisma.migrationsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.migrationsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload>
-          }
-          update: {
-            args: Prisma.migrationsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload>
-          }
-          deleteMany: {
-            args: Prisma.migrationsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.migrationsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.migrationsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$migrationsPayload>
-          }
-          aggregate: {
-            args: Prisma.MigrationsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMigrations>
-          }
-          groupBy: {
-            args: Prisma.migrationsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MigrationsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.migrationsCountArgs<ExtArgs>
-            result: $Utils.Optional<MigrationsCountAggregateOutputType> | number
-          }
-        }
-      }
       password_reset_tokens: {
         payload: Prisma.$password_reset_tokensPayload<ExtArgs>
         fields: Prisma.password_reset_tokensFieldRefs
@@ -1585,72 +1519,6 @@ export namespace Prisma {
           count: {
             args: Prisma.sessionsCountArgs<ExtArgs>
             result: $Utils.Optional<SessionsCountAggregateOutputType> | number
-          }
-        }
-      }
-      users: {
-        payload: Prisma.$usersPayload<ExtArgs>
-        fields: Prisma.usersFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.usersFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.usersFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload>
-          }
-          findFirst: {
-            args: Prisma.usersFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.usersFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload>
-          }
-          findMany: {
-            args: Prisma.usersFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload>[]
-          }
-          create: {
-            args: Prisma.usersCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload>
-          }
-          createMany: {
-            args: Prisma.usersCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.usersDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload>
-          }
-          update: {
-            args: Prisma.usersUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload>
-          }
-          deleteMany: {
-            args: Prisma.usersDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.usersUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.usersUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$usersPayload>
-          }
-          aggregate: {
-            args: Prisma.UsersAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUsers>
-          }
-          groupBy: {
-            args: Prisma.usersGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UsersGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.usersCountArgs<ExtArgs>
-            result: $Utils.Optional<UsersCountAggregateOutputType> | number
           }
         }
       }
@@ -2710,6 +2578,138 @@ export namespace Prisma {
           }
         }
       }
+      Admin_User: {
+        payload: Prisma.$Admin_UserPayload<ExtArgs>
+        fields: Prisma.Admin_UserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.Admin_UserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.Admin_UserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload>
+          }
+          findFirst: {
+            args: Prisma.Admin_UserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.Admin_UserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload>
+          }
+          findMany: {
+            args: Prisma.Admin_UserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload>[]
+          }
+          create: {
+            args: Prisma.Admin_UserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload>
+          }
+          createMany: {
+            args: Prisma.Admin_UserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.Admin_UserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload>
+          }
+          update: {
+            args: Prisma.Admin_UserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload>
+          }
+          deleteMany: {
+            args: Prisma.Admin_UserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.Admin_UserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.Admin_UserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Admin_UserPayload>
+          }
+          aggregate: {
+            args: Prisma.Admin_UserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAdmin_User>
+          }
+          groupBy: {
+            args: Prisma.Admin_UserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Admin_UserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.Admin_UserCountArgs<ExtArgs>
+            result: $Utils.Optional<Admin_UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      personal_access_tokens: {
+        payload: Prisma.$personal_access_tokensPayload<ExtArgs>
+        fields: Prisma.personal_access_tokensFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.personal_access_tokensFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.personal_access_tokensFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload>
+          }
+          findFirst: {
+            args: Prisma.personal_access_tokensFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.personal_access_tokensFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload>
+          }
+          findMany: {
+            args: Prisma.personal_access_tokensFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload>[]
+          }
+          create: {
+            args: Prisma.personal_access_tokensCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload>
+          }
+          createMany: {
+            args: Prisma.personal_access_tokensCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.personal_access_tokensDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload>
+          }
+          update: {
+            args: Prisma.personal_access_tokensUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload>
+          }
+          deleteMany: {
+            args: Prisma.personal_access_tokensDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.personal_access_tokensUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.personal_access_tokensUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$personal_access_tokensPayload>
+          }
+          aggregate: {
+            args: Prisma.Personal_access_tokensAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePersonal_access_tokens>
+          }
+          groupBy: {
+            args: Prisma.personal_access_tokensGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Personal_access_tokensGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.personal_access_tokensCountArgs<ExtArgs>
+            result: $Utils.Optional<Personal_access_tokensCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2823,10 +2823,8 @@ export namespace Prisma {
     failed_jobs?: failed_jobsOmit
     job_batches?: job_batchesOmit
     jobs?: jobsOmit
-    migrations?: migrationsOmit
     password_reset_tokens?: password_reset_tokensOmit
     sessions?: sessionsOmit
-    users?: usersOmit
     artisan?: ArtisanOmit
     artisan_Review_Reply?: Artisan_Review_ReplyOmit
     artisan_Skill?: Artisan_SkillOmit
@@ -2843,6 +2841,8 @@ export namespace Prisma {
     skill?: SkillOmit
     system_Info?: System_InfoOmit
     user?: UserOmit
+    admin_User?: Admin_UserOmit
+    personal_access_tokens?: personal_access_tokensOmit
   }
 
   /* Types for Logging */
@@ -7824,909 +7824,6 @@ export namespace Prisma {
 
 
   /**
-   * Model migrations
-   */
-
-  export type AggregateMigrations = {
-    _count: MigrationsCountAggregateOutputType | null
-    _avg: MigrationsAvgAggregateOutputType | null
-    _sum: MigrationsSumAggregateOutputType | null
-    _min: MigrationsMinAggregateOutputType | null
-    _max: MigrationsMaxAggregateOutputType | null
-  }
-
-  export type MigrationsAvgAggregateOutputType = {
-    id: number | null
-    batch: number | null
-  }
-
-  export type MigrationsSumAggregateOutputType = {
-    id: number | null
-    batch: number | null
-  }
-
-  export type MigrationsMinAggregateOutputType = {
-    id: number | null
-    migration: string | null
-    batch: number | null
-  }
-
-  export type MigrationsMaxAggregateOutputType = {
-    id: number | null
-    migration: string | null
-    batch: number | null
-  }
-
-  export type MigrationsCountAggregateOutputType = {
-    id: number
-    migration: number
-    batch: number
-    _all: number
-  }
-
-
-  export type MigrationsAvgAggregateInputType = {
-    id?: true
-    batch?: true
-  }
-
-  export type MigrationsSumAggregateInputType = {
-    id?: true
-    batch?: true
-  }
-
-  export type MigrationsMinAggregateInputType = {
-    id?: true
-    migration?: true
-    batch?: true
-  }
-
-  export type MigrationsMaxAggregateInputType = {
-    id?: true
-    migration?: true
-    batch?: true
-  }
-
-  export type MigrationsCountAggregateInputType = {
-    id?: true
-    migration?: true
-    batch?: true
-    _all?: true
-  }
-
-  export type MigrationsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which migrations to aggregate.
-     */
-    where?: migrationsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of migrations to fetch.
-     */
-    orderBy?: migrationsOrderByWithRelationInput | migrationsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: migrationsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` migrations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` migrations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned migrations
-    **/
-    _count?: true | MigrationsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: MigrationsAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: MigrationsSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: MigrationsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: MigrationsMaxAggregateInputType
-  }
-
-  export type GetMigrationsAggregateType<T extends MigrationsAggregateArgs> = {
-        [P in keyof T & keyof AggregateMigrations]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMigrations[P]>
-      : GetScalarType<T[P], AggregateMigrations[P]>
-  }
-
-
-
-
-  export type migrationsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: migrationsWhereInput
-    orderBy?: migrationsOrderByWithAggregationInput | migrationsOrderByWithAggregationInput[]
-    by: MigrationsScalarFieldEnum[] | MigrationsScalarFieldEnum
-    having?: migrationsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: MigrationsCountAggregateInputType | true
-    _avg?: MigrationsAvgAggregateInputType
-    _sum?: MigrationsSumAggregateInputType
-    _min?: MigrationsMinAggregateInputType
-    _max?: MigrationsMaxAggregateInputType
-  }
-
-  export type MigrationsGroupByOutputType = {
-    id: number
-    migration: string
-    batch: number
-    _count: MigrationsCountAggregateOutputType | null
-    _avg: MigrationsAvgAggregateOutputType | null
-    _sum: MigrationsSumAggregateOutputType | null
-    _min: MigrationsMinAggregateOutputType | null
-    _max: MigrationsMaxAggregateOutputType | null
-  }
-
-  type GetMigrationsGroupByPayload<T extends migrationsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<MigrationsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof MigrationsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], MigrationsGroupByOutputType[P]>
-            : GetScalarType<T[P], MigrationsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type migrationsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    migration?: boolean
-    batch?: boolean
-  }, ExtArgs["result"]["migrations"]>
-
-
-
-  export type migrationsSelectScalar = {
-    id?: boolean
-    migration?: boolean
-    batch?: boolean
-  }
-
-  export type migrationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "migration" | "batch", ExtArgs["result"]["migrations"]>
-
-  export type $migrationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "migrations"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      migration: string
-      batch: number
-    }, ExtArgs["result"]["migrations"]>
-    composites: {}
-  }
-
-  type migrationsGetPayload<S extends boolean | null | undefined | migrationsDefaultArgs> = $Result.GetResult<Prisma.$migrationsPayload, S>
-
-  type migrationsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<migrationsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MigrationsCountAggregateInputType | true
-    }
-
-  export interface migrationsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['migrations'], meta: { name: 'migrations' } }
-    /**
-     * Find zero or one Migrations that matches the filter.
-     * @param {migrationsFindUniqueArgs} args - Arguments to find a Migrations
-     * @example
-     * // Get one Migrations
-     * const migrations = await prisma.migrations.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends migrationsFindUniqueArgs>(args: SelectSubset<T, migrationsFindUniqueArgs<ExtArgs>>): Prisma__migrationsClient<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Migrations that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {migrationsFindUniqueOrThrowArgs} args - Arguments to find a Migrations
-     * @example
-     * // Get one Migrations
-     * const migrations = await prisma.migrations.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends migrationsFindUniqueOrThrowArgs>(args: SelectSubset<T, migrationsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__migrationsClient<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Migrations that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {migrationsFindFirstArgs} args - Arguments to find a Migrations
-     * @example
-     * // Get one Migrations
-     * const migrations = await prisma.migrations.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends migrationsFindFirstArgs>(args?: SelectSubset<T, migrationsFindFirstArgs<ExtArgs>>): Prisma__migrationsClient<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Migrations that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {migrationsFindFirstOrThrowArgs} args - Arguments to find a Migrations
-     * @example
-     * // Get one Migrations
-     * const migrations = await prisma.migrations.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends migrationsFindFirstOrThrowArgs>(args?: SelectSubset<T, migrationsFindFirstOrThrowArgs<ExtArgs>>): Prisma__migrationsClient<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Migrations that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {migrationsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Migrations
-     * const migrations = await prisma.migrations.findMany()
-     * 
-     * // Get first 10 Migrations
-     * const migrations = await prisma.migrations.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const migrationsWithIdOnly = await prisma.migrations.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends migrationsFindManyArgs>(args?: SelectSubset<T, migrationsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Migrations.
-     * @param {migrationsCreateArgs} args - Arguments to create a Migrations.
-     * @example
-     * // Create one Migrations
-     * const Migrations = await prisma.migrations.create({
-     *   data: {
-     *     // ... data to create a Migrations
-     *   }
-     * })
-     * 
-     */
-    create<T extends migrationsCreateArgs>(args: SelectSubset<T, migrationsCreateArgs<ExtArgs>>): Prisma__migrationsClient<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Migrations.
-     * @param {migrationsCreateManyArgs} args - Arguments to create many Migrations.
-     * @example
-     * // Create many Migrations
-     * const migrations = await prisma.migrations.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends migrationsCreateManyArgs>(args?: SelectSubset<T, migrationsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Migrations.
-     * @param {migrationsDeleteArgs} args - Arguments to delete one Migrations.
-     * @example
-     * // Delete one Migrations
-     * const Migrations = await prisma.migrations.delete({
-     *   where: {
-     *     // ... filter to delete one Migrations
-     *   }
-     * })
-     * 
-     */
-    delete<T extends migrationsDeleteArgs>(args: SelectSubset<T, migrationsDeleteArgs<ExtArgs>>): Prisma__migrationsClient<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Migrations.
-     * @param {migrationsUpdateArgs} args - Arguments to update one Migrations.
-     * @example
-     * // Update one Migrations
-     * const migrations = await prisma.migrations.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends migrationsUpdateArgs>(args: SelectSubset<T, migrationsUpdateArgs<ExtArgs>>): Prisma__migrationsClient<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Migrations.
-     * @param {migrationsDeleteManyArgs} args - Arguments to filter Migrations to delete.
-     * @example
-     * // Delete a few Migrations
-     * const { count } = await prisma.migrations.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends migrationsDeleteManyArgs>(args?: SelectSubset<T, migrationsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Migrations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {migrationsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Migrations
-     * const migrations = await prisma.migrations.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends migrationsUpdateManyArgs>(args: SelectSubset<T, migrationsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Migrations.
-     * @param {migrationsUpsertArgs} args - Arguments to update or create a Migrations.
-     * @example
-     * // Update or create a Migrations
-     * const migrations = await prisma.migrations.upsert({
-     *   create: {
-     *     // ... data to create a Migrations
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Migrations we want to update
-     *   }
-     * })
-     */
-    upsert<T extends migrationsUpsertArgs>(args: SelectSubset<T, migrationsUpsertArgs<ExtArgs>>): Prisma__migrationsClient<$Result.GetResult<Prisma.$migrationsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Migrations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {migrationsCountArgs} args - Arguments to filter Migrations to count.
-     * @example
-     * // Count the number of Migrations
-     * const count = await prisma.migrations.count({
-     *   where: {
-     *     // ... the filter for the Migrations we want to count
-     *   }
-     * })
-    **/
-    count<T extends migrationsCountArgs>(
-      args?: Subset<T, migrationsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], MigrationsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Migrations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MigrationsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends MigrationsAggregateArgs>(args: Subset<T, MigrationsAggregateArgs>): Prisma.PrismaPromise<GetMigrationsAggregateType<T>>
-
-    /**
-     * Group by Migrations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {migrationsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends migrationsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: migrationsGroupByArgs['orderBy'] }
-        : { orderBy?: migrationsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, migrationsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMigrationsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the migrations model
-   */
-  readonly fields: migrationsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for migrations.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__migrationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the migrations model
-   */
-  interface migrationsFieldRefs {
-    readonly id: FieldRef<"migrations", 'Int'>
-    readonly migration: FieldRef<"migrations", 'String'>
-    readonly batch: FieldRef<"migrations", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * migrations findUnique
-   */
-  export type migrationsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * Filter, which migrations to fetch.
-     */
-    where: migrationsWhereUniqueInput
-  }
-
-  /**
-   * migrations findUniqueOrThrow
-   */
-  export type migrationsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * Filter, which migrations to fetch.
-     */
-    where: migrationsWhereUniqueInput
-  }
-
-  /**
-   * migrations findFirst
-   */
-  export type migrationsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * Filter, which migrations to fetch.
-     */
-    where?: migrationsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of migrations to fetch.
-     */
-    orderBy?: migrationsOrderByWithRelationInput | migrationsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for migrations.
-     */
-    cursor?: migrationsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` migrations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` migrations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of migrations.
-     */
-    distinct?: MigrationsScalarFieldEnum | MigrationsScalarFieldEnum[]
-  }
-
-  /**
-   * migrations findFirstOrThrow
-   */
-  export type migrationsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * Filter, which migrations to fetch.
-     */
-    where?: migrationsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of migrations to fetch.
-     */
-    orderBy?: migrationsOrderByWithRelationInput | migrationsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for migrations.
-     */
-    cursor?: migrationsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` migrations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` migrations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of migrations.
-     */
-    distinct?: MigrationsScalarFieldEnum | MigrationsScalarFieldEnum[]
-  }
-
-  /**
-   * migrations findMany
-   */
-  export type migrationsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * Filter, which migrations to fetch.
-     */
-    where?: migrationsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of migrations to fetch.
-     */
-    orderBy?: migrationsOrderByWithRelationInput | migrationsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing migrations.
-     */
-    cursor?: migrationsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` migrations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` migrations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of migrations.
-     */
-    distinct?: MigrationsScalarFieldEnum | MigrationsScalarFieldEnum[]
-  }
-
-  /**
-   * migrations create
-   */
-  export type migrationsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * The data needed to create a migrations.
-     */
-    data: XOR<migrationsCreateInput, migrationsUncheckedCreateInput>
-  }
-
-  /**
-   * migrations createMany
-   */
-  export type migrationsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many migrations.
-     */
-    data: migrationsCreateManyInput | migrationsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * migrations update
-   */
-  export type migrationsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * The data needed to update a migrations.
-     */
-    data: XOR<migrationsUpdateInput, migrationsUncheckedUpdateInput>
-    /**
-     * Choose, which migrations to update.
-     */
-    where: migrationsWhereUniqueInput
-  }
-
-  /**
-   * migrations updateMany
-   */
-  export type migrationsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update migrations.
-     */
-    data: XOR<migrationsUpdateManyMutationInput, migrationsUncheckedUpdateManyInput>
-    /**
-     * Filter which migrations to update
-     */
-    where?: migrationsWhereInput
-    /**
-     * Limit how many migrations to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * migrations upsert
-   */
-  export type migrationsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * The filter to search for the migrations to update in case it exists.
-     */
-    where: migrationsWhereUniqueInput
-    /**
-     * In case the migrations found by the `where` argument doesn't exist, create a new migrations with this data.
-     */
-    create: XOR<migrationsCreateInput, migrationsUncheckedCreateInput>
-    /**
-     * In case the migrations was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<migrationsUpdateInput, migrationsUncheckedUpdateInput>
-  }
-
-  /**
-   * migrations delete
-   */
-  export type migrationsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-    /**
-     * Filter which migrations to delete.
-     */
-    where: migrationsWhereUniqueInput
-  }
-
-  /**
-   * migrations deleteMany
-   */
-  export type migrationsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which migrations to delete
-     */
-    where?: migrationsWhereInput
-    /**
-     * Limit how many migrations to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * migrations without action
-   */
-  export type migrationsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the migrations
-     */
-    select?: migrationsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the migrations
-     */
-    omit?: migrationsOmit<ExtArgs> | null
-  }
-
-
-  /**
    * Model password_reset_tokens
    */
 
@@ -9604,18 +8701,16 @@ export namespace Prisma {
   }
 
   export type SessionsAvgAggregateOutputType = {
-    user_id: number | null
     last_activity: number | null
   }
 
   export type SessionsSumAggregateOutputType = {
-    user_id: bigint | null
     last_activity: number | null
   }
 
   export type SessionsMinAggregateOutputType = {
     id: string | null
-    user_id: bigint | null
+    user_id: string | null
     ip_address: string | null
     user_agent: string | null
     payload: string | null
@@ -9624,7 +8719,7 @@ export namespace Prisma {
 
   export type SessionsMaxAggregateOutputType = {
     id: string | null
-    user_id: bigint | null
+    user_id: string | null
     ip_address: string | null
     user_agent: string | null
     payload: string | null
@@ -9643,12 +8738,10 @@ export namespace Prisma {
 
 
   export type SessionsAvgAggregateInputType = {
-    user_id?: true
     last_activity?: true
   }
 
   export type SessionsSumAggregateInputType = {
-    user_id?: true
     last_activity?: true
   }
 
@@ -9768,7 +8861,7 @@ export namespace Prisma {
 
   export type SessionsGroupByOutputType = {
     id: string
-    user_id: bigint | null
+    user_id: string | null
     ip_address: string | null
     user_agent: string | null
     payload: string
@@ -9821,7 +8914,7 @@ export namespace Prisma {
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      user_id: bigint | null
+      user_id: string | null
       ip_address: string | null
       user_agent: string | null
       payload: string
@@ -10196,7 +9289,7 @@ export namespace Prisma {
    */
   interface sessionsFieldRefs {
     readonly id: FieldRef<"sessions", 'String'>
-    readonly user_id: FieldRef<"sessions", 'BigInt'>
+    readonly user_id: FieldRef<"sessions", 'String'>
     readonly ip_address: FieldRef<"sessions", 'String'>
     readonly user_agent: FieldRef<"sessions", 'String'>
     readonly payload: FieldRef<"sessions", 'String'>
@@ -10528,960 +9621,6 @@ export namespace Prisma {
 
 
   /**
-   * Model users
-   */
-
-  export type AggregateUsers = {
-    _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
-    _min: UsersMinAggregateOutputType | null
-    _max: UsersMaxAggregateOutputType | null
-  }
-
-  export type UsersAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UsersSumAggregateOutputType = {
-    id: bigint | null
-  }
-
-  export type UsersMinAggregateOutputType = {
-    id: bigint | null
-    name: string | null
-    email: string | null
-    email_verified_at: Date | null
-    password: string | null
-    remember_token: string | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type UsersMaxAggregateOutputType = {
-    id: bigint | null
-    name: string | null
-    email: string | null
-    email_verified_at: Date | null
-    password: string | null
-    remember_token: string | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type UsersCountAggregateOutputType = {
-    id: number
-    name: number
-    email: number
-    email_verified_at: number
-    password: number
-    remember_token: number
-    created_at: number
-    updated_at: number
-    _all: number
-  }
-
-
-  export type UsersAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UsersSumAggregateInputType = {
-    id?: true
-  }
-
-  export type UsersMinAggregateInputType = {
-    id?: true
-    name?: true
-    email?: true
-    email_verified_at?: true
-    password?: true
-    remember_token?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type UsersMaxAggregateInputType = {
-    id?: true
-    name?: true
-    email?: true
-    email_verified_at?: true
-    password?: true
-    remember_token?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type UsersCountAggregateInputType = {
-    id?: true
-    name?: true
-    email?: true
-    email_verified_at?: true
-    password?: true
-    remember_token?: true
-    created_at?: true
-    updated_at?: true
-    _all?: true
-  }
-
-  export type UsersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which users to aggregate.
-     */
-    where?: usersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of users to fetch.
-     */
-    orderBy?: usersOrderByWithRelationInput | usersOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: usersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned users
-    **/
-    _count?: true | UsersCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: UsersAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UsersSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: UsersMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: UsersMaxAggregateInputType
-  }
-
-  export type GetUsersAggregateType<T extends UsersAggregateArgs> = {
-        [P in keyof T & keyof AggregateUsers]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUsers[P]>
-      : GetScalarType<T[P], AggregateUsers[P]>
-  }
-
-
-
-
-  export type usersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: usersWhereInput
-    orderBy?: usersOrderByWithAggregationInput | usersOrderByWithAggregationInput[]
-    by: UsersScalarFieldEnum[] | UsersScalarFieldEnum
-    having?: usersScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UsersCountAggregateInputType | true
-    _avg?: UsersAvgAggregateInputType
-    _sum?: UsersSumAggregateInputType
-    _min?: UsersMinAggregateInputType
-    _max?: UsersMaxAggregateInputType
-  }
-
-  export type UsersGroupByOutputType = {
-    id: bigint
-    name: string
-    email: string
-    email_verified_at: Date | null
-    password: string
-    remember_token: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
-    _min: UsersMinAggregateOutputType | null
-    _max: UsersMaxAggregateOutputType | null
-  }
-
-  type GetUsersGroupByPayload<T extends usersGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<UsersGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UsersGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UsersGroupByOutputType[P]>
-            : GetScalarType<T[P], UsersGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type usersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    email?: boolean
-    email_verified_at?: boolean
-    password?: boolean
-    remember_token?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-  }, ExtArgs["result"]["users"]>
-
-
-
-  export type usersSelectScalar = {
-    id?: boolean
-    name?: boolean
-    email?: boolean
-    email_verified_at?: boolean
-    password?: boolean
-    remember_token?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-  }
-
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "email_verified_at" | "password" | "remember_token" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
-
-  export type $usersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "users"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      name: string
-      email: string
-      email_verified_at: Date | null
-      password: string
-      remember_token: string | null
-      created_at: Date | null
-      updated_at: Date | null
-    }, ExtArgs["result"]["users"]>
-    composites: {}
-  }
-
-  type usersGetPayload<S extends boolean | null | undefined | usersDefaultArgs> = $Result.GetResult<Prisma.$usersPayload, S>
-
-  type usersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<usersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UsersCountAggregateInputType | true
-    }
-
-  export interface usersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['users'], meta: { name: 'users' } }
-    /**
-     * Find zero or one Users that matches the filter.
-     * @param {usersFindUniqueArgs} args - Arguments to find a Users
-     * @example
-     * // Get one Users
-     * const users = await prisma.users.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends usersFindUniqueArgs>(args: SelectSubset<T, usersFindUniqueArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Users that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {usersFindUniqueOrThrowArgs} args - Arguments to find a Users
-     * @example
-     * // Get one Users
-     * const users = await prisma.users.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends usersFindUniqueOrThrowArgs>(args: SelectSubset<T, usersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Users that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersFindFirstArgs} args - Arguments to find a Users
-     * @example
-     * // Get one Users
-     * const users = await prisma.users.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends usersFindFirstArgs>(args?: SelectSubset<T, usersFindFirstArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Users that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersFindFirstOrThrowArgs} args - Arguments to find a Users
-     * @example
-     * // Get one Users
-     * const users = await prisma.users.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends usersFindFirstOrThrowArgs>(args?: SelectSubset<T, usersFindFirstOrThrowArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Users that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Users
-     * const users = await prisma.users.findMany()
-     * 
-     * // Get first 10 Users
-     * const users = await prisma.users.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const usersWithIdOnly = await prisma.users.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends usersFindManyArgs>(args?: SelectSubset<T, usersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Users.
-     * @param {usersCreateArgs} args - Arguments to create a Users.
-     * @example
-     * // Create one Users
-     * const Users = await prisma.users.create({
-     *   data: {
-     *     // ... data to create a Users
-     *   }
-     * })
-     * 
-     */
-    create<T extends usersCreateArgs>(args: SelectSubset<T, usersCreateArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Users.
-     * @param {usersCreateManyArgs} args - Arguments to create many Users.
-     * @example
-     * // Create many Users
-     * const users = await prisma.users.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends usersCreateManyArgs>(args?: SelectSubset<T, usersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Users.
-     * @param {usersDeleteArgs} args - Arguments to delete one Users.
-     * @example
-     * // Delete one Users
-     * const Users = await prisma.users.delete({
-     *   where: {
-     *     // ... filter to delete one Users
-     *   }
-     * })
-     * 
-     */
-    delete<T extends usersDeleteArgs>(args: SelectSubset<T, usersDeleteArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Users.
-     * @param {usersUpdateArgs} args - Arguments to update one Users.
-     * @example
-     * // Update one Users
-     * const users = await prisma.users.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends usersUpdateArgs>(args: SelectSubset<T, usersUpdateArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Users.
-     * @param {usersDeleteManyArgs} args - Arguments to filter Users to delete.
-     * @example
-     * // Delete a few Users
-     * const { count } = await prisma.users.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends usersDeleteManyArgs>(args?: SelectSubset<T, usersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Users
-     * const users = await prisma.users.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends usersUpdateManyArgs>(args: SelectSubset<T, usersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Users.
-     * @param {usersUpsertArgs} args - Arguments to update or create a Users.
-     * @example
-     * // Update or create a Users
-     * const users = await prisma.users.upsert({
-     *   create: {
-     *     // ... data to create a Users
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Users we want to update
-     *   }
-     * })
-     */
-    upsert<T extends usersUpsertArgs>(args: SelectSubset<T, usersUpsertArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersCountArgs} args - Arguments to filter Users to count.
-     * @example
-     * // Count the number of Users
-     * const count = await prisma.users.count({
-     *   where: {
-     *     // ... the filter for the Users we want to count
-     *   }
-     * })
-    **/
-    count<T extends usersCountArgs>(
-      args?: Subset<T, usersCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], UsersCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends UsersAggregateArgs>(args: Subset<T, UsersAggregateArgs>): Prisma.PrismaPromise<GetUsersAggregateType<T>>
-
-    /**
-     * Group by Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends usersGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: usersGroupByArgs['orderBy'] }
-        : { orderBy?: usersGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, usersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUsersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the users model
-   */
-  readonly fields: usersFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for users.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the users model
-   */
-  interface usersFieldRefs {
-    readonly id: FieldRef<"users", 'BigInt'>
-    readonly name: FieldRef<"users", 'String'>
-    readonly email: FieldRef<"users", 'String'>
-    readonly email_verified_at: FieldRef<"users", 'DateTime'>
-    readonly password: FieldRef<"users", 'String'>
-    readonly remember_token: FieldRef<"users", 'String'>
-    readonly created_at: FieldRef<"users", 'DateTime'>
-    readonly updated_at: FieldRef<"users", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * users findUnique
-   */
-  export type usersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Filter, which users to fetch.
-     */
-    where: usersWhereUniqueInput
-  }
-
-  /**
-   * users findUniqueOrThrow
-   */
-  export type usersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Filter, which users to fetch.
-     */
-    where: usersWhereUniqueInput
-  }
-
-  /**
-   * users findFirst
-   */
-  export type usersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Filter, which users to fetch.
-     */
-    where?: usersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of users to fetch.
-     */
-    orderBy?: usersOrderByWithRelationInput | usersOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for users.
-     */
-    cursor?: usersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of users.
-     */
-    distinct?: UsersScalarFieldEnum | UsersScalarFieldEnum[]
-  }
-
-  /**
-   * users findFirstOrThrow
-   */
-  export type usersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Filter, which users to fetch.
-     */
-    where?: usersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of users to fetch.
-     */
-    orderBy?: usersOrderByWithRelationInput | usersOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for users.
-     */
-    cursor?: usersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of users.
-     */
-    distinct?: UsersScalarFieldEnum | UsersScalarFieldEnum[]
-  }
-
-  /**
-   * users findMany
-   */
-  export type usersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Filter, which users to fetch.
-     */
-    where?: usersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of users to fetch.
-     */
-    orderBy?: usersOrderByWithRelationInput | usersOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing users.
-     */
-    cursor?: usersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of users.
-     */
-    distinct?: UsersScalarFieldEnum | UsersScalarFieldEnum[]
-  }
-
-  /**
-   * users create
-   */
-  export type usersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * The data needed to create a users.
-     */
-    data: XOR<usersCreateInput, usersUncheckedCreateInput>
-  }
-
-  /**
-   * users createMany
-   */
-  export type usersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many users.
-     */
-    data: usersCreateManyInput | usersCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * users update
-   */
-  export type usersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * The data needed to update a users.
-     */
-    data: XOR<usersUpdateInput, usersUncheckedUpdateInput>
-    /**
-     * Choose, which users to update.
-     */
-    where: usersWhereUniqueInput
-  }
-
-  /**
-   * users updateMany
-   */
-  export type usersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update users.
-     */
-    data: XOR<usersUpdateManyMutationInput, usersUncheckedUpdateManyInput>
-    /**
-     * Filter which users to update
-     */
-    where?: usersWhereInput
-    /**
-     * Limit how many users to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * users upsert
-   */
-  export type usersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * The filter to search for the users to update in case it exists.
-     */
-    where: usersWhereUniqueInput
-    /**
-     * In case the users found by the `where` argument doesn't exist, create a new users with this data.
-     */
-    create: XOR<usersCreateInput, usersUncheckedCreateInput>
-    /**
-     * In case the users was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<usersUpdateInput, usersUncheckedUpdateInput>
-  }
-
-  /**
-   * users delete
-   */
-  export type usersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Filter which users to delete.
-     */
-    where: usersWhereUniqueInput
-  }
-
-  /**
-   * users deleteMany
-   */
-  export type usersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which users to delete
-     */
-    where?: usersWhereInput
-    /**
-     * Limit how many users to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * users without action
-   */
-  export type usersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-  }
-
-
-  /**
    * Model Artisan
    */
 
@@ -11496,19 +9635,19 @@ export namespace Prisma {
   export type ArtisanAvgAggregateOutputType = {
     experience: number | null
     rating: number | null
-    min_price_per_hour: number | null
+    min_price_per_hour: Decimal | null
     response_time: number | null
-    total_money_made: number | null
-    total_money_withdrawn: number | null
+    total_money_made: Decimal | null
+    total_money_withdrawn: Decimal | null
   }
 
   export type ArtisanSumAggregateOutputType = {
     experience: number | null
     rating: number | null
-    min_price_per_hour: number | null
+    min_price_per_hour: Decimal | null
     response_time: number | null
-    total_money_made: number | null
-    total_money_withdrawn: number | null
+    total_money_made: Decimal | null
+    total_money_withdrawn: Decimal | null
   }
 
   export type ArtisanMinAggregateOutputType = {
@@ -11519,11 +9658,13 @@ export namespace Prisma {
     rating: number | null
     about_artisan: string | null
     main_skill: string | null
-    min_price_per_hour: number | null
+    min_price_per_hour: Decimal | null
     response_time: number | null
     verified: boolean | null
-    total_money_made: number | null
-    total_money_withdrawn: number | null
+    total_money_made: Decimal | null
+    total_money_withdrawn: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type ArtisanMaxAggregateOutputType = {
@@ -11534,11 +9675,13 @@ export namespace Prisma {
     rating: number | null
     about_artisan: string | null
     main_skill: string | null
-    min_price_per_hour: number | null
+    min_price_per_hour: Decimal | null
     response_time: number | null
     verified: boolean | null
-    total_money_made: number | null
-    total_money_withdrawn: number | null
+    total_money_made: Decimal | null
+    total_money_withdrawn: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type ArtisanCountAggregateOutputType = {
@@ -11554,6 +9697,8 @@ export namespace Prisma {
     verified: number
     total_money_made: number
     total_money_withdrawn: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -11589,6 +9734,8 @@ export namespace Prisma {
     verified?: true
     total_money_made?: true
     total_money_withdrawn?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type ArtisanMaxAggregateInputType = {
@@ -11604,6 +9751,8 @@ export namespace Prisma {
     verified?: true
     total_money_made?: true
     total_money_withdrawn?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type ArtisanCountAggregateInputType = {
@@ -11619,6 +9768,8 @@ export namespace Prisma {
     verified?: true
     total_money_made?: true
     total_money_withdrawn?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -11716,11 +9867,13 @@ export namespace Prisma {
     rating: number
     about_artisan: string | null
     main_skill: string | null
-    min_price_per_hour: number | null
+    min_price_per_hour: Decimal | null
     response_time: number | null
     verified: boolean
-    total_money_made: number | null
-    total_money_withdrawn: number | null
+    total_money_made: Decimal | null
+    total_money_withdrawn: Decimal | null
+    created_at: Date
+    updated_at: Date
     _count: ArtisanCountAggregateOutputType | null
     _avg: ArtisanAvgAggregateOutputType | null
     _sum: ArtisanSumAggregateOutputType | null
@@ -11755,6 +9908,8 @@ export namespace Prisma {
     verified?: boolean
     total_money_made?: boolean
     total_money_withdrawn?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     User?: boolean | UserDefaultArgs<ExtArgs>
     Artisan_Skill?: boolean | Artisan$Artisan_SkillArgs<ExtArgs>
     Artisan_Verification_Documents?: boolean | Artisan$Artisan_Verification_DocumentsArgs<ExtArgs>
@@ -11781,9 +9936,11 @@ export namespace Prisma {
     verified?: boolean
     total_money_made?: boolean
     total_money_withdrawn?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type ArtisanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "location" | "experience" | "rating" | "about_artisan" | "main_skill" | "min_price_per_hour" | "response_time" | "verified" | "total_money_made" | "total_money_withdrawn", ExtArgs["result"]["artisan"]>
+  export type ArtisanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "location" | "experience" | "rating" | "about_artisan" | "main_skill" | "min_price_per_hour" | "response_time" | "verified" | "total_money_made" | "total_money_withdrawn" | "created_at" | "updated_at", ExtArgs["result"]["artisan"]>
   export type ArtisanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | UserDefaultArgs<ExtArgs>
     Artisan_Skill?: boolean | Artisan$Artisan_SkillArgs<ExtArgs>
@@ -11816,11 +9973,13 @@ export namespace Prisma {
       rating: number
       about_artisan: string | null
       main_skill: string | null
-      min_price_per_hour: number | null
+      min_price_per_hour: Prisma.Decimal | null
       response_time: number | null
       verified: boolean
-      total_money_made: number | null
-      total_money_withdrawn: number | null
+      total_money_made: Prisma.Decimal | null
+      total_money_withdrawn: Prisma.Decimal | null
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["artisan"]>
     composites: {}
   }
@@ -12205,11 +10364,13 @@ export namespace Prisma {
     readonly rating: FieldRef<"Artisan", 'Float'>
     readonly about_artisan: FieldRef<"Artisan", 'String'>
     readonly main_skill: FieldRef<"Artisan", 'String'>
-    readonly min_price_per_hour: FieldRef<"Artisan", 'Float'>
+    readonly min_price_per_hour: FieldRef<"Artisan", 'Decimal'>
     readonly response_time: FieldRef<"Artisan", 'Int'>
     readonly verified: FieldRef<"Artisan", 'Boolean'>
-    readonly total_money_made: FieldRef<"Artisan", 'Float'>
-    readonly total_money_withdrawn: FieldRef<"Artisan", 'Float'>
+    readonly total_money_made: FieldRef<"Artisan", 'Decimal'>
+    readonly total_money_withdrawn: FieldRef<"Artisan", 'Decimal'>
+    readonly created_at: FieldRef<"Artisan", 'DateTime'>
+    readonly updated_at: FieldRef<"Artisan", 'DateTime'>
   }
     
 
@@ -12754,6 +10915,7 @@ export namespace Prisma {
     reply: string | null
     review_id: string | null
     created_at: Date | null
+    report_customer_review: boolean | null
   }
 
   export type Artisan_Review_ReplyMaxAggregateOutputType = {
@@ -12761,6 +10923,7 @@ export namespace Prisma {
     reply: string | null
     review_id: string | null
     created_at: Date | null
+    report_customer_review: boolean | null
   }
 
   export type Artisan_Review_ReplyCountAggregateOutputType = {
@@ -12768,6 +10931,7 @@ export namespace Prisma {
     reply: number
     review_id: number
     created_at: number
+    report_customer_review: number
     _all: number
   }
 
@@ -12777,6 +10941,7 @@ export namespace Prisma {
     reply?: true
     review_id?: true
     created_at?: true
+    report_customer_review?: true
   }
 
   export type Artisan_Review_ReplyMaxAggregateInputType = {
@@ -12784,6 +10949,7 @@ export namespace Prisma {
     reply?: true
     review_id?: true
     created_at?: true
+    report_customer_review?: true
   }
 
   export type Artisan_Review_ReplyCountAggregateInputType = {
@@ -12791,6 +10957,7 @@ export namespace Prisma {
     reply?: true
     review_id?: true
     created_at?: true
+    report_customer_review?: true
     _all?: true
   }
 
@@ -12871,6 +11038,7 @@ export namespace Prisma {
     reply: string
     review_id: string
     created_at: Date
+    report_customer_review: boolean
     _count: Artisan_Review_ReplyCountAggregateOutputType | null
     _min: Artisan_Review_ReplyMinAggregateOutputType | null
     _max: Artisan_Review_ReplyMaxAggregateOutputType | null
@@ -12895,6 +11063,7 @@ export namespace Prisma {
     reply?: boolean
     review_id?: boolean
     created_at?: boolean
+    report_customer_review?: boolean
     Booking_Review?: boolean | Booking_ReviewDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["artisan_Review_Reply"]>
 
@@ -12905,9 +11074,10 @@ export namespace Prisma {
     reply?: boolean
     review_id?: boolean
     created_at?: boolean
+    report_customer_review?: boolean
   }
 
-  export type Artisan_Review_ReplyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reply" | "review_id" | "created_at", ExtArgs["result"]["artisan_Review_Reply"]>
+  export type Artisan_Review_ReplyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reply" | "review_id" | "created_at" | "report_customer_review", ExtArgs["result"]["artisan_Review_Reply"]>
   export type Artisan_Review_ReplyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Booking_Review?: boolean | Booking_ReviewDefaultArgs<ExtArgs>
   }
@@ -12922,6 +11092,7 @@ export namespace Prisma {
       reply: string
       review_id: string
       created_at: Date
+      report_customer_review: boolean
     }, ExtArgs["result"]["artisan_Review_Reply"]>
     composites: {}
   }
@@ -13296,6 +11467,7 @@ export namespace Prisma {
     readonly reply: FieldRef<"Artisan_Review_Reply", 'String'>
     readonly review_id: FieldRef<"Artisan_Review_Reply", 'String'>
     readonly created_at: FieldRef<"Artisan_Review_Reply", 'DateTime'>
+    readonly report_customer_review: FieldRef<"Artisan_Review_Reply", 'Boolean'>
   }
     
 
@@ -16470,11 +14642,11 @@ export namespace Prisma {
   }
 
   export type BookingAvgAggregateOutputType = {
-    booking_price: number | null
+    booking_price: Decimal | null
   }
 
   export type BookingSumAggregateOutputType = {
-    booking_price: number | null
+    booking_price: Decimal | null
   }
 
   export type BookingMinAggregateOutputType = {
@@ -16486,10 +14658,11 @@ export namespace Prisma {
     updated_at: Date | null
     booking_address: string | null
     booking_end_date: Date | null
-    booking_price: number | null
+    booking_price: Decimal | null
     booking_start_date: Date | null
     problem_description: string | null
     work_to_be_done: string | null
+    is_cancelled: boolean | null
   }
 
   export type BookingMaxAggregateOutputType = {
@@ -16501,10 +14674,11 @@ export namespace Prisma {
     updated_at: Date | null
     booking_address: string | null
     booking_end_date: Date | null
-    booking_price: number | null
+    booking_price: Decimal | null
     booking_start_date: Date | null
     problem_description: string | null
     work_to_be_done: string | null
+    is_cancelled: boolean | null
   }
 
   export type BookingCountAggregateOutputType = {
@@ -16520,6 +14694,7 @@ export namespace Prisma {
     booking_start_date: number
     problem_description: number
     work_to_be_done: number
+    is_cancelled: number
     _all: number
   }
 
@@ -16545,6 +14720,7 @@ export namespace Prisma {
     booking_start_date?: true
     problem_description?: true
     work_to_be_done?: true
+    is_cancelled?: true
   }
 
   export type BookingMaxAggregateInputType = {
@@ -16560,6 +14736,7 @@ export namespace Prisma {
     booking_start_date?: true
     problem_description?: true
     work_to_be_done?: true
+    is_cancelled?: true
   }
 
   export type BookingCountAggregateInputType = {
@@ -16575,6 +14752,7 @@ export namespace Prisma {
     booking_start_date?: true
     problem_description?: true
     work_to_be_done?: true
+    is_cancelled?: true
     _all?: true
   }
 
@@ -16673,10 +14851,11 @@ export namespace Prisma {
     updated_at: Date
     booking_address: string | null
     booking_end_date: Date | null
-    booking_price: number
+    booking_price: Decimal
     booking_start_date: Date
     problem_description: string
     work_to_be_done: string
+    is_cancelled: boolean
     _count: BookingCountAggregateOutputType | null
     _avg: BookingAvgAggregateOutputType | null
     _sum: BookingSumAggregateOutputType | null
@@ -16711,6 +14890,7 @@ export namespace Prisma {
     booking_start_date?: boolean
     problem_description?: boolean
     work_to_be_done?: boolean
+    is_cancelled?: boolean
     Artisan?: boolean | ArtisanDefaultArgs<ExtArgs>
     User?: boolean | UserDefaultArgs<ExtArgs>
     Booking_Picture?: boolean | Booking$Booking_PictureArgs<ExtArgs>
@@ -16734,9 +14914,10 @@ export namespace Prisma {
     booking_start_date?: boolean
     problem_description?: boolean
     work_to_be_done?: boolean
+    is_cancelled?: boolean
   }
 
-  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customer_id" | "artisan_id" | "status" | "created_at" | "updated_at" | "booking_address" | "booking_end_date" | "booking_price" | "booking_start_date" | "problem_description" | "work_to_be_done", ExtArgs["result"]["booking"]>
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customer_id" | "artisan_id" | "status" | "created_at" | "updated_at" | "booking_address" | "booking_end_date" | "booking_price" | "booking_start_date" | "problem_description" | "work_to_be_done" | "is_cancelled", ExtArgs["result"]["booking"]>
   export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Artisan?: boolean | ArtisanDefaultArgs<ExtArgs>
     User?: boolean | UserDefaultArgs<ExtArgs>
@@ -16764,10 +14945,11 @@ export namespace Prisma {
       updated_at: Date
       booking_address: string | null
       booking_end_date: Date | null
-      booking_price: number
+      booking_price: Prisma.Decimal
       booking_start_date: Date
       problem_description: string
       work_to_be_done: string
+      is_cancelled: boolean
     }, ExtArgs["result"]["booking"]>
     composites: {}
   }
@@ -17150,10 +15332,11 @@ export namespace Prisma {
     readonly updated_at: FieldRef<"Booking", 'DateTime'>
     readonly booking_address: FieldRef<"Booking", 'String'>
     readonly booking_end_date: FieldRef<"Booking", 'DateTime'>
-    readonly booking_price: FieldRef<"Booking", 'Float'>
+    readonly booking_price: FieldRef<"Booking", 'Decimal'>
     readonly booking_start_date: FieldRef<"Booking", 'DateTime'>
     readonly problem_description: FieldRef<"Booking", 'String'>
     readonly work_to_be_done: FieldRef<"Booking", 'String'>
+    readonly is_cancelled: FieldRef<"Booking", 'Boolean'>
   }
     
 
@@ -22284,16 +20467,18 @@ export namespace Prisma {
   }
 
   export type PaymentAvgAggregateOutputType = {
-    amount: number | null
+    amount: Decimal | null
+    commission: number | null
   }
 
   export type PaymentSumAggregateOutputType = {
-    amount: number | null
+    amount: Decimal | null
+    commission: number | null
   }
 
   export type PaymentMinAggregateOutputType = {
     id: string | null
-    amount: number | null
+    amount: Decimal | null
     status: $Enums.Payment_status | null
     payment_method: string | null
     artisan_id: string | null
@@ -22302,11 +20487,12 @@ export namespace Prisma {
     payment_completed_at: Date | null
     created_at: Date | null
     updated_at: Date | null
+    commission: number | null
   }
 
   export type PaymentMaxAggregateOutputType = {
     id: string | null
-    amount: number | null
+    amount: Decimal | null
     status: $Enums.Payment_status | null
     payment_method: string | null
     artisan_id: string | null
@@ -22315,6 +20501,7 @@ export namespace Prisma {
     payment_completed_at: Date | null
     created_at: Date | null
     updated_at: Date | null
+    commission: number | null
   }
 
   export type PaymentCountAggregateOutputType = {
@@ -22328,16 +20515,19 @@ export namespace Prisma {
     payment_completed_at: number
     created_at: number
     updated_at: number
+    commission: number
     _all: number
   }
 
 
   export type PaymentAvgAggregateInputType = {
     amount?: true
+    commission?: true
   }
 
   export type PaymentSumAggregateInputType = {
     amount?: true
+    commission?: true
   }
 
   export type PaymentMinAggregateInputType = {
@@ -22351,6 +20541,7 @@ export namespace Prisma {
     payment_completed_at?: true
     created_at?: true
     updated_at?: true
+    commission?: true
   }
 
   export type PaymentMaxAggregateInputType = {
@@ -22364,6 +20555,7 @@ export namespace Prisma {
     payment_completed_at?: true
     created_at?: true
     updated_at?: true
+    commission?: true
   }
 
   export type PaymentCountAggregateInputType = {
@@ -22377,6 +20569,7 @@ export namespace Prisma {
     payment_completed_at?: true
     created_at?: true
     updated_at?: true
+    commission?: true
     _all?: true
   }
 
@@ -22468,7 +20661,7 @@ export namespace Prisma {
 
   export type PaymentGroupByOutputType = {
     id: string
-    amount: number
+    amount: Decimal
     status: $Enums.Payment_status
     payment_method: string
     artisan_id: string
@@ -22477,6 +20670,7 @@ export namespace Prisma {
     payment_completed_at: Date
     created_at: Date
     updated_at: Date
+    commission: number
     _count: PaymentCountAggregateOutputType | null
     _avg: PaymentAvgAggregateOutputType | null
     _sum: PaymentSumAggregateOutputType | null
@@ -22509,6 +20703,7 @@ export namespace Prisma {
     payment_completed_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    commission?: boolean
     Artisan?: boolean | ArtisanDefaultArgs<ExtArgs>
     Booking?: boolean | BookingDefaultArgs<ExtArgs>
     User?: boolean | UserDefaultArgs<ExtArgs>
@@ -22527,9 +20722,10 @@ export namespace Prisma {
     payment_completed_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    commission?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "status" | "payment_method" | "artisan_id" | "customer_id" | "booking_id" | "payment_completed_at" | "created_at" | "updated_at", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "status" | "payment_method" | "artisan_id" | "customer_id" | "booking_id" | "payment_completed_at" | "created_at" | "updated_at" | "commission", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Artisan?: boolean | ArtisanDefaultArgs<ExtArgs>
     Booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -22545,7 +20741,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      amount: number
+      amount: Prisma.Decimal
       status: $Enums.Payment_status
       payment_method: string
       artisan_id: string
@@ -22554,6 +20750,7 @@ export namespace Prisma {
       payment_completed_at: Date
       created_at: Date
       updated_at: Date
+      commission: number
     }, ExtArgs["result"]["payment"]>
     composites: {}
   }
@@ -22927,7 +21124,7 @@ export namespace Prisma {
    */
   interface PaymentFieldRefs {
     readonly id: FieldRef<"Payment", 'String'>
-    readonly amount: FieldRef<"Payment", 'Float'>
+    readonly amount: FieldRef<"Payment", 'Decimal'>
     readonly status: FieldRef<"Payment", 'Payment_status'>
     readonly payment_method: FieldRef<"Payment", 'String'>
     readonly artisan_id: FieldRef<"Payment", 'String'>
@@ -22936,6 +21133,7 @@ export namespace Prisma {
     readonly payment_completed_at: FieldRef<"Payment", 'DateTime'>
     readonly created_at: FieldRef<"Payment", 'DateTime'>
     readonly updated_at: FieldRef<"Payment", 'DateTime'>
+    readonly commission: FieldRef<"Payment", 'Int'>
   }
     
 
@@ -23315,18 +21513,18 @@ export namespace Prisma {
   }
 
   export type ServiceAvgAggregateOutputType = {
-    price: number | null
+    price: Decimal | null
   }
 
   export type ServiceSumAggregateOutputType = {
-    price: number | null
+    price: Decimal | null
   }
 
   export type ServiceMinAggregateOutputType = {
     id: string | null
     name: string | null
     description: string | null
-    price: number | null
+    price: Decimal | null
     artisan_id: string | null
   }
 
@@ -23334,7 +21532,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     description: string | null
-    price: number | null
+    price: Decimal | null
     artisan_id: string | null
   }
 
@@ -23471,7 +21669,7 @@ export namespace Prisma {
     id: string
     name: string
     description: string
-    price: number
+    price: Decimal
     artisan_id: string
     _count: ServiceCountAggregateOutputType | null
     _avg: ServiceAvgAggregateOutputType | null
@@ -23527,7 +21725,7 @@ export namespace Prisma {
       id: string
       name: string
       description: string
-      price: number
+      price: Prisma.Decimal
       artisan_id: string
     }, ExtArgs["result"]["service"]>
     composites: {}
@@ -23902,7 +22100,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Service", 'String'>
     readonly name: FieldRef<"Service", 'String'>
     readonly description: FieldRef<"Service", 'String'>
-    readonly price: FieldRef<"Service", 'Float'>
+    readonly price: FieldRef<"Service", 'Decimal'>
     readonly artisan_id: FieldRef<"Service", 'String'>
   }
     
@@ -25214,6 +23412,7 @@ export namespace Prisma {
     support_email: string | null
     maintenance_mode: boolean | null
     updated_at: Date | null
+    is_singleton: boolean | null
   }
 
   export type System_InfoMaxAggregateOutputType = {
@@ -25223,6 +23422,7 @@ export namespace Prisma {
     support_email: string | null
     maintenance_mode: boolean | null
     updated_at: Date | null
+    is_singleton: boolean | null
   }
 
   export type System_InfoCountAggregateOutputType = {
@@ -25232,6 +23432,7 @@ export namespace Prisma {
     support_email: number
     maintenance_mode: number
     updated_at: number
+    is_singleton: number
     _all: number
   }
 
@@ -25243,6 +23444,7 @@ export namespace Prisma {
     support_email?: true
     maintenance_mode?: true
     updated_at?: true
+    is_singleton?: true
   }
 
   export type System_InfoMaxAggregateInputType = {
@@ -25252,6 +23454,7 @@ export namespace Prisma {
     support_email?: true
     maintenance_mode?: true
     updated_at?: true
+    is_singleton?: true
   }
 
   export type System_InfoCountAggregateInputType = {
@@ -25261,6 +23464,7 @@ export namespace Prisma {
     support_email?: true
     maintenance_mode?: true
     updated_at?: true
+    is_singleton?: true
     _all?: true
   }
 
@@ -25343,6 +23547,7 @@ export namespace Prisma {
     support_email: string
     maintenance_mode: boolean
     updated_at: Date
+    is_singleton: boolean
     _count: System_InfoCountAggregateOutputType | null
     _min: System_InfoMinAggregateOutputType | null
     _max: System_InfoMaxAggregateOutputType | null
@@ -25369,6 +23574,7 @@ export namespace Prisma {
     support_email?: boolean
     maintenance_mode?: boolean
     updated_at?: boolean
+    is_singleton?: boolean
   }, ExtArgs["result"]["system_Info"]>
 
 
@@ -25380,9 +23586,10 @@ export namespace Prisma {
     support_email?: boolean
     maintenance_mode?: boolean
     updated_at?: boolean
+    is_singleton?: boolean
   }
 
-  export type System_InfoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "platform_name" | "platform_logo_url" | "support_email" | "maintenance_mode" | "updated_at", ExtArgs["result"]["system_Info"]>
+  export type System_InfoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "platform_name" | "platform_logo_url" | "support_email" | "maintenance_mode" | "updated_at" | "is_singleton", ExtArgs["result"]["system_Info"]>
 
   export type $System_InfoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "System_Info"
@@ -25394,6 +23601,7 @@ export namespace Prisma {
       support_email: string
       maintenance_mode: boolean
       updated_at: Date
+      is_singleton: boolean
     }, ExtArgs["result"]["system_Info"]>
     composites: {}
   }
@@ -25769,6 +23977,7 @@ export namespace Prisma {
     readonly support_email: FieldRef<"System_Info", 'String'>
     readonly maintenance_mode: FieldRef<"System_Info", 'Boolean'>
     readonly updated_at: FieldRef<"System_Info", 'DateTime'>
+    readonly is_singleton: FieldRef<"System_Info", 'Boolean'>
   }
     
 
@@ -26108,11 +24317,11 @@ export namespace Prisma {
   }
 
   export type UserAvgAggregateOutputType = {
-    total_amount_spent_on_bookings: number | null
+    total_amount_spent_on_bookings: Decimal | null
   }
 
   export type UserSumAggregateOutputType = {
-    total_amount_spent_on_bookings: number | null
+    total_amount_spent_on_bookings: Decimal | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -26131,7 +24340,9 @@ export namespace Prisma {
     preferred_booking_address: string | null
     is_deleted: boolean | null
     is_suspended: boolean | null
-    total_amount_spent_on_bookings: number | null
+    total_amount_spent_on_bookings: Decimal | null
+    email_verified_at: Date | null
+    remember_token: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -26150,7 +24361,9 @@ export namespace Prisma {
     preferred_booking_address: string | null
     is_deleted: boolean | null
     is_suspended: boolean | null
-    total_amount_spent_on_bookings: number | null
+    total_amount_spent_on_bookings: Decimal | null
+    email_verified_at: Date | null
+    remember_token: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -26170,6 +24383,8 @@ export namespace Prisma {
     is_deleted: number
     is_suspended: number
     total_amount_spent_on_bookings: number
+    email_verified_at: number
+    remember_token: number
     _all: number
   }
 
@@ -26199,6 +24414,8 @@ export namespace Prisma {
     is_deleted?: true
     is_suspended?: true
     total_amount_spent_on_bookings?: true
+    email_verified_at?: true
+    remember_token?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -26218,6 +24435,8 @@ export namespace Prisma {
     is_deleted?: true
     is_suspended?: true
     total_amount_spent_on_bookings?: true
+    email_verified_at?: true
+    remember_token?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -26237,6 +24456,8 @@ export namespace Prisma {
     is_deleted?: true
     is_suspended?: true
     total_amount_spent_on_bookings?: true
+    email_verified_at?: true
+    remember_token?: true
     _all?: true
   }
 
@@ -26342,7 +24563,9 @@ export namespace Prisma {
     preferred_booking_address: string | null
     is_deleted: boolean
     is_suspended: boolean
-    total_amount_spent_on_bookings: number | null
+    total_amount_spent_on_bookings: Decimal | null
+    email_verified_at: Date | null
+    remember_token: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -26381,6 +24604,8 @@ export namespace Prisma {
     is_deleted?: boolean
     is_suspended?: boolean
     total_amount_spent_on_bookings?: boolean
+    email_verified_at?: boolean
+    remember_token?: boolean
     Artisan?: boolean | User$ArtisanArgs<ExtArgs>
     Bank_Detail?: boolean | User$Bank_DetailArgs<ExtArgs>
     Booking?: boolean | User$BookingArgs<ExtArgs>
@@ -26410,9 +24635,11 @@ export namespace Prisma {
     is_deleted?: boolean
     is_suspended?: boolean
     total_amount_spent_on_bookings?: boolean
+    email_verified_at?: boolean
+    remember_token?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role" | "email" | "password" | "phone_no" | "whatsapp_no" | "f_name" | "l_name" | "profile_pic_url" | "nin" | "created_at" | "updated_at" | "preferred_booking_address" | "is_deleted" | "is_suspended" | "total_amount_spent_on_bookings", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role" | "email" | "password" | "phone_no" | "whatsapp_no" | "f_name" | "l_name" | "profile_pic_url" | "nin" | "created_at" | "updated_at" | "preferred_booking_address" | "is_deleted" | "is_suspended" | "total_amount_spent_on_bookings" | "email_verified_at" | "remember_token", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Artisan?: boolean | User$ArtisanArgs<ExtArgs>
     Bank_Detail?: boolean | User$Bank_DetailArgs<ExtArgs>
@@ -26451,7 +24678,9 @@ export namespace Prisma {
       preferred_booking_address: string | null
       is_deleted: boolean
       is_suspended: boolean
-      total_amount_spent_on_bookings: number | null
+      total_amount_spent_on_bookings: Prisma.Decimal | null
+      email_verified_at: Date | null
+      remember_token: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -26843,7 +25072,9 @@ export namespace Prisma {
     readonly preferred_booking_address: FieldRef<"User", 'String'>
     readonly is_deleted: FieldRef<"User", 'Boolean'>
     readonly is_suspended: FieldRef<"User", 'Boolean'>
-    readonly total_amount_spent_on_bookings: FieldRef<"User", 'Float'>
+    readonly total_amount_spent_on_bookings: FieldRef<"User", 'Decimal'>
+    readonly email_verified_at: FieldRef<"User", 'DateTime'>
+    readonly remember_token: FieldRef<"User", 'String'>
   }
     
 
@@ -27369,6 +25600,1858 @@ export namespace Prisma {
 
 
   /**
+   * Model Admin_User
+   */
+
+  export type AggregateAdmin_User = {
+    _count: Admin_UserCountAggregateOutputType | null
+    _min: Admin_UserMinAggregateOutputType | null
+    _max: Admin_UserMaxAggregateOutputType | null
+  }
+
+  export type Admin_UserMinAggregateOutputType = {
+    admin_id: string | null
+    name: string | null
+    password: string | null
+    email: string | null
+  }
+
+  export type Admin_UserMaxAggregateOutputType = {
+    admin_id: string | null
+    name: string | null
+    password: string | null
+    email: string | null
+  }
+
+  export type Admin_UserCountAggregateOutputType = {
+    admin_id: number
+    name: number
+    password: number
+    email: number
+    _all: number
+  }
+
+
+  export type Admin_UserMinAggregateInputType = {
+    admin_id?: true
+    name?: true
+    password?: true
+    email?: true
+  }
+
+  export type Admin_UserMaxAggregateInputType = {
+    admin_id?: true
+    name?: true
+    password?: true
+    email?: true
+  }
+
+  export type Admin_UserCountAggregateInputType = {
+    admin_id?: true
+    name?: true
+    password?: true
+    email?: true
+    _all?: true
+  }
+
+  export type Admin_UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admin_User to aggregate.
+     */
+    where?: Admin_UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admin_Users to fetch.
+     */
+    orderBy?: Admin_UserOrderByWithRelationInput | Admin_UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: Admin_UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admin_Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admin_Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Admin_Users
+    **/
+    _count?: true | Admin_UserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Admin_UserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Admin_UserMaxAggregateInputType
+  }
+
+  export type GetAdmin_UserAggregateType<T extends Admin_UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdmin_User]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdmin_User[P]>
+      : GetScalarType<T[P], AggregateAdmin_User[P]>
+  }
+
+
+
+
+  export type Admin_UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Admin_UserWhereInput
+    orderBy?: Admin_UserOrderByWithAggregationInput | Admin_UserOrderByWithAggregationInput[]
+    by: Admin_UserScalarFieldEnum[] | Admin_UserScalarFieldEnum
+    having?: Admin_UserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Admin_UserCountAggregateInputType | true
+    _min?: Admin_UserMinAggregateInputType
+    _max?: Admin_UserMaxAggregateInputType
+  }
+
+  export type Admin_UserGroupByOutputType = {
+    admin_id: string
+    name: string
+    password: string
+    email: string
+    _count: Admin_UserCountAggregateOutputType | null
+    _min: Admin_UserMinAggregateOutputType | null
+    _max: Admin_UserMaxAggregateOutputType | null
+  }
+
+  type GetAdmin_UserGroupByPayload<T extends Admin_UserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Admin_UserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Admin_UserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Admin_UserGroupByOutputType[P]>
+            : GetScalarType<T[P], Admin_UserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type Admin_UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    admin_id?: boolean
+    name?: boolean
+    password?: boolean
+    email?: boolean
+  }, ExtArgs["result"]["admin_User"]>
+
+
+
+  export type Admin_UserSelectScalar = {
+    admin_id?: boolean
+    name?: boolean
+    password?: boolean
+    email?: boolean
+  }
+
+  export type Admin_UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"admin_id" | "name" | "password" | "email", ExtArgs["result"]["admin_User"]>
+
+  export type $Admin_UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Admin_User"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      admin_id: string
+      name: string
+      password: string
+      email: string
+    }, ExtArgs["result"]["admin_User"]>
+    composites: {}
+  }
+
+  type Admin_UserGetPayload<S extends boolean | null | undefined | Admin_UserDefaultArgs> = $Result.GetResult<Prisma.$Admin_UserPayload, S>
+
+  type Admin_UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<Admin_UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Admin_UserCountAggregateInputType | true
+    }
+
+  export interface Admin_UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Admin_User'], meta: { name: 'Admin_User' } }
+    /**
+     * Find zero or one Admin_User that matches the filter.
+     * @param {Admin_UserFindUniqueArgs} args - Arguments to find a Admin_User
+     * @example
+     * // Get one Admin_User
+     * const admin_User = await prisma.admin_User.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends Admin_UserFindUniqueArgs>(args: SelectSubset<T, Admin_UserFindUniqueArgs<ExtArgs>>): Prisma__Admin_UserClient<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Admin_User that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {Admin_UserFindUniqueOrThrowArgs} args - Arguments to find a Admin_User
+     * @example
+     * // Get one Admin_User
+     * const admin_User = await prisma.admin_User.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends Admin_UserFindUniqueOrThrowArgs>(args: SelectSubset<T, Admin_UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Admin_UserClient<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Admin_User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Admin_UserFindFirstArgs} args - Arguments to find a Admin_User
+     * @example
+     * // Get one Admin_User
+     * const admin_User = await prisma.admin_User.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends Admin_UserFindFirstArgs>(args?: SelectSubset<T, Admin_UserFindFirstArgs<ExtArgs>>): Prisma__Admin_UserClient<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Admin_User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Admin_UserFindFirstOrThrowArgs} args - Arguments to find a Admin_User
+     * @example
+     * // Get one Admin_User
+     * const admin_User = await prisma.admin_User.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends Admin_UserFindFirstOrThrowArgs>(args?: SelectSubset<T, Admin_UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__Admin_UserClient<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Admin_Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Admin_UserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Admin_Users
+     * const admin_Users = await prisma.admin_User.findMany()
+     * 
+     * // Get first 10 Admin_Users
+     * const admin_Users = await prisma.admin_User.findMany({ take: 10 })
+     * 
+     * // Only select the `admin_id`
+     * const admin_UserWithAdmin_idOnly = await prisma.admin_User.findMany({ select: { admin_id: true } })
+     * 
+     */
+    findMany<T extends Admin_UserFindManyArgs>(args?: SelectSubset<T, Admin_UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Admin_User.
+     * @param {Admin_UserCreateArgs} args - Arguments to create a Admin_User.
+     * @example
+     * // Create one Admin_User
+     * const Admin_User = await prisma.admin_User.create({
+     *   data: {
+     *     // ... data to create a Admin_User
+     *   }
+     * })
+     * 
+     */
+    create<T extends Admin_UserCreateArgs>(args: SelectSubset<T, Admin_UserCreateArgs<ExtArgs>>): Prisma__Admin_UserClient<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Admin_Users.
+     * @param {Admin_UserCreateManyArgs} args - Arguments to create many Admin_Users.
+     * @example
+     * // Create many Admin_Users
+     * const admin_User = await prisma.admin_User.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends Admin_UserCreateManyArgs>(args?: SelectSubset<T, Admin_UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Admin_User.
+     * @param {Admin_UserDeleteArgs} args - Arguments to delete one Admin_User.
+     * @example
+     * // Delete one Admin_User
+     * const Admin_User = await prisma.admin_User.delete({
+     *   where: {
+     *     // ... filter to delete one Admin_User
+     *   }
+     * })
+     * 
+     */
+    delete<T extends Admin_UserDeleteArgs>(args: SelectSubset<T, Admin_UserDeleteArgs<ExtArgs>>): Prisma__Admin_UserClient<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Admin_User.
+     * @param {Admin_UserUpdateArgs} args - Arguments to update one Admin_User.
+     * @example
+     * // Update one Admin_User
+     * const admin_User = await prisma.admin_User.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends Admin_UserUpdateArgs>(args: SelectSubset<T, Admin_UserUpdateArgs<ExtArgs>>): Prisma__Admin_UserClient<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Admin_Users.
+     * @param {Admin_UserDeleteManyArgs} args - Arguments to filter Admin_Users to delete.
+     * @example
+     * // Delete a few Admin_Users
+     * const { count } = await prisma.admin_User.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends Admin_UserDeleteManyArgs>(args?: SelectSubset<T, Admin_UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admin_Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Admin_UserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Admin_Users
+     * const admin_User = await prisma.admin_User.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends Admin_UserUpdateManyArgs>(args: SelectSubset<T, Admin_UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Admin_User.
+     * @param {Admin_UserUpsertArgs} args - Arguments to update or create a Admin_User.
+     * @example
+     * // Update or create a Admin_User
+     * const admin_User = await prisma.admin_User.upsert({
+     *   create: {
+     *     // ... data to create a Admin_User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Admin_User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends Admin_UserUpsertArgs>(args: SelectSubset<T, Admin_UserUpsertArgs<ExtArgs>>): Prisma__Admin_UserClient<$Result.GetResult<Prisma.$Admin_UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Admin_Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Admin_UserCountArgs} args - Arguments to filter Admin_Users to count.
+     * @example
+     * // Count the number of Admin_Users
+     * const count = await prisma.admin_User.count({
+     *   where: {
+     *     // ... the filter for the Admin_Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends Admin_UserCountArgs>(
+      args?: Subset<T, Admin_UserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Admin_UserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Admin_User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Admin_UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Admin_UserAggregateArgs>(args: Subset<T, Admin_UserAggregateArgs>): Prisma.PrismaPromise<GetAdmin_UserAggregateType<T>>
+
+    /**
+     * Group by Admin_User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Admin_UserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends Admin_UserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: Admin_UserGroupByArgs['orderBy'] }
+        : { orderBy?: Admin_UserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, Admin_UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdmin_UserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Admin_User model
+   */
+  readonly fields: Admin_UserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Admin_User.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__Admin_UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Admin_User model
+   */
+  interface Admin_UserFieldRefs {
+    readonly admin_id: FieldRef<"Admin_User", 'String'>
+    readonly name: FieldRef<"Admin_User", 'String'>
+    readonly password: FieldRef<"Admin_User", 'String'>
+    readonly email: FieldRef<"Admin_User", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Admin_User findUnique
+   */
+  export type Admin_UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin_User to fetch.
+     */
+    where: Admin_UserWhereUniqueInput
+  }
+
+  /**
+   * Admin_User findUniqueOrThrow
+   */
+  export type Admin_UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin_User to fetch.
+     */
+    where: Admin_UserWhereUniqueInput
+  }
+
+  /**
+   * Admin_User findFirst
+   */
+  export type Admin_UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin_User to fetch.
+     */
+    where?: Admin_UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admin_Users to fetch.
+     */
+    orderBy?: Admin_UserOrderByWithRelationInput | Admin_UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admin_Users.
+     */
+    cursor?: Admin_UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admin_Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admin_Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admin_Users.
+     */
+    distinct?: Admin_UserScalarFieldEnum | Admin_UserScalarFieldEnum[]
+  }
+
+  /**
+   * Admin_User findFirstOrThrow
+   */
+  export type Admin_UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin_User to fetch.
+     */
+    where?: Admin_UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admin_Users to fetch.
+     */
+    orderBy?: Admin_UserOrderByWithRelationInput | Admin_UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admin_Users.
+     */
+    cursor?: Admin_UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admin_Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admin_Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admin_Users.
+     */
+    distinct?: Admin_UserScalarFieldEnum | Admin_UserScalarFieldEnum[]
+  }
+
+  /**
+   * Admin_User findMany
+   */
+  export type Admin_UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * Filter, which Admin_Users to fetch.
+     */
+    where?: Admin_UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admin_Users to fetch.
+     */
+    orderBy?: Admin_UserOrderByWithRelationInput | Admin_UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Admin_Users.
+     */
+    cursor?: Admin_UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admin_Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admin_Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admin_Users.
+     */
+    distinct?: Admin_UserScalarFieldEnum | Admin_UserScalarFieldEnum[]
+  }
+
+  /**
+   * Admin_User create
+   */
+  export type Admin_UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Admin_User.
+     */
+    data: XOR<Admin_UserCreateInput, Admin_UserUncheckedCreateInput>
+  }
+
+  /**
+   * Admin_User createMany
+   */
+  export type Admin_UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Admin_Users.
+     */
+    data: Admin_UserCreateManyInput | Admin_UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Admin_User update
+   */
+  export type Admin_UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Admin_User.
+     */
+    data: XOR<Admin_UserUpdateInput, Admin_UserUncheckedUpdateInput>
+    /**
+     * Choose, which Admin_User to update.
+     */
+    where: Admin_UserWhereUniqueInput
+  }
+
+  /**
+   * Admin_User updateMany
+   */
+  export type Admin_UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Admin_Users.
+     */
+    data: XOR<Admin_UserUpdateManyMutationInput, Admin_UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Admin_Users to update
+     */
+    where?: Admin_UserWhereInput
+    /**
+     * Limit how many Admin_Users to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Admin_User upsert
+   */
+  export type Admin_UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Admin_User to update in case it exists.
+     */
+    where: Admin_UserWhereUniqueInput
+    /**
+     * In case the Admin_User found by the `where` argument doesn't exist, create a new Admin_User with this data.
+     */
+    create: XOR<Admin_UserCreateInput, Admin_UserUncheckedCreateInput>
+    /**
+     * In case the Admin_User was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<Admin_UserUpdateInput, Admin_UserUncheckedUpdateInput>
+  }
+
+  /**
+   * Admin_User delete
+   */
+  export type Admin_UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+    /**
+     * Filter which Admin_User to delete.
+     */
+    where: Admin_UserWhereUniqueInput
+  }
+
+  /**
+   * Admin_User deleteMany
+   */
+  export type Admin_UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admin_Users to delete
+     */
+    where?: Admin_UserWhereInput
+    /**
+     * Limit how many Admin_Users to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Admin_User without action
+   */
+  export type Admin_UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin_User
+     */
+    select?: Admin_UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin_User
+     */
+    omit?: Admin_UserOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model personal_access_tokens
+   */
+
+  export type AggregatePersonal_access_tokens = {
+    _count: Personal_access_tokensCountAggregateOutputType | null
+    _avg: Personal_access_tokensAvgAggregateOutputType | null
+    _sum: Personal_access_tokensSumAggregateOutputType | null
+    _min: Personal_access_tokensMinAggregateOutputType | null
+    _max: Personal_access_tokensMaxAggregateOutputType | null
+  }
+
+  export type Personal_access_tokensAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type Personal_access_tokensSumAggregateOutputType = {
+    id: bigint | null
+  }
+
+  export type Personal_access_tokensMinAggregateOutputType = {
+    id: bigint | null
+    tokenable_type: string | null
+    tokenable_id: string | null
+    name: string | null
+    token: string | null
+    abilities: string | null
+    last_used_at: Date | null
+    expires_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Personal_access_tokensMaxAggregateOutputType = {
+    id: bigint | null
+    tokenable_type: string | null
+    tokenable_id: string | null
+    name: string | null
+    token: string | null
+    abilities: string | null
+    last_used_at: Date | null
+    expires_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Personal_access_tokensCountAggregateOutputType = {
+    id: number
+    tokenable_type: number
+    tokenable_id: number
+    name: number
+    token: number
+    abilities: number
+    last_used_at: number
+    expires_at: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Personal_access_tokensAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type Personal_access_tokensSumAggregateInputType = {
+    id?: true
+  }
+
+  export type Personal_access_tokensMinAggregateInputType = {
+    id?: true
+    tokenable_type?: true
+    tokenable_id?: true
+    name?: true
+    token?: true
+    abilities?: true
+    last_used_at?: true
+    expires_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Personal_access_tokensMaxAggregateInputType = {
+    id?: true
+    tokenable_type?: true
+    tokenable_id?: true
+    name?: true
+    token?: true
+    abilities?: true
+    last_used_at?: true
+    expires_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Personal_access_tokensCountAggregateInputType = {
+    id?: true
+    tokenable_type?: true
+    tokenable_id?: true
+    name?: true
+    token?: true
+    abilities?: true
+    last_used_at?: true
+    expires_at?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Personal_access_tokensAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which personal_access_tokens to aggregate.
+     */
+    where?: personal_access_tokensWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of personal_access_tokens to fetch.
+     */
+    orderBy?: personal_access_tokensOrderByWithRelationInput | personal_access_tokensOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: personal_access_tokensWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` personal_access_tokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` personal_access_tokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned personal_access_tokens
+    **/
+    _count?: true | Personal_access_tokensCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Personal_access_tokensAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Personal_access_tokensSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Personal_access_tokensMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Personal_access_tokensMaxAggregateInputType
+  }
+
+  export type GetPersonal_access_tokensAggregateType<T extends Personal_access_tokensAggregateArgs> = {
+        [P in keyof T & keyof AggregatePersonal_access_tokens]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePersonal_access_tokens[P]>
+      : GetScalarType<T[P], AggregatePersonal_access_tokens[P]>
+  }
+
+
+
+
+  export type personal_access_tokensGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: personal_access_tokensWhereInput
+    orderBy?: personal_access_tokensOrderByWithAggregationInput | personal_access_tokensOrderByWithAggregationInput[]
+    by: Personal_access_tokensScalarFieldEnum[] | Personal_access_tokensScalarFieldEnum
+    having?: personal_access_tokensScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Personal_access_tokensCountAggregateInputType | true
+    _avg?: Personal_access_tokensAvgAggregateInputType
+    _sum?: Personal_access_tokensSumAggregateInputType
+    _min?: Personal_access_tokensMinAggregateInputType
+    _max?: Personal_access_tokensMaxAggregateInputType
+  }
+
+  export type Personal_access_tokensGroupByOutputType = {
+    id: bigint
+    tokenable_type: string
+    tokenable_id: string
+    name: string
+    token: string
+    abilities: string | null
+    last_used_at: Date | null
+    expires_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+    _count: Personal_access_tokensCountAggregateOutputType | null
+    _avg: Personal_access_tokensAvgAggregateOutputType | null
+    _sum: Personal_access_tokensSumAggregateOutputType | null
+    _min: Personal_access_tokensMinAggregateOutputType | null
+    _max: Personal_access_tokensMaxAggregateOutputType | null
+  }
+
+  type GetPersonal_access_tokensGroupByPayload<T extends personal_access_tokensGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Personal_access_tokensGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Personal_access_tokensGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Personal_access_tokensGroupByOutputType[P]>
+            : GetScalarType<T[P], Personal_access_tokensGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type personal_access_tokensSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tokenable_type?: boolean
+    tokenable_id?: boolean
+    name?: boolean
+    token?: boolean
+    abilities?: boolean
+    last_used_at?: boolean
+    expires_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["personal_access_tokens"]>
+
+
+
+  export type personal_access_tokensSelectScalar = {
+    id?: boolean
+    tokenable_type?: boolean
+    tokenable_id?: boolean
+    name?: boolean
+    token?: boolean
+    abilities?: boolean
+    last_used_at?: boolean
+    expires_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type personal_access_tokensOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tokenable_type" | "tokenable_id" | "name" | "token" | "abilities" | "last_used_at" | "expires_at" | "created_at" | "updated_at", ExtArgs["result"]["personal_access_tokens"]>
+
+  export type $personal_access_tokensPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "personal_access_tokens"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      tokenable_type: string
+      tokenable_id: string
+      name: string
+      token: string
+      abilities: string | null
+      last_used_at: Date | null
+      expires_at: Date | null
+      created_at: Date | null
+      updated_at: Date | null
+    }, ExtArgs["result"]["personal_access_tokens"]>
+    composites: {}
+  }
+
+  type personal_access_tokensGetPayload<S extends boolean | null | undefined | personal_access_tokensDefaultArgs> = $Result.GetResult<Prisma.$personal_access_tokensPayload, S>
+
+  type personal_access_tokensCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<personal_access_tokensFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Personal_access_tokensCountAggregateInputType | true
+    }
+
+  export interface personal_access_tokensDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['personal_access_tokens'], meta: { name: 'personal_access_tokens' } }
+    /**
+     * Find zero or one Personal_access_tokens that matches the filter.
+     * @param {personal_access_tokensFindUniqueArgs} args - Arguments to find a Personal_access_tokens
+     * @example
+     * // Get one Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends personal_access_tokensFindUniqueArgs>(args: SelectSubset<T, personal_access_tokensFindUniqueArgs<ExtArgs>>): Prisma__personal_access_tokensClient<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Personal_access_tokens that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {personal_access_tokensFindUniqueOrThrowArgs} args - Arguments to find a Personal_access_tokens
+     * @example
+     * // Get one Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends personal_access_tokensFindUniqueOrThrowArgs>(args: SelectSubset<T, personal_access_tokensFindUniqueOrThrowArgs<ExtArgs>>): Prisma__personal_access_tokensClient<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Personal_access_tokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {personal_access_tokensFindFirstArgs} args - Arguments to find a Personal_access_tokens
+     * @example
+     * // Get one Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends personal_access_tokensFindFirstArgs>(args?: SelectSubset<T, personal_access_tokensFindFirstArgs<ExtArgs>>): Prisma__personal_access_tokensClient<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Personal_access_tokens that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {personal_access_tokensFindFirstOrThrowArgs} args - Arguments to find a Personal_access_tokens
+     * @example
+     * // Get one Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends personal_access_tokensFindFirstOrThrowArgs>(args?: SelectSubset<T, personal_access_tokensFindFirstOrThrowArgs<ExtArgs>>): Prisma__personal_access_tokensClient<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Personal_access_tokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {personal_access_tokensFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.findMany()
+     * 
+     * // Get first 10 Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const personal_access_tokensWithIdOnly = await prisma.personal_access_tokens.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends personal_access_tokensFindManyArgs>(args?: SelectSubset<T, personal_access_tokensFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Personal_access_tokens.
+     * @param {personal_access_tokensCreateArgs} args - Arguments to create a Personal_access_tokens.
+     * @example
+     * // Create one Personal_access_tokens
+     * const Personal_access_tokens = await prisma.personal_access_tokens.create({
+     *   data: {
+     *     // ... data to create a Personal_access_tokens
+     *   }
+     * })
+     * 
+     */
+    create<T extends personal_access_tokensCreateArgs>(args: SelectSubset<T, personal_access_tokensCreateArgs<ExtArgs>>): Prisma__personal_access_tokensClient<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Personal_access_tokens.
+     * @param {personal_access_tokensCreateManyArgs} args - Arguments to create many Personal_access_tokens.
+     * @example
+     * // Create many Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends personal_access_tokensCreateManyArgs>(args?: SelectSubset<T, personal_access_tokensCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Personal_access_tokens.
+     * @param {personal_access_tokensDeleteArgs} args - Arguments to delete one Personal_access_tokens.
+     * @example
+     * // Delete one Personal_access_tokens
+     * const Personal_access_tokens = await prisma.personal_access_tokens.delete({
+     *   where: {
+     *     // ... filter to delete one Personal_access_tokens
+     *   }
+     * })
+     * 
+     */
+    delete<T extends personal_access_tokensDeleteArgs>(args: SelectSubset<T, personal_access_tokensDeleteArgs<ExtArgs>>): Prisma__personal_access_tokensClient<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Personal_access_tokens.
+     * @param {personal_access_tokensUpdateArgs} args - Arguments to update one Personal_access_tokens.
+     * @example
+     * // Update one Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends personal_access_tokensUpdateArgs>(args: SelectSubset<T, personal_access_tokensUpdateArgs<ExtArgs>>): Prisma__personal_access_tokensClient<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Personal_access_tokens.
+     * @param {personal_access_tokensDeleteManyArgs} args - Arguments to filter Personal_access_tokens to delete.
+     * @example
+     * // Delete a few Personal_access_tokens
+     * const { count } = await prisma.personal_access_tokens.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends personal_access_tokensDeleteManyArgs>(args?: SelectSubset<T, personal_access_tokensDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Personal_access_tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {personal_access_tokensUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends personal_access_tokensUpdateManyArgs>(args: SelectSubset<T, personal_access_tokensUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Personal_access_tokens.
+     * @param {personal_access_tokensUpsertArgs} args - Arguments to update or create a Personal_access_tokens.
+     * @example
+     * // Update or create a Personal_access_tokens
+     * const personal_access_tokens = await prisma.personal_access_tokens.upsert({
+     *   create: {
+     *     // ... data to create a Personal_access_tokens
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Personal_access_tokens we want to update
+     *   }
+     * })
+     */
+    upsert<T extends personal_access_tokensUpsertArgs>(args: SelectSubset<T, personal_access_tokensUpsertArgs<ExtArgs>>): Prisma__personal_access_tokensClient<$Result.GetResult<Prisma.$personal_access_tokensPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Personal_access_tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {personal_access_tokensCountArgs} args - Arguments to filter Personal_access_tokens to count.
+     * @example
+     * // Count the number of Personal_access_tokens
+     * const count = await prisma.personal_access_tokens.count({
+     *   where: {
+     *     // ... the filter for the Personal_access_tokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends personal_access_tokensCountArgs>(
+      args?: Subset<T, personal_access_tokensCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Personal_access_tokensCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Personal_access_tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Personal_access_tokensAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Personal_access_tokensAggregateArgs>(args: Subset<T, Personal_access_tokensAggregateArgs>): Prisma.PrismaPromise<GetPersonal_access_tokensAggregateType<T>>
+
+    /**
+     * Group by Personal_access_tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {personal_access_tokensGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends personal_access_tokensGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: personal_access_tokensGroupByArgs['orderBy'] }
+        : { orderBy?: personal_access_tokensGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, personal_access_tokensGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPersonal_access_tokensGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the personal_access_tokens model
+   */
+  readonly fields: personal_access_tokensFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for personal_access_tokens.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__personal_access_tokensClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the personal_access_tokens model
+   */
+  interface personal_access_tokensFieldRefs {
+    readonly id: FieldRef<"personal_access_tokens", 'BigInt'>
+    readonly tokenable_type: FieldRef<"personal_access_tokens", 'String'>
+    readonly tokenable_id: FieldRef<"personal_access_tokens", 'String'>
+    readonly name: FieldRef<"personal_access_tokens", 'String'>
+    readonly token: FieldRef<"personal_access_tokens", 'String'>
+    readonly abilities: FieldRef<"personal_access_tokens", 'String'>
+    readonly last_used_at: FieldRef<"personal_access_tokens", 'DateTime'>
+    readonly expires_at: FieldRef<"personal_access_tokens", 'DateTime'>
+    readonly created_at: FieldRef<"personal_access_tokens", 'DateTime'>
+    readonly updated_at: FieldRef<"personal_access_tokens", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * personal_access_tokens findUnique
+   */
+  export type personal_access_tokensFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * Filter, which personal_access_tokens to fetch.
+     */
+    where: personal_access_tokensWhereUniqueInput
+  }
+
+  /**
+   * personal_access_tokens findUniqueOrThrow
+   */
+  export type personal_access_tokensFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * Filter, which personal_access_tokens to fetch.
+     */
+    where: personal_access_tokensWhereUniqueInput
+  }
+
+  /**
+   * personal_access_tokens findFirst
+   */
+  export type personal_access_tokensFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * Filter, which personal_access_tokens to fetch.
+     */
+    where?: personal_access_tokensWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of personal_access_tokens to fetch.
+     */
+    orderBy?: personal_access_tokensOrderByWithRelationInput | personal_access_tokensOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for personal_access_tokens.
+     */
+    cursor?: personal_access_tokensWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` personal_access_tokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` personal_access_tokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of personal_access_tokens.
+     */
+    distinct?: Personal_access_tokensScalarFieldEnum | Personal_access_tokensScalarFieldEnum[]
+  }
+
+  /**
+   * personal_access_tokens findFirstOrThrow
+   */
+  export type personal_access_tokensFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * Filter, which personal_access_tokens to fetch.
+     */
+    where?: personal_access_tokensWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of personal_access_tokens to fetch.
+     */
+    orderBy?: personal_access_tokensOrderByWithRelationInput | personal_access_tokensOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for personal_access_tokens.
+     */
+    cursor?: personal_access_tokensWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` personal_access_tokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` personal_access_tokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of personal_access_tokens.
+     */
+    distinct?: Personal_access_tokensScalarFieldEnum | Personal_access_tokensScalarFieldEnum[]
+  }
+
+  /**
+   * personal_access_tokens findMany
+   */
+  export type personal_access_tokensFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * Filter, which personal_access_tokens to fetch.
+     */
+    where?: personal_access_tokensWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of personal_access_tokens to fetch.
+     */
+    orderBy?: personal_access_tokensOrderByWithRelationInput | personal_access_tokensOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing personal_access_tokens.
+     */
+    cursor?: personal_access_tokensWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` personal_access_tokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` personal_access_tokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of personal_access_tokens.
+     */
+    distinct?: Personal_access_tokensScalarFieldEnum | Personal_access_tokensScalarFieldEnum[]
+  }
+
+  /**
+   * personal_access_tokens create
+   */
+  export type personal_access_tokensCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * The data needed to create a personal_access_tokens.
+     */
+    data: XOR<personal_access_tokensCreateInput, personal_access_tokensUncheckedCreateInput>
+  }
+
+  /**
+   * personal_access_tokens createMany
+   */
+  export type personal_access_tokensCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many personal_access_tokens.
+     */
+    data: personal_access_tokensCreateManyInput | personal_access_tokensCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * personal_access_tokens update
+   */
+  export type personal_access_tokensUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * The data needed to update a personal_access_tokens.
+     */
+    data: XOR<personal_access_tokensUpdateInput, personal_access_tokensUncheckedUpdateInput>
+    /**
+     * Choose, which personal_access_tokens to update.
+     */
+    where: personal_access_tokensWhereUniqueInput
+  }
+
+  /**
+   * personal_access_tokens updateMany
+   */
+  export type personal_access_tokensUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update personal_access_tokens.
+     */
+    data: XOR<personal_access_tokensUpdateManyMutationInput, personal_access_tokensUncheckedUpdateManyInput>
+    /**
+     * Filter which personal_access_tokens to update
+     */
+    where?: personal_access_tokensWhereInput
+    /**
+     * Limit how many personal_access_tokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * personal_access_tokens upsert
+   */
+  export type personal_access_tokensUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * The filter to search for the personal_access_tokens to update in case it exists.
+     */
+    where: personal_access_tokensWhereUniqueInput
+    /**
+     * In case the personal_access_tokens found by the `where` argument doesn't exist, create a new personal_access_tokens with this data.
+     */
+    create: XOR<personal_access_tokensCreateInput, personal_access_tokensUncheckedCreateInput>
+    /**
+     * In case the personal_access_tokens was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<personal_access_tokensUpdateInput, personal_access_tokensUncheckedUpdateInput>
+  }
+
+  /**
+   * personal_access_tokens delete
+   */
+  export type personal_access_tokensDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+    /**
+     * Filter which personal_access_tokens to delete.
+     */
+    where: personal_access_tokensWhereUniqueInput
+  }
+
+  /**
+   * personal_access_tokens deleteMany
+   */
+  export type personal_access_tokensDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which personal_access_tokens to delete
+     */
+    where?: personal_access_tokensWhereInput
+    /**
+     * Limit how many personal_access_tokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * personal_access_tokens without action
+   */
+  export type personal_access_tokensDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the personal_access_tokens
+     */
+    select?: personal_access_tokensSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the personal_access_tokens
+     */
+    omit?: personal_access_tokensOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -27442,15 +27525,6 @@ export namespace Prisma {
   export type JobsScalarFieldEnum = (typeof JobsScalarFieldEnum)[keyof typeof JobsScalarFieldEnum]
 
 
-  export const MigrationsScalarFieldEnum: {
-    id: 'id',
-    migration: 'migration',
-    batch: 'batch'
-  };
-
-  export type MigrationsScalarFieldEnum = (typeof MigrationsScalarFieldEnum)[keyof typeof MigrationsScalarFieldEnum]
-
-
   export const Password_reset_tokensScalarFieldEnum: {
     email: 'email',
     token: 'token',
@@ -27472,20 +27546,6 @@ export namespace Prisma {
   export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
 
 
-  export const UsersScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    email: 'email',
-    email_verified_at: 'email_verified_at',
-    password: 'password',
-    remember_token: 'remember_token',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
-
-
   export const ArtisanScalarFieldEnum: {
     id: 'id',
     user_id: 'user_id',
@@ -27498,7 +27558,9 @@ export namespace Prisma {
     response_time: 'response_time',
     verified: 'verified',
     total_money_made: 'total_money_made',
-    total_money_withdrawn: 'total_money_withdrawn'
+    total_money_withdrawn: 'total_money_withdrawn',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type ArtisanScalarFieldEnum = (typeof ArtisanScalarFieldEnum)[keyof typeof ArtisanScalarFieldEnum]
@@ -27508,7 +27570,8 @@ export namespace Prisma {
     id: 'id',
     reply: 'reply',
     review_id: 'review_id',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    report_customer_review: 'report_customer_review'
   };
 
   export type Artisan_Review_ReplyScalarFieldEnum = (typeof Artisan_Review_ReplyScalarFieldEnum)[keyof typeof Artisan_Review_ReplyScalarFieldEnum]
@@ -27558,7 +27621,8 @@ export namespace Prisma {
     booking_price: 'booking_price',
     booking_start_date: 'booking_start_date',
     problem_description: 'problem_description',
-    work_to_be_done: 'work_to_be_done'
+    work_to_be_done: 'work_to_be_done',
+    is_cancelled: 'is_cancelled'
   };
 
   export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
@@ -27627,7 +27691,8 @@ export namespace Prisma {
     booking_id: 'booking_id',
     payment_completed_at: 'payment_completed_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    commission: 'commission'
   };
 
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
@@ -27658,7 +27723,8 @@ export namespace Prisma {
     platform_logo_url: 'platform_logo_url',
     support_email: 'support_email',
     maintenance_mode: 'maintenance_mode',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    is_singleton: 'is_singleton'
   };
 
   export type System_InfoScalarFieldEnum = (typeof System_InfoScalarFieldEnum)[keyof typeof System_InfoScalarFieldEnum]
@@ -27680,10 +27746,38 @@ export namespace Prisma {
     preferred_booking_address: 'preferred_booking_address',
     is_deleted: 'is_deleted',
     is_suspended: 'is_suspended',
-    total_amount_spent_on_bookings: 'total_amount_spent_on_bookings'
+    total_amount_spent_on_bookings: 'total_amount_spent_on_bookings',
+    email_verified_at: 'email_verified_at',
+    remember_token: 'remember_token'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const Admin_UserScalarFieldEnum: {
+    admin_id: 'admin_id',
+    name: 'name',
+    password: 'password',
+    email: 'email'
+  };
+
+  export type Admin_UserScalarFieldEnum = (typeof Admin_UserScalarFieldEnum)[keyof typeof Admin_UserScalarFieldEnum]
+
+
+  export const Personal_access_tokensScalarFieldEnum: {
+    id: 'id',
+    tokenable_type: 'tokenable_type',
+    tokenable_id: 'tokenable_id',
+    name: 'name',
+    token: 'token',
+    abilities: 'abilities',
+    last_used_at: 'last_used_at',
+    expires_at: 'expires_at',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Personal_access_tokensScalarFieldEnum = (typeof Personal_access_tokensScalarFieldEnum)[keyof typeof Personal_access_tokensScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -27747,13 +27841,6 @@ export namespace Prisma {
   export type jobsOrderByRelevanceFieldEnum = (typeof jobsOrderByRelevanceFieldEnum)[keyof typeof jobsOrderByRelevanceFieldEnum]
 
 
-  export const migrationsOrderByRelevanceFieldEnum: {
-    migration: 'migration'
-  };
-
-  export type migrationsOrderByRelevanceFieldEnum = (typeof migrationsOrderByRelevanceFieldEnum)[keyof typeof migrationsOrderByRelevanceFieldEnum]
-
-
   export const password_reset_tokensOrderByRelevanceFieldEnum: {
     email: 'email',
     token: 'token'
@@ -27764,22 +27851,13 @@ export namespace Prisma {
 
   export const sessionsOrderByRelevanceFieldEnum: {
     id: 'id',
+    user_id: 'user_id',
     ip_address: 'ip_address',
     user_agent: 'user_agent',
     payload: 'payload'
   };
 
   export type sessionsOrderByRelevanceFieldEnum = (typeof sessionsOrderByRelevanceFieldEnum)[keyof typeof sessionsOrderByRelevanceFieldEnum]
-
-
-  export const usersOrderByRelevanceFieldEnum: {
-    name: 'name',
-    email: 'email',
-    password: 'password',
-    remember_token: 'remember_token'
-  };
-
-  export type usersOrderByRelevanceFieldEnum = (typeof usersOrderByRelevanceFieldEnum)[keyof typeof usersOrderByRelevanceFieldEnum]
 
 
   export const ArtisanOrderByRelevanceFieldEnum: {
@@ -27938,10 +28016,32 @@ export namespace Prisma {
     l_name: 'l_name',
     profile_pic_url: 'profile_pic_url',
     nin: 'nin',
-    preferred_booking_address: 'preferred_booking_address'
+    preferred_booking_address: 'preferred_booking_address',
+    remember_token: 'remember_token'
   };
 
   export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+  export const Admin_UserOrderByRelevanceFieldEnum: {
+    admin_id: 'admin_id',
+    name: 'name',
+    password: 'password',
+    email: 'email'
+  };
+
+  export type Admin_UserOrderByRelevanceFieldEnum = (typeof Admin_UserOrderByRelevanceFieldEnum)[keyof typeof Admin_UserOrderByRelevanceFieldEnum]
+
+
+  export const personal_access_tokensOrderByRelevanceFieldEnum: {
+    tokenable_type: 'tokenable_type',
+    tokenable_id: 'tokenable_id',
+    name: 'name',
+    token: 'token',
+    abilities: 'abilities'
+  };
+
+  export type personal_access_tokensOrderByRelevanceFieldEnum = (typeof personal_access_tokensOrderByRelevanceFieldEnum)[keyof typeof personal_access_tokensOrderByRelevanceFieldEnum]
 
 
   /**
@@ -27981,6 +28081,13 @@ export namespace Prisma {
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 
@@ -28329,51 +28436,6 @@ export namespace Prisma {
     created_at?: IntWithAggregatesFilter<"jobs"> | number
   }
 
-  export type migrationsWhereInput = {
-    AND?: migrationsWhereInput | migrationsWhereInput[]
-    OR?: migrationsWhereInput[]
-    NOT?: migrationsWhereInput | migrationsWhereInput[]
-    id?: IntFilter<"migrations"> | number
-    migration?: StringFilter<"migrations"> | string
-    batch?: IntFilter<"migrations"> | number
-  }
-
-  export type migrationsOrderByWithRelationInput = {
-    id?: SortOrder
-    migration?: SortOrder
-    batch?: SortOrder
-    _relevance?: migrationsOrderByRelevanceInput
-  }
-
-  export type migrationsWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: migrationsWhereInput | migrationsWhereInput[]
-    OR?: migrationsWhereInput[]
-    NOT?: migrationsWhereInput | migrationsWhereInput[]
-    migration?: StringFilter<"migrations"> | string
-    batch?: IntFilter<"migrations"> | number
-  }, "id">
-
-  export type migrationsOrderByWithAggregationInput = {
-    id?: SortOrder
-    migration?: SortOrder
-    batch?: SortOrder
-    _count?: migrationsCountOrderByAggregateInput
-    _avg?: migrationsAvgOrderByAggregateInput
-    _max?: migrationsMaxOrderByAggregateInput
-    _min?: migrationsMinOrderByAggregateInput
-    _sum?: migrationsSumOrderByAggregateInput
-  }
-
-  export type migrationsScalarWhereWithAggregatesInput = {
-    AND?: migrationsScalarWhereWithAggregatesInput | migrationsScalarWhereWithAggregatesInput[]
-    OR?: migrationsScalarWhereWithAggregatesInput[]
-    NOT?: migrationsScalarWhereWithAggregatesInput | migrationsScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"migrations"> | number
-    migration?: StringWithAggregatesFilter<"migrations"> | string
-    batch?: IntWithAggregatesFilter<"migrations"> | number
-  }
-
   export type password_reset_tokensWhereInput = {
     AND?: password_reset_tokensWhereInput | password_reset_tokensWhereInput[]
     OR?: password_reset_tokensWhereInput[]
@@ -28422,7 +28484,7 @@ export namespace Prisma {
     OR?: sessionsWhereInput[]
     NOT?: sessionsWhereInput | sessionsWhereInput[]
     id?: StringFilter<"sessions"> | string
-    user_id?: BigIntNullableFilter<"sessions"> | bigint | number | null
+    user_id?: StringNullableFilter<"sessions"> | string | null
     ip_address?: StringNullableFilter<"sessions"> | string | null
     user_agent?: StringNullableFilter<"sessions"> | string | null
     payload?: StringFilter<"sessions"> | string
@@ -28444,7 +28506,7 @@ export namespace Prisma {
     AND?: sessionsWhereInput | sessionsWhereInput[]
     OR?: sessionsWhereInput[]
     NOT?: sessionsWhereInput | sessionsWhereInput[]
-    user_id?: BigIntNullableFilter<"sessions"> | bigint | number | null
+    user_id?: StringNullableFilter<"sessions"> | string | null
     ip_address?: StringNullableFilter<"sessions"> | string | null
     user_agent?: StringNullableFilter<"sessions"> | string | null
     payload?: StringFilter<"sessions"> | string
@@ -28470,81 +28532,11 @@ export namespace Prisma {
     OR?: sessionsScalarWhereWithAggregatesInput[]
     NOT?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"sessions"> | string
-    user_id?: BigIntNullableWithAggregatesFilter<"sessions"> | bigint | number | null
+    user_id?: StringNullableWithAggregatesFilter<"sessions"> | string | null
     ip_address?: StringNullableWithAggregatesFilter<"sessions"> | string | null
     user_agent?: StringNullableWithAggregatesFilter<"sessions"> | string | null
     payload?: StringWithAggregatesFilter<"sessions"> | string
     last_activity?: IntWithAggregatesFilter<"sessions"> | number
-  }
-
-  export type usersWhereInput = {
-    AND?: usersWhereInput | usersWhereInput[]
-    OR?: usersWhereInput[]
-    NOT?: usersWhereInput | usersWhereInput[]
-    id?: BigIntFilter<"users"> | bigint | number
-    name?: StringFilter<"users"> | string
-    email?: StringFilter<"users"> | string
-    email_verified_at?: DateTimeNullableFilter<"users"> | Date | string | null
-    password?: StringFilter<"users"> | string
-    remember_token?: StringNullableFilter<"users"> | string | null
-    created_at?: DateTimeNullableFilter<"users"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"users"> | Date | string | null
-  }
-
-  export type usersOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    email_verified_at?: SortOrderInput | SortOrder
-    password?: SortOrder
-    remember_token?: SortOrderInput | SortOrder
-    created_at?: SortOrderInput | SortOrder
-    updated_at?: SortOrderInput | SortOrder
-    _relevance?: usersOrderByRelevanceInput
-  }
-
-  export type usersWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    email?: string
-    AND?: usersWhereInput | usersWhereInput[]
-    OR?: usersWhereInput[]
-    NOT?: usersWhereInput | usersWhereInput[]
-    name?: StringFilter<"users"> | string
-    email_verified_at?: DateTimeNullableFilter<"users"> | Date | string | null
-    password?: StringFilter<"users"> | string
-    remember_token?: StringNullableFilter<"users"> | string | null
-    created_at?: DateTimeNullableFilter<"users"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"users"> | Date | string | null
-  }, "id" | "email">
-
-  export type usersOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    email_verified_at?: SortOrderInput | SortOrder
-    password?: SortOrder
-    remember_token?: SortOrderInput | SortOrder
-    created_at?: SortOrderInput | SortOrder
-    updated_at?: SortOrderInput | SortOrder
-    _count?: usersCountOrderByAggregateInput
-    _avg?: usersAvgOrderByAggregateInput
-    _max?: usersMaxOrderByAggregateInput
-    _min?: usersMinOrderByAggregateInput
-    _sum?: usersSumOrderByAggregateInput
-  }
-
-  export type usersScalarWhereWithAggregatesInput = {
-    AND?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
-    OR?: usersScalarWhereWithAggregatesInput[]
-    NOT?: usersScalarWhereWithAggregatesInput | usersScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"users"> | bigint | number
-    name?: StringWithAggregatesFilter<"users"> | string
-    email?: StringWithAggregatesFilter<"users"> | string
-    email_verified_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
-    password?: StringWithAggregatesFilter<"users"> | string
-    remember_token?: StringNullableWithAggregatesFilter<"users"> | string | null
-    created_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
-    updated_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
   }
 
   export type ArtisanWhereInput = {
@@ -28558,11 +28550,13 @@ export namespace Prisma {
     rating?: FloatFilter<"Artisan"> | number
     about_artisan?: StringNullableFilter<"Artisan"> | string | null
     main_skill?: StringNullableFilter<"Artisan"> | string | null
-    min_price_per_hour?: FloatNullableFilter<"Artisan"> | number | null
+    min_price_per_hour?: DecimalNullableFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
     response_time?: IntNullableFilter<"Artisan"> | number | null
     verified?: BoolFilter<"Artisan"> | boolean
-    total_money_made?: FloatNullableFilter<"Artisan"> | number | null
-    total_money_withdrawn?: FloatNullableFilter<"Artisan"> | number | null
+    total_money_made?: DecimalNullableFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: DecimalNullableFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFilter<"Artisan"> | Date | string
+    updated_at?: DateTimeFilter<"Artisan"> | Date | string
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
     Artisan_Skill?: Artisan_SkillListRelationFilter
     Artisan_Verification_Documents?: XOR<Artisan_Verification_DocumentsNullableScalarRelationFilter, Artisan_Verification_DocumentsWhereInput> | null
@@ -28586,6 +28580,8 @@ export namespace Prisma {
     verified?: SortOrder
     total_money_made?: SortOrderInput | SortOrder
     total_money_withdrawn?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     User?: UserOrderByWithRelationInput
     Artisan_Skill?: Artisan_SkillOrderByRelationAggregateInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsOrderByWithRelationInput
@@ -28608,11 +28604,13 @@ export namespace Prisma {
     rating?: FloatFilter<"Artisan"> | number
     about_artisan?: StringNullableFilter<"Artisan"> | string | null
     main_skill?: StringNullableFilter<"Artisan"> | string | null
-    min_price_per_hour?: FloatNullableFilter<"Artisan"> | number | null
+    min_price_per_hour?: DecimalNullableFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
     response_time?: IntNullableFilter<"Artisan"> | number | null
     verified?: BoolFilter<"Artisan"> | boolean
-    total_money_made?: FloatNullableFilter<"Artisan"> | number | null
-    total_money_withdrawn?: FloatNullableFilter<"Artisan"> | number | null
+    total_money_made?: DecimalNullableFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: DecimalNullableFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFilter<"Artisan"> | Date | string
+    updated_at?: DateTimeFilter<"Artisan"> | Date | string
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
     Artisan_Skill?: Artisan_SkillListRelationFilter
     Artisan_Verification_Documents?: XOR<Artisan_Verification_DocumentsNullableScalarRelationFilter, Artisan_Verification_DocumentsWhereInput> | null
@@ -28636,6 +28634,8 @@ export namespace Prisma {
     verified?: SortOrder
     total_money_made?: SortOrderInput | SortOrder
     total_money_withdrawn?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: ArtisanCountOrderByAggregateInput
     _avg?: ArtisanAvgOrderByAggregateInput
     _max?: ArtisanMaxOrderByAggregateInput
@@ -28654,11 +28654,13 @@ export namespace Prisma {
     rating?: FloatWithAggregatesFilter<"Artisan"> | number
     about_artisan?: StringNullableWithAggregatesFilter<"Artisan"> | string | null
     main_skill?: StringNullableWithAggregatesFilter<"Artisan"> | string | null
-    min_price_per_hour?: FloatNullableWithAggregatesFilter<"Artisan"> | number | null
+    min_price_per_hour?: DecimalNullableWithAggregatesFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
     response_time?: IntNullableWithAggregatesFilter<"Artisan"> | number | null
     verified?: BoolWithAggregatesFilter<"Artisan"> | boolean
-    total_money_made?: FloatNullableWithAggregatesFilter<"Artisan"> | number | null
-    total_money_withdrawn?: FloatNullableWithAggregatesFilter<"Artisan"> | number | null
+    total_money_made?: DecimalNullableWithAggregatesFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: DecimalNullableWithAggregatesFilter<"Artisan"> | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeWithAggregatesFilter<"Artisan"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Artisan"> | Date | string
   }
 
   export type Artisan_Review_ReplyWhereInput = {
@@ -28669,6 +28671,7 @@ export namespace Prisma {
     reply?: StringFilter<"Artisan_Review_Reply"> | string
     review_id?: StringFilter<"Artisan_Review_Reply"> | string
     created_at?: DateTimeFilter<"Artisan_Review_Reply"> | Date | string
+    report_customer_review?: BoolFilter<"Artisan_Review_Reply"> | boolean
     Booking_Review?: XOR<Booking_ReviewScalarRelationFilter, Booking_ReviewWhereInput>
   }
 
@@ -28677,6 +28680,7 @@ export namespace Prisma {
     reply?: SortOrder
     review_id?: SortOrder
     created_at?: SortOrder
+    report_customer_review?: SortOrder
     Booking_Review?: Booking_ReviewOrderByWithRelationInput
     _relevance?: Artisan_Review_ReplyOrderByRelevanceInput
   }
@@ -28689,6 +28693,7 @@ export namespace Prisma {
     NOT?: Artisan_Review_ReplyWhereInput | Artisan_Review_ReplyWhereInput[]
     reply?: StringFilter<"Artisan_Review_Reply"> | string
     created_at?: DateTimeFilter<"Artisan_Review_Reply"> | Date | string
+    report_customer_review?: BoolFilter<"Artisan_Review_Reply"> | boolean
     Booking_Review?: XOR<Booking_ReviewScalarRelationFilter, Booking_ReviewWhereInput>
   }, "id" | "review_id">
 
@@ -28697,6 +28702,7 @@ export namespace Prisma {
     reply?: SortOrder
     review_id?: SortOrder
     created_at?: SortOrder
+    report_customer_review?: SortOrder
     _count?: Artisan_Review_ReplyCountOrderByAggregateInput
     _max?: Artisan_Review_ReplyMaxOrderByAggregateInput
     _min?: Artisan_Review_ReplyMinOrderByAggregateInput
@@ -28710,6 +28716,7 @@ export namespace Prisma {
     reply?: StringWithAggregatesFilter<"Artisan_Review_Reply"> | string
     review_id?: StringWithAggregatesFilter<"Artisan_Review_Reply"> | string
     created_at?: DateTimeWithAggregatesFilter<"Artisan_Review_Reply"> | Date | string
+    report_customer_review?: BoolWithAggregatesFilter<"Artisan_Review_Reply"> | boolean
   }
 
   export type Artisan_SkillWhereInput = {
@@ -28891,10 +28898,11 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Booking"> | Date | string
     booking_address?: StringNullableFilter<"Booking"> | string | null
     booking_end_date?: DateTimeNullableFilter<"Booking"> | Date | string | null
-    booking_price?: FloatFilter<"Booking"> | number
+    booking_price?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFilter<"Booking"> | Date | string
     problem_description?: StringFilter<"Booking"> | string
     work_to_be_done?: StringFilter<"Booking"> | string
+    is_cancelled?: BoolFilter<"Booking"> | boolean
     Artisan?: XOR<ArtisanScalarRelationFilter, ArtisanWhereInput>
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
     Booking_Picture?: Booking_PictureListRelationFilter
@@ -28915,6 +28923,7 @@ export namespace Prisma {
     booking_start_date?: SortOrder
     problem_description?: SortOrder
     work_to_be_done?: SortOrder
+    is_cancelled?: SortOrder
     Artisan?: ArtisanOrderByWithRelationInput
     User?: UserOrderByWithRelationInput
     Booking_Picture?: Booking_PictureOrderByRelationAggregateInput
@@ -28935,10 +28944,11 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Booking"> | Date | string
     booking_address?: StringNullableFilter<"Booking"> | string | null
     booking_end_date?: DateTimeNullableFilter<"Booking"> | Date | string | null
-    booking_price?: FloatFilter<"Booking"> | number
+    booking_price?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFilter<"Booking"> | Date | string
     problem_description?: StringFilter<"Booking"> | string
     work_to_be_done?: StringFilter<"Booking"> | string
+    is_cancelled?: BoolFilter<"Booking"> | boolean
     Artisan?: XOR<ArtisanScalarRelationFilter, ArtisanWhereInput>
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
     Booking_Picture?: Booking_PictureListRelationFilter
@@ -28959,6 +28969,7 @@ export namespace Prisma {
     booking_start_date?: SortOrder
     problem_description?: SortOrder
     work_to_be_done?: SortOrder
+    is_cancelled?: SortOrder
     _count?: BookingCountOrderByAggregateInput
     _avg?: BookingAvgOrderByAggregateInput
     _max?: BookingMaxOrderByAggregateInput
@@ -28978,10 +28989,11 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     booking_address?: StringNullableWithAggregatesFilter<"Booking"> | string | null
     booking_end_date?: DateTimeNullableWithAggregatesFilter<"Booking"> | Date | string | null
-    booking_price?: FloatWithAggregatesFilter<"Booking"> | number
+    booking_price?: DecimalWithAggregatesFilter<"Booking"> | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     problem_description?: StringWithAggregatesFilter<"Booking"> | string
     work_to_be_done?: StringWithAggregatesFilter<"Booking"> | string
+    is_cancelled?: BoolWithAggregatesFilter<"Booking"> | boolean
   }
 
   export type Booking_PictureWhereInput = {
@@ -29271,7 +29283,7 @@ export namespace Prisma {
     OR?: PaymentWhereInput[]
     NOT?: PaymentWhereInput | PaymentWhereInput[]
     id?: StringFilter<"Payment"> | string
-    amount?: FloatFilter<"Payment"> | number
+    amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFilter<"Payment"> | $Enums.Payment_status
     payment_method?: StringFilter<"Payment"> | string
     artisan_id?: StringFilter<"Payment"> | string
@@ -29280,6 +29292,7 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFilter<"Payment"> | Date | string
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
+    commission?: IntFilter<"Payment"> | number
     Artisan?: XOR<ArtisanScalarRelationFilter, ArtisanWhereInput>
     Booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -29296,6 +29309,7 @@ export namespace Prisma {
     payment_completed_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    commission?: SortOrder
     Artisan?: ArtisanOrderByWithRelationInput
     Booking?: BookingOrderByWithRelationInput
     User?: UserOrderByWithRelationInput
@@ -29308,7 +29322,7 @@ export namespace Prisma {
     AND?: PaymentWhereInput | PaymentWhereInput[]
     OR?: PaymentWhereInput[]
     NOT?: PaymentWhereInput | PaymentWhereInput[]
-    amount?: FloatFilter<"Payment"> | number
+    amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFilter<"Payment"> | $Enums.Payment_status
     payment_method?: StringFilter<"Payment"> | string
     artisan_id?: StringFilter<"Payment"> | string
@@ -29316,6 +29330,7 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFilter<"Payment"> | Date | string
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
+    commission?: IntFilter<"Payment"> | number
     Artisan?: XOR<ArtisanScalarRelationFilter, ArtisanWhereInput>
     Booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -29332,6 +29347,7 @@ export namespace Prisma {
     payment_completed_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    commission?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
     _avg?: PaymentAvgOrderByAggregateInput
     _max?: PaymentMaxOrderByAggregateInput
@@ -29344,7 +29360,7 @@ export namespace Prisma {
     OR?: PaymentScalarWhereWithAggregatesInput[]
     NOT?: PaymentScalarWhereWithAggregatesInput | PaymentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Payment"> | string
-    amount?: FloatWithAggregatesFilter<"Payment"> | number
+    amount?: DecimalWithAggregatesFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusWithAggregatesFilter<"Payment"> | $Enums.Payment_status
     payment_method?: StringWithAggregatesFilter<"Payment"> | string
     artisan_id?: StringWithAggregatesFilter<"Payment"> | string
@@ -29353,6 +29369,7 @@ export namespace Prisma {
     payment_completed_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     created_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
+    commission?: IntWithAggregatesFilter<"Payment"> | number
   }
 
   export type ServiceWhereInput = {
@@ -29362,7 +29379,7 @@ export namespace Prisma {
     id?: StringFilter<"Service"> | string
     name?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
-    price?: FloatFilter<"Service"> | number
+    price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     artisan_id?: StringFilter<"Service"> | string
     Artisan?: XOR<ArtisanScalarRelationFilter, ArtisanWhereInput>
   }
@@ -29384,7 +29401,7 @@ export namespace Prisma {
     NOT?: ServiceWhereInput | ServiceWhereInput[]
     name?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
-    price?: FloatFilter<"Service"> | number
+    price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     artisan_id?: StringFilter<"Service"> | string
     Artisan?: XOR<ArtisanScalarRelationFilter, ArtisanWhereInput>
   }, "id">
@@ -29409,7 +29426,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Service"> | string
     name?: StringWithAggregatesFilter<"Service"> | string
     description?: StringWithAggregatesFilter<"Service"> | string
-    price?: FloatWithAggregatesFilter<"Service"> | number
+    price?: DecimalWithAggregatesFilter<"Service"> | Decimal | DecimalJsLike | number | string
     artisan_id?: StringWithAggregatesFilter<"Service"> | string
   }
 
@@ -29464,6 +29481,7 @@ export namespace Prisma {
     support_email?: StringFilter<"System_Info"> | string
     maintenance_mode?: BoolFilter<"System_Info"> | boolean
     updated_at?: DateTimeFilter<"System_Info"> | Date | string
+    is_singleton?: BoolFilter<"System_Info"> | boolean
   }
 
   export type System_InfoOrderByWithRelationInput = {
@@ -29473,11 +29491,13 @@ export namespace Prisma {
     support_email?: SortOrder
     maintenance_mode?: SortOrder
     updated_at?: SortOrder
+    is_singleton?: SortOrder
     _relevance?: System_InfoOrderByRelevanceInput
   }
 
   export type System_InfoWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    is_singleton?: boolean
     AND?: System_InfoWhereInput | System_InfoWhereInput[]
     OR?: System_InfoWhereInput[]
     NOT?: System_InfoWhereInput | System_InfoWhereInput[]
@@ -29486,7 +29506,7 @@ export namespace Prisma {
     support_email?: StringFilter<"System_Info"> | string
     maintenance_mode?: BoolFilter<"System_Info"> | boolean
     updated_at?: DateTimeFilter<"System_Info"> | Date | string
-  }, "id">
+  }, "id" | "is_singleton">
 
   export type System_InfoOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29495,6 +29515,7 @@ export namespace Prisma {
     support_email?: SortOrder
     maintenance_mode?: SortOrder
     updated_at?: SortOrder
+    is_singleton?: SortOrder
     _count?: System_InfoCountOrderByAggregateInput
     _max?: System_InfoMaxOrderByAggregateInput
     _min?: System_InfoMinOrderByAggregateInput
@@ -29510,6 +29531,7 @@ export namespace Prisma {
     support_email?: StringWithAggregatesFilter<"System_Info"> | string
     maintenance_mode?: BoolWithAggregatesFilter<"System_Info"> | boolean
     updated_at?: DateTimeWithAggregatesFilter<"System_Info"> | Date | string
+    is_singleton?: BoolWithAggregatesFilter<"System_Info"> | boolean
   }
 
   export type UserWhereInput = {
@@ -29531,7 +29553,9 @@ export namespace Prisma {
     preferred_booking_address?: StringNullableFilter<"User"> | string | null
     is_deleted?: BoolFilter<"User"> | boolean
     is_suspended?: BoolFilter<"User"> | boolean
-    total_amount_spent_on_bookings?: FloatNullableFilter<"User"> | number | null
+    total_amount_spent_on_bookings?: DecimalNullableFilter<"User"> | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    remember_token?: StringNullableFilter<"User"> | string | null
     Artisan?: XOR<ArtisanNullableScalarRelationFilter, ArtisanWhereInput> | null
     Bank_Detail?: XOR<Bank_DetailNullableScalarRelationFilter, Bank_DetailWhereInput> | null
     Booking?: BookingListRelationFilter
@@ -29558,6 +29582,8 @@ export namespace Prisma {
     is_deleted?: SortOrder
     is_suspended?: SortOrder
     total_amount_spent_on_bookings?: SortOrderInput | SortOrder
+    email_verified_at?: SortOrderInput | SortOrder
+    remember_token?: SortOrderInput | SortOrder
     Artisan?: ArtisanOrderByWithRelationInput
     Bank_Detail?: Bank_DetailOrderByWithRelationInput
     Booking?: BookingOrderByRelationAggregateInput
@@ -29587,7 +29613,9 @@ export namespace Prisma {
     preferred_booking_address?: StringNullableFilter<"User"> | string | null
     is_deleted?: BoolFilter<"User"> | boolean
     is_suspended?: BoolFilter<"User"> | boolean
-    total_amount_spent_on_bookings?: FloatNullableFilter<"User"> | number | null
+    total_amount_spent_on_bookings?: DecimalNullableFilter<"User"> | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    remember_token?: StringNullableFilter<"User"> | string | null
     Artisan?: XOR<ArtisanNullableScalarRelationFilter, ArtisanWhereInput> | null
     Bank_Detail?: XOR<Bank_DetailNullableScalarRelationFilter, Bank_DetailWhereInput> | null
     Booking?: BookingListRelationFilter
@@ -29614,6 +29642,8 @@ export namespace Prisma {
     is_deleted?: SortOrder
     is_suspended?: SortOrder
     total_amount_spent_on_bookings?: SortOrderInput | SortOrder
+    email_verified_at?: SortOrderInput | SortOrder
+    remember_token?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -29640,7 +29670,137 @@ export namespace Prisma {
     preferred_booking_address?: StringNullableWithAggregatesFilter<"User"> | string | null
     is_deleted?: BoolWithAggregatesFilter<"User"> | boolean
     is_suspended?: BoolWithAggregatesFilter<"User"> | boolean
-    total_amount_spent_on_bookings?: FloatNullableWithAggregatesFilter<"User"> | number | null
+    total_amount_spent_on_bookings?: DecimalNullableWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    remember_token?: StringNullableWithAggregatesFilter<"User"> | string | null
+  }
+
+  export type Admin_UserWhereInput = {
+    AND?: Admin_UserWhereInput | Admin_UserWhereInput[]
+    OR?: Admin_UserWhereInput[]
+    NOT?: Admin_UserWhereInput | Admin_UserWhereInput[]
+    admin_id?: StringFilter<"Admin_User"> | string
+    name?: StringFilter<"Admin_User"> | string
+    password?: StringFilter<"Admin_User"> | string
+    email?: StringFilter<"Admin_User"> | string
+  }
+
+  export type Admin_UserOrderByWithRelationInput = {
+    admin_id?: SortOrder
+    name?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+    _relevance?: Admin_UserOrderByRelevanceInput
+  }
+
+  export type Admin_UserWhereUniqueInput = Prisma.AtLeast<{
+    admin_id?: string
+    email?: string
+    AND?: Admin_UserWhereInput | Admin_UserWhereInput[]
+    OR?: Admin_UserWhereInput[]
+    NOT?: Admin_UserWhereInput | Admin_UserWhereInput[]
+    name?: StringFilter<"Admin_User"> | string
+    password?: StringFilter<"Admin_User"> | string
+  }, "admin_id" | "email">
+
+  export type Admin_UserOrderByWithAggregationInput = {
+    admin_id?: SortOrder
+    name?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+    _count?: Admin_UserCountOrderByAggregateInput
+    _max?: Admin_UserMaxOrderByAggregateInput
+    _min?: Admin_UserMinOrderByAggregateInput
+  }
+
+  export type Admin_UserScalarWhereWithAggregatesInput = {
+    AND?: Admin_UserScalarWhereWithAggregatesInput | Admin_UserScalarWhereWithAggregatesInput[]
+    OR?: Admin_UserScalarWhereWithAggregatesInput[]
+    NOT?: Admin_UserScalarWhereWithAggregatesInput | Admin_UserScalarWhereWithAggregatesInput[]
+    admin_id?: StringWithAggregatesFilter<"Admin_User"> | string
+    name?: StringWithAggregatesFilter<"Admin_User"> | string
+    password?: StringWithAggregatesFilter<"Admin_User"> | string
+    email?: StringWithAggregatesFilter<"Admin_User"> | string
+  }
+
+  export type personal_access_tokensWhereInput = {
+    AND?: personal_access_tokensWhereInput | personal_access_tokensWhereInput[]
+    OR?: personal_access_tokensWhereInput[]
+    NOT?: personal_access_tokensWhereInput | personal_access_tokensWhereInput[]
+    id?: BigIntFilter<"personal_access_tokens"> | bigint | number
+    tokenable_type?: StringFilter<"personal_access_tokens"> | string
+    tokenable_id?: StringFilter<"personal_access_tokens"> | string
+    name?: StringFilter<"personal_access_tokens"> | string
+    token?: StringFilter<"personal_access_tokens"> | string
+    abilities?: StringNullableFilter<"personal_access_tokens"> | string | null
+    last_used_at?: DateTimeNullableFilter<"personal_access_tokens"> | Date | string | null
+    expires_at?: DateTimeNullableFilter<"personal_access_tokens"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"personal_access_tokens"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"personal_access_tokens"> | Date | string | null
+  }
+
+  export type personal_access_tokensOrderByWithRelationInput = {
+    id?: SortOrder
+    tokenable_type?: SortOrder
+    tokenable_id?: SortOrder
+    name?: SortOrder
+    token?: SortOrder
+    abilities?: SortOrderInput | SortOrder
+    last_used_at?: SortOrderInput | SortOrder
+    expires_at?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    _relevance?: personal_access_tokensOrderByRelevanceInput
+  }
+
+  export type personal_access_tokensWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    token?: string
+    AND?: personal_access_tokensWhereInput | personal_access_tokensWhereInput[]
+    OR?: personal_access_tokensWhereInput[]
+    NOT?: personal_access_tokensWhereInput | personal_access_tokensWhereInput[]
+    tokenable_type?: StringFilter<"personal_access_tokens"> | string
+    tokenable_id?: StringFilter<"personal_access_tokens"> | string
+    name?: StringFilter<"personal_access_tokens"> | string
+    abilities?: StringNullableFilter<"personal_access_tokens"> | string | null
+    last_used_at?: DateTimeNullableFilter<"personal_access_tokens"> | Date | string | null
+    expires_at?: DateTimeNullableFilter<"personal_access_tokens"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"personal_access_tokens"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"personal_access_tokens"> | Date | string | null
+  }, "id" | "token">
+
+  export type personal_access_tokensOrderByWithAggregationInput = {
+    id?: SortOrder
+    tokenable_type?: SortOrder
+    tokenable_id?: SortOrder
+    name?: SortOrder
+    token?: SortOrder
+    abilities?: SortOrderInput | SortOrder
+    last_used_at?: SortOrderInput | SortOrder
+    expires_at?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    _count?: personal_access_tokensCountOrderByAggregateInput
+    _avg?: personal_access_tokensAvgOrderByAggregateInput
+    _max?: personal_access_tokensMaxOrderByAggregateInput
+    _min?: personal_access_tokensMinOrderByAggregateInput
+    _sum?: personal_access_tokensSumOrderByAggregateInput
+  }
+
+  export type personal_access_tokensScalarWhereWithAggregatesInput = {
+    AND?: personal_access_tokensScalarWhereWithAggregatesInput | personal_access_tokensScalarWhereWithAggregatesInput[]
+    OR?: personal_access_tokensScalarWhereWithAggregatesInput[]
+    NOT?: personal_access_tokensScalarWhereWithAggregatesInput | personal_access_tokensScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"personal_access_tokens"> | bigint | number
+    tokenable_type?: StringWithAggregatesFilter<"personal_access_tokens"> | string
+    tokenable_id?: StringWithAggregatesFilter<"personal_access_tokens"> | string
+    name?: StringWithAggregatesFilter<"personal_access_tokens"> | string
+    token?: StringWithAggregatesFilter<"personal_access_tokens"> | string
+    abilities?: StringNullableWithAggregatesFilter<"personal_access_tokens"> | string | null
+    last_used_at?: DateTimeNullableWithAggregatesFilter<"personal_access_tokens"> | Date | string | null
+    expires_at?: DateTimeNullableWithAggregatesFilter<"personal_access_tokens"> | Date | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"personal_access_tokens"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"personal_access_tokens"> | Date | string | null
   }
 
   export type cacheCreateInput = {
@@ -29958,45 +30118,6 @@ export namespace Prisma {
     created_at?: IntFieldUpdateOperationsInput | number
   }
 
-  export type migrationsCreateInput = {
-    migration: string
-    batch: number
-  }
-
-  export type migrationsUncheckedCreateInput = {
-    id?: number
-    migration: string
-    batch: number
-  }
-
-  export type migrationsUpdateInput = {
-    migration?: StringFieldUpdateOperationsInput | string
-    batch?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type migrationsUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    migration?: StringFieldUpdateOperationsInput | string
-    batch?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type migrationsCreateManyInput = {
-    id?: number
-    migration: string
-    batch: number
-  }
-
-  export type migrationsUpdateManyMutationInput = {
-    migration?: StringFieldUpdateOperationsInput | string
-    batch?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type migrationsUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    migration?: StringFieldUpdateOperationsInput | string
-    batch?: IntFieldUpdateOperationsInput | number
-  }
-
   export type password_reset_tokensCreateInput = {
     email: string
     token: string
@@ -30041,7 +30162,7 @@ export namespace Prisma {
 
   export type sessionsCreateInput = {
     id: string
-    user_id?: bigint | number | null
+    user_id?: string | null
     ip_address?: string | null
     user_agent?: string | null
     payload: string
@@ -30050,7 +30171,7 @@ export namespace Prisma {
 
   export type sessionsUncheckedCreateInput = {
     id: string
-    user_id?: bigint | number | null
+    user_id?: string | null
     ip_address?: string | null
     user_agent?: string | null
     payload: string
@@ -30059,7 +30180,7 @@ export namespace Prisma {
 
   export type sessionsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     ip_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     payload?: StringFieldUpdateOperationsInput | string
@@ -30068,7 +30189,7 @@ export namespace Prisma {
 
   export type sessionsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     ip_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     payload?: StringFieldUpdateOperationsInput | string
@@ -30077,7 +30198,7 @@ export namespace Prisma {
 
   export type sessionsCreateManyInput = {
     id: string
-    user_id?: bigint | number | null
+    user_id?: string | null
     ip_address?: string | null
     user_agent?: string | null
     payload: string
@@ -30086,7 +30207,7 @@ export namespace Prisma {
 
   export type sessionsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     ip_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     payload?: StringFieldUpdateOperationsInput | string
@@ -30095,88 +30216,11 @@ export namespace Prisma {
 
   export type sessionsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     ip_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
     payload?: StringFieldUpdateOperationsInput | string
     last_activity?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type usersCreateInput = {
-    id?: bigint | number
-    name: string
-    email: string
-    email_verified_at?: Date | string | null
-    password: string
-    remember_token?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type usersUncheckedCreateInput = {
-    id?: bigint | number
-    name: string
-    email: string
-    email_verified_at?: Date | string | null
-    password: string
-    remember_token?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type usersUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type usersUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type usersCreateManyInput = {
-    id?: bigint | number
-    name: string
-    email: string
-    email_verified_at?: Date | string | null
-    password: string
-    remember_token?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type usersUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type usersUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ArtisanCreateInput = {
@@ -30186,11 +30230,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     User: UserCreateNestedOneWithoutArtisanInput
     Artisan_Skill?: Artisan_SkillCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsCreateNestedOneWithoutArtisanInput
@@ -30209,11 +30255,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillUncheckedCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedCreateNestedOneWithoutArtisanInput
     Booking?: BookingUncheckedCreateNestedManyWithoutArtisanInput
@@ -30230,11 +30278,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutArtisanNestedInput
     Artisan_Skill?: Artisan_SkillUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUpdateOneWithoutArtisanNestedInput
@@ -30253,11 +30303,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUncheckedUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutArtisanNestedInput
@@ -30275,11 +30327,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
   }
 
   export type ArtisanUpdateManyMutationInput = {
@@ -30289,11 +30343,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArtisanUncheckedUpdateManyInput = {
@@ -30304,17 +30360,20 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type Artisan_Review_ReplyCreateInput = {
     id: string
     reply: string
     created_at?: Date | string
+    report_customer_review?: boolean
     Booking_Review: Booking_ReviewCreateNestedOneWithoutArtisan_Review_ReplyInput
   }
 
@@ -30323,12 +30382,14 @@ export namespace Prisma {
     reply: string
     review_id: string
     created_at?: Date | string
+    report_customer_review?: boolean
   }
 
   export type Artisan_Review_ReplyUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     reply?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    report_customer_review?: BoolFieldUpdateOperationsInput | boolean
     Booking_Review?: Booking_ReviewUpdateOneRequiredWithoutArtisan_Review_ReplyNestedInput
   }
 
@@ -30337,6 +30398,7 @@ export namespace Prisma {
     reply?: StringFieldUpdateOperationsInput | string
     review_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    report_customer_review?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Artisan_Review_ReplyCreateManyInput = {
@@ -30344,12 +30406,14 @@ export namespace Prisma {
     reply: string
     review_id: string
     created_at?: Date | string
+    report_customer_review?: boolean
   }
 
   export type Artisan_Review_ReplyUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     reply?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    report_customer_review?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Artisan_Review_ReplyUncheckedUpdateManyInput = {
@@ -30357,6 +30421,7 @@ export namespace Prisma {
     reply?: StringFieldUpdateOperationsInput | string
     review_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    report_customer_review?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Artisan_SkillCreateInput = {
@@ -30524,10 +30589,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Artisan: ArtisanCreateNestedOneWithoutBookingInput
     User: UserCreateNestedOneWithoutBookingInput
     Booking_Picture?: Booking_PictureCreateNestedManyWithoutBookingInput
@@ -30544,10 +30610,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Booking_Picture?: Booking_PictureUncheckedCreateNestedManyWithoutBookingInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedOneWithoutBookingInput
     Payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
@@ -30560,10 +30627,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Artisan?: ArtisanUpdateOneRequiredWithoutBookingNestedInput
     User?: UserUpdateOneRequiredWithoutBookingNestedInput
     Booking_Picture?: Booking_PictureUpdateManyWithoutBookingNestedInput
@@ -30580,10 +30648,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Booking_Picture?: Booking_PictureUncheckedUpdateManyWithoutBookingNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateOneWithoutBookingNestedInput
     Payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
@@ -30598,10 +30667,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
   }
 
   export type BookingUpdateManyMutationInput = {
@@ -30611,10 +30681,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type BookingUncheckedUpdateManyInput = {
@@ -30626,10 +30697,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Booking_PictureCreateInput = {
@@ -30759,13 +30831,13 @@ export namespace Prisma {
   }
 
   export type FavouriteCreateInput = {
-    id: string
+    id?: string
     Artisan: ArtisanCreateNestedOneWithoutFavouriteInput
     User: UserCreateNestedOneWithoutFavouriteInput
   }
 
   export type FavouriteUncheckedCreateInput = {
-    id: string
+    id?: string
     user_id: string
     artisan_id: string
   }
@@ -30783,7 +30855,7 @@ export namespace Prisma {
   }
 
   export type FavouriteCreateManyInput = {
-    id: string
+    id?: string
     user_id: string
     artisan_id: string
   }
@@ -30897,12 +30969,13 @@ export namespace Prisma {
 
   export type PaymentCreateInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
     Artisan: ArtisanCreateNestedOneWithoutPaymentInput
     Booking: BookingCreateNestedOneWithoutPaymentInput
     User: UserCreateNestedOneWithoutPaymentInput
@@ -30910,7 +30983,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedCreateInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     artisan_id: string
@@ -30919,16 +30992,18 @@ export namespace Prisma {
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
   }
 
   export type PaymentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
     Artisan?: ArtisanUpdateOneRequiredWithoutPaymentNestedInput
     Booking?: BookingUpdateOneRequiredWithoutPaymentNestedInput
     User?: UserUpdateOneRequiredWithoutPaymentNestedInput
@@ -30936,7 +31011,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     artisan_id?: StringFieldUpdateOperationsInput | string
@@ -30945,11 +31020,12 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
   }
 
   export type PaymentCreateManyInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     artisan_id: string
@@ -30958,21 +31034,23 @@ export namespace Prisma {
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
   }
 
   export type PaymentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
   }
 
   export type PaymentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     artisan_id?: StringFieldUpdateOperationsInput | string
@@ -30981,13 +31059,14 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
   }
 
   export type ServiceCreateInput = {
     id: string
     name: string
     description: string
-    price: number
+    price: Decimal | DecimalJsLike | number | string
     Artisan: ArtisanCreateNestedOneWithoutServiceInput
   }
 
@@ -30995,7 +31074,7 @@ export namespace Prisma {
     id: string
     name: string
     description: string
-    price: number
+    price: Decimal | DecimalJsLike | number | string
     artisan_id: string
   }
 
@@ -31003,7 +31082,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     Artisan?: ArtisanUpdateOneRequiredWithoutServiceNestedInput
   }
 
@@ -31011,7 +31090,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     artisan_id?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31019,7 +31098,7 @@ export namespace Prisma {
     id: string
     name: string
     description: string
-    price: number
+    price: Decimal | DecimalJsLike | number | string
     artisan_id: string
   }
 
@@ -31027,14 +31106,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type ServiceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     artisan_id?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31084,6 +31163,7 @@ export namespace Prisma {
     support_email: string
     maintenance_mode?: boolean
     updated_at: Date | string
+    is_singleton?: boolean
   }
 
   export type System_InfoUncheckedCreateInput = {
@@ -31093,6 +31173,7 @@ export namespace Prisma {
     support_email: string
     maintenance_mode?: boolean
     updated_at: Date | string
+    is_singleton?: boolean
   }
 
   export type System_InfoUpdateInput = {
@@ -31102,6 +31183,7 @@ export namespace Prisma {
     support_email?: StringFieldUpdateOperationsInput | string
     maintenance_mode?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_singleton?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type System_InfoUncheckedUpdateInput = {
@@ -31111,6 +31193,7 @@ export namespace Prisma {
     support_email?: StringFieldUpdateOperationsInput | string
     maintenance_mode?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_singleton?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type System_InfoCreateManyInput = {
@@ -31120,6 +31203,7 @@ export namespace Prisma {
     support_email: string
     maintenance_mode?: boolean
     updated_at: Date | string
+    is_singleton?: boolean
   }
 
   export type System_InfoUpdateManyMutationInput = {
@@ -31129,6 +31213,7 @@ export namespace Prisma {
     support_email?: StringFieldUpdateOperationsInput | string
     maintenance_mode?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_singleton?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type System_InfoUncheckedUpdateManyInput = {
@@ -31138,6 +31223,7 @@ export namespace Prisma {
     support_email?: StringFieldUpdateOperationsInput | string
     maintenance_mode?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_singleton?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateInput = {
@@ -31156,7 +31242,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailCreateNestedOneWithoutUserInput
     Booking?: BookingCreateNestedManyWithoutUserInput
@@ -31182,7 +31270,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailUncheckedCreateNestedOneWithoutUserInput
     Booking?: BookingUncheckedCreateNestedManyWithoutUserInput
@@ -31208,7 +31298,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUpdateOneWithoutUserNestedInput
     Booking?: BookingUpdateManyWithoutUserNestedInput
@@ -31234,7 +31326,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUncheckedUpdateOneWithoutUserNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -31260,7 +31354,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -31279,7 +31375,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -31298,7 +31396,149 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Admin_UserCreateInput = {
+    admin_id: string
+    name: string
+    password: string
+    email: string
+  }
+
+  export type Admin_UserUncheckedCreateInput = {
+    admin_id: string
+    name: string
+    password: string
+    email: string
+  }
+
+  export type Admin_UserUpdateInput = {
+    admin_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type Admin_UserUncheckedUpdateInput = {
+    admin_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type Admin_UserCreateManyInput = {
+    admin_id: string
+    name: string
+    password: string
+    email: string
+  }
+
+  export type Admin_UserUpdateManyMutationInput = {
+    admin_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type Admin_UserUncheckedUpdateManyInput = {
+    admin_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type personal_access_tokensCreateInput = {
+    id?: bigint | number
+    tokenable_type: string
+    tokenable_id: string
+    name: string
+    token: string
+    abilities?: string | null
+    last_used_at?: Date | string | null
+    expires_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type personal_access_tokensUncheckedCreateInput = {
+    id?: bigint | number
+    tokenable_type: string
+    tokenable_id: string
+    name: string
+    token: string
+    abilities?: string | null
+    last_used_at?: Date | string | null
+    expires_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type personal_access_tokensUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tokenable_type?: StringFieldUpdateOperationsInput | string
+    tokenable_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    abilities?: NullableStringFieldUpdateOperationsInput | string | null
+    last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type personal_access_tokensUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tokenable_type?: StringFieldUpdateOperationsInput | string
+    tokenable_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    abilities?: NullableStringFieldUpdateOperationsInput | string | null
+    last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type personal_access_tokensCreateManyInput = {
+    id?: bigint | number
+    tokenable_type: string
+    tokenable_id: string
+    name: string
+    token: string
+    abilities?: string | null
+    last_used_at?: Date | string | null
+    expires_at?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type personal_access_tokensUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tokenable_type?: StringFieldUpdateOperationsInput | string
+    tokenable_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    abilities?: NullableStringFieldUpdateOperationsInput | string | null
+    last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type personal_access_tokensUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tokenable_type?: StringFieldUpdateOperationsInput | string
+    tokenable_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    abilities?: NullableStringFieldUpdateOperationsInput | string | null
+    last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -31701,40 +31941,6 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
-  export type migrationsOrderByRelevanceInput = {
-    fields: migrationsOrderByRelevanceFieldEnum | migrationsOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type migrationsCountOrderByAggregateInput = {
-    id?: SortOrder
-    migration?: SortOrder
-    batch?: SortOrder
-  }
-
-  export type migrationsAvgOrderByAggregateInput = {
-    id?: SortOrder
-    batch?: SortOrder
-  }
-
-  export type migrationsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    migration?: SortOrder
-    batch?: SortOrder
-  }
-
-  export type migrationsMinOrderByAggregateInput = {
-    id?: SortOrder
-    migration?: SortOrder
-    batch?: SortOrder
-  }
-
-  export type migrationsSumOrderByAggregateInput = {
-    id?: SortOrder
-    batch?: SortOrder
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
@@ -31784,17 +31990,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type BigIntNullableFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
-  }
-
   export type sessionsOrderByRelevanceInput = {
     fields: sessionsOrderByRelevanceFieldEnum | sessionsOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -31811,7 +32006,6 @@ export namespace Prisma {
   }
 
   export type sessionsAvgOrderByAggregateInput = {
-    user_id?: SortOrder
     last_activity?: SortOrder
   }
 
@@ -31834,71 +32028,7 @@ export namespace Prisma {
   }
 
   export type sessionsSumOrderByAggregateInput = {
-    user_id?: SortOrder
     last_activity?: SortOrder
-  }
-
-  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedBigIntNullableFilter<$PrismaModel>
-    _min?: NestedBigIntNullableFilter<$PrismaModel>
-    _max?: NestedBigIntNullableFilter<$PrismaModel>
-  }
-
-  export type usersOrderByRelevanceInput = {
-    fields: usersOrderByRelevanceFieldEnum | usersOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type usersCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    email_verified_at?: SortOrder
-    password?: SortOrder
-    remember_token?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type usersAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type usersMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    email_verified_at?: SortOrder
-    password?: SortOrder
-    remember_token?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type usersMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    email_verified_at?: SortOrder
-    password?: SortOrder
-    remember_token?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type usersSumOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -31912,15 +32042,15 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -32017,6 +32147,8 @@ export namespace Prisma {
     verified?: SortOrder
     total_money_made?: SortOrder
     total_money_withdrawn?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ArtisanAvgOrderByAggregateInput = {
@@ -32041,6 +32173,8 @@ export namespace Prisma {
     verified?: SortOrder
     total_money_made?: SortOrder
     total_money_withdrawn?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ArtisanMinOrderByAggregateInput = {
@@ -32056,6 +32190,8 @@ export namespace Prisma {
     verified?: SortOrder
     total_money_made?: SortOrder
     total_money_withdrawn?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ArtisanSumOrderByAggregateInput = {
@@ -32083,20 +32219,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -32123,6 +32259,7 @@ export namespace Prisma {
     reply?: SortOrder
     review_id?: SortOrder
     created_at?: SortOrder
+    report_customer_review?: SortOrder
   }
 
   export type Artisan_Review_ReplyMaxOrderByAggregateInput = {
@@ -32130,6 +32267,7 @@ export namespace Prisma {
     reply?: SortOrder
     review_id?: SortOrder
     created_at?: SortOrder
+    report_customer_review?: SortOrder
   }
 
   export type Artisan_Review_ReplyMinOrderByAggregateInput = {
@@ -32137,6 +32275,7 @@ export namespace Prisma {
     reply?: SortOrder
     review_id?: SortOrder
     created_at?: SortOrder
+    report_customer_review?: SortOrder
   }
 
   export type ArtisanScalarRelationFilter = {
@@ -32265,6 +32404,17 @@ export namespace Prisma {
     not?: NestedEnumBooking_statusFilter<$PrismaModel> | $Enums.Booking_status
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type Booking_PictureListRelationFilter = {
     every?: Booking_PictureWhereInput
     some?: Booking_PictureWhereInput
@@ -32304,6 +32454,7 @@ export namespace Prisma {
     booking_start_date?: SortOrder
     problem_description?: SortOrder
     work_to_be_done?: SortOrder
+    is_cancelled?: SortOrder
   }
 
   export type BookingAvgOrderByAggregateInput = {
@@ -32323,6 +32474,7 @@ export namespace Prisma {
     booking_start_date?: SortOrder
     problem_description?: SortOrder
     work_to_be_done?: SortOrder
+    is_cancelled?: SortOrder
   }
 
   export type BookingMinOrderByAggregateInput = {
@@ -32338,6 +32490,7 @@ export namespace Prisma {
     booking_start_date?: SortOrder
     problem_description?: SortOrder
     work_to_be_done?: SortOrder
+    is_cancelled?: SortOrder
   }
 
   export type BookingSumOrderByAggregateInput = {
@@ -32352,6 +32505,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBooking_statusFilter<$PrismaModel>
     _max?: NestedEnumBooking_statusFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type BookingScalarRelationFilter = {
@@ -32567,10 +32736,12 @@ export namespace Prisma {
     payment_completed_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    commission?: SortOrder
   }
 
   export type PaymentAvgOrderByAggregateInput = {
     amount?: SortOrder
+    commission?: SortOrder
   }
 
   export type PaymentMaxOrderByAggregateInput = {
@@ -32584,6 +32755,7 @@ export namespace Prisma {
     payment_completed_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    commission?: SortOrder
   }
 
   export type PaymentMinOrderByAggregateInput = {
@@ -32597,10 +32769,12 @@ export namespace Prisma {
     payment_completed_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    commission?: SortOrder
   }
 
   export type PaymentSumOrderByAggregateInput = {
     amount?: SortOrder
+    commission?: SortOrder
   }
 
   export type EnumPayment_statusWithAggregatesFilter<$PrismaModel = never> = {
@@ -32685,6 +32859,7 @@ export namespace Prisma {
     support_email?: SortOrder
     maintenance_mode?: SortOrder
     updated_at?: SortOrder
+    is_singleton?: SortOrder
   }
 
   export type System_InfoMaxOrderByAggregateInput = {
@@ -32694,6 +32869,7 @@ export namespace Prisma {
     support_email?: SortOrder
     maintenance_mode?: SortOrder
     updated_at?: SortOrder
+    is_singleton?: SortOrder
   }
 
   export type System_InfoMinOrderByAggregateInput = {
@@ -32703,6 +32879,7 @@ export namespace Prisma {
     support_email?: SortOrder
     maintenance_mode?: SortOrder
     updated_at?: SortOrder
+    is_singleton?: SortOrder
   }
 
   export type EnumUser_roleFilter<$PrismaModel = never> = {
@@ -32750,6 +32927,8 @@ export namespace Prisma {
     is_deleted?: SortOrder
     is_suspended?: SortOrder
     total_amount_spent_on_bookings?: SortOrder
+    email_verified_at?: SortOrder
+    remember_token?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -32773,6 +32952,8 @@ export namespace Prisma {
     is_deleted?: SortOrder
     is_suspended?: SortOrder
     total_amount_spent_on_bookings?: SortOrder
+    email_verified_at?: SortOrder
+    remember_token?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -32792,6 +32973,8 @@ export namespace Prisma {
     is_deleted?: SortOrder
     is_suspended?: SortOrder
     total_amount_spent_on_bookings?: SortOrder
+    email_verified_at?: SortOrder
+    remember_token?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -32806,6 +32989,86 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUser_roleFilter<$PrismaModel>
     _max?: NestedEnumUser_roleFilter<$PrismaModel>
+  }
+
+  export type Admin_UserOrderByRelevanceInput = {
+    fields: Admin_UserOrderByRelevanceFieldEnum | Admin_UserOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type Admin_UserCountOrderByAggregateInput = {
+    admin_id?: SortOrder
+    name?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+  }
+
+  export type Admin_UserMaxOrderByAggregateInput = {
+    admin_id?: SortOrder
+    name?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+  }
+
+  export type Admin_UserMinOrderByAggregateInput = {
+    admin_id?: SortOrder
+    name?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+  }
+
+  export type personal_access_tokensOrderByRelevanceInput = {
+    fields: personal_access_tokensOrderByRelevanceFieldEnum | personal_access_tokensOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type personal_access_tokensCountOrderByAggregateInput = {
+    id?: SortOrder
+    tokenable_type?: SortOrder
+    tokenable_id?: SortOrder
+    name?: SortOrder
+    token?: SortOrder
+    abilities?: SortOrder
+    last_used_at?: SortOrder
+    expires_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type personal_access_tokensAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type personal_access_tokensMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tokenable_type?: SortOrder
+    tokenable_id?: SortOrder
+    name?: SortOrder
+    token?: SortOrder
+    abilities?: SortOrder
+    last_used_at?: SortOrder
+    expires_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type personal_access_tokensMinOrderByAggregateInput = {
+    id?: SortOrder
+    tokenable_type?: SortOrder
+    tokenable_id?: SortOrder
+    name?: SortOrder
+    token?: SortOrder
+    abilities?: SortOrder
+    last_used_at?: SortOrder
+    expires_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type personal_access_tokensSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -32846,14 +33109,6 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
-  }
-
-  export type NullableBigIntFieldUpdateOperationsInput = {
-    set?: bigint | number | null
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
   }
 
   export type UserCreateNestedOneWithoutArtisanInput = {
@@ -32966,12 +33221,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -33300,6 +33555,14 @@ export namespace Prisma {
 
   export type EnumBooking_statusFieldUpdateOperationsInput = {
     set?: $Enums.Booking_status
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type ArtisanUpdateOneRequiredWithoutBookingNestedInput = {
@@ -34121,31 +34384,15 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
-  }
-
-  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedBigIntNullableFilter<$PrismaModel>
-    _min?: NestedBigIntNullableFilter<$PrismaModel>
-    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -34169,20 +34416,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -34217,6 +34464,17 @@ export namespace Prisma {
     not?: NestedEnumBooking_statusFilter<$PrismaModel> | $Enums.Booking_status
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type NestedEnumBooking_statusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Booking_status | EnumBooking_statusFieldRefInput<$PrismaModel>
     in?: $Enums.Booking_status[]
@@ -34225,6 +34483,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBooking_statusFilter<$PrismaModel>
     _max?: NestedEnumBooking_statusFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedEnumBooking_Review_statusFilter<$PrismaModel = never> = {
@@ -34294,7 +34568,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Bank_Detail?: Bank_DetailCreateNestedOneWithoutUserInput
     Booking?: BookingCreateNestedManyWithoutUserInput
     Booking_Review?: Booking_ReviewCreateNestedManyWithoutUserInput
@@ -34319,7 +34595,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Bank_Detail?: Bank_DetailUncheckedCreateNestedOneWithoutUserInput
     Booking?: BookingUncheckedCreateNestedManyWithoutUserInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -34381,10 +34659,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     User: UserCreateNestedOneWithoutBookingInput
     Booking_Picture?: Booking_PictureCreateNestedManyWithoutBookingInput
     Booking_Review?: Booking_ReviewCreateNestedOneWithoutBookingInput
@@ -34399,10 +34678,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Booking_Picture?: Booking_PictureUncheckedCreateNestedManyWithoutBookingInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedOneWithoutBookingInput
     Payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
@@ -34453,12 +34733,12 @@ export namespace Prisma {
   }
 
   export type FavouriteCreateWithoutArtisanInput = {
-    id: string
+    id?: string
     User: UserCreateNestedOneWithoutFavouriteInput
   }
 
   export type FavouriteUncheckedCreateWithoutArtisanInput = {
-    id: string
+    id?: string
     user_id: string
   }
 
@@ -34474,19 +34754,20 @@ export namespace Prisma {
 
   export type PaymentCreateWithoutArtisanInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
     Booking: BookingCreateNestedOneWithoutPaymentInput
     User: UserCreateNestedOneWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutArtisanInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     customer_id: string
@@ -34494,6 +34775,7 @@ export namespace Prisma {
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
   }
 
   export type PaymentCreateOrConnectWithoutArtisanInput = {
@@ -34510,14 +34792,14 @@ export namespace Prisma {
     id: string
     name: string
     description: string
-    price: number
+    price: Decimal | DecimalJsLike | number | string
   }
 
   export type ServiceUncheckedCreateWithoutArtisanInput = {
     id: string
     name: string
     description: string
-    price: number
+    price: Decimal | DecimalJsLike | number | string
   }
 
   export type ServiceCreateOrConnectWithoutArtisanInput = {
@@ -34557,7 +34839,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Bank_Detail?: Bank_DetailUpdateOneWithoutUserNestedInput
     Booking?: BookingUpdateManyWithoutUserNestedInput
     Booking_Review?: Booking_ReviewUpdateManyWithoutUserNestedInput
@@ -34582,7 +34866,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Bank_Detail?: Bank_DetailUncheckedUpdateOneWithoutUserNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutUserNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -34672,10 +34958,11 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Booking"> | Date | string
     booking_address?: StringNullableFilter<"Booking"> | string | null
     booking_end_date?: DateTimeNullableFilter<"Booking"> | Date | string | null
-    booking_price?: FloatFilter<"Booking"> | number
+    booking_price?: DecimalFilter<"Booking"> | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFilter<"Booking"> | Date | string
     problem_description?: StringFilter<"Booking"> | string
     work_to_be_done?: StringFilter<"Booking"> | string
+    is_cancelled?: BoolFilter<"Booking"> | boolean
   }
 
   export type Booking_ReviewUpsertWithWhereUniqueWithoutArtisanInput = {
@@ -34755,7 +35042,7 @@ export namespace Prisma {
     OR?: PaymentScalarWhereInput[]
     NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
     id?: StringFilter<"Payment"> | string
-    amount?: FloatFilter<"Payment"> | number
+    amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFilter<"Payment"> | $Enums.Payment_status
     payment_method?: StringFilter<"Payment"> | string
     artisan_id?: StringFilter<"Payment"> | string
@@ -34764,6 +35051,7 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFilter<"Payment"> | Date | string
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
+    commission?: IntFilter<"Payment"> | number
   }
 
   export type ServiceUpsertWithWhereUniqueWithoutArtisanInput = {
@@ -34789,7 +35077,7 @@ export namespace Prisma {
     id?: StringFilter<"Service"> | string
     name?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
-    price?: FloatFilter<"Service"> | number
+    price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     artisan_id?: StringFilter<"Service"> | string
   }
 
@@ -34864,11 +35152,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     User: UserCreateNestedOneWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsCreateNestedOneWithoutArtisanInput
     Booking?: BookingCreateNestedManyWithoutArtisanInput
@@ -34886,11 +35176,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedCreateNestedOneWithoutArtisanInput
     Booking?: BookingUncheckedCreateNestedManyWithoutArtisanInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedManyWithoutArtisanInput
@@ -34937,11 +35229,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUpdateManyWithoutArtisanNestedInput
@@ -34959,11 +35253,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutArtisanNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateManyWithoutArtisanNestedInput
@@ -35000,11 +35296,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     User: UserCreateNestedOneWithoutArtisanInput
     Artisan_Skill?: Artisan_SkillCreateNestedManyWithoutArtisanInput
     Booking?: BookingCreateNestedManyWithoutArtisanInput
@@ -35022,11 +35320,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillUncheckedCreateNestedManyWithoutArtisanInput
     Booking?: BookingUncheckedCreateNestedManyWithoutArtisanInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedManyWithoutArtisanInput
@@ -35058,11 +35358,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutArtisanNestedInput
     Artisan_Skill?: Artisan_SkillUpdateManyWithoutArtisanNestedInput
     Booking?: BookingUpdateManyWithoutArtisanNestedInput
@@ -35080,11 +35382,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUncheckedUpdateManyWithoutArtisanNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutArtisanNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateManyWithoutArtisanNestedInput
@@ -35109,7 +35413,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanCreateNestedOneWithoutUserInput
     Booking?: BookingCreateNestedManyWithoutUserInput
     Booking_Review?: Booking_ReviewCreateNestedManyWithoutUserInput
@@ -35134,7 +35440,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     Booking?: BookingUncheckedCreateNestedManyWithoutUserInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -35175,7 +35483,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUpdateOneWithoutUserNestedInput
     Booking?: BookingUpdateManyWithoutUserNestedInput
     Booking_Review?: Booking_ReviewUpdateManyWithoutUserNestedInput
@@ -35200,7 +35510,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutUserNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -35216,11 +35528,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     User: UserCreateNestedOneWithoutArtisanInput
     Artisan_Skill?: Artisan_SkillCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsCreateNestedOneWithoutArtisanInput
@@ -35238,11 +35552,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillUncheckedCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedCreateNestedOneWithoutArtisanInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedManyWithoutArtisanInput
@@ -35272,7 +35588,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailCreateNestedOneWithoutUserInput
     Booking_Review?: Booking_ReviewCreateNestedManyWithoutUserInput
@@ -35297,7 +35615,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailUncheckedCreateNestedOneWithoutUserInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -35362,19 +35682,20 @@ export namespace Prisma {
 
   export type PaymentCreateWithoutBookingInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
     Artisan: ArtisanCreateNestedOneWithoutPaymentInput
     User: UserCreateNestedOneWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutBookingInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     artisan_id: string
@@ -35382,6 +35703,7 @@ export namespace Prisma {
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
   }
 
   export type PaymentCreateOrConnectWithoutBookingInput = {
@@ -35407,11 +35729,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutArtisanNestedInput
     Artisan_Skill?: Artisan_SkillUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUpdateOneWithoutArtisanNestedInput
@@ -35429,11 +35753,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUncheckedUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedUpdateOneWithoutArtisanNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateManyWithoutArtisanNestedInput
@@ -35469,7 +35795,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUpdateOneWithoutUserNestedInput
     Booking_Review?: Booking_ReviewUpdateManyWithoutUserNestedInput
@@ -35494,7 +35822,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUncheckedUpdateOneWithoutUserNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -35576,19 +35906,20 @@ export namespace Prisma {
 
   export type PaymentUpdateWithoutBookingInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
     Artisan?: ArtisanUpdateOneRequiredWithoutPaymentNestedInput
     User?: UserUpdateOneRequiredWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutBookingInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     artisan_id?: StringFieldUpdateOperationsInput | string
@@ -35596,6 +35927,7 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
   }
 
   export type BookingCreateWithoutBooking_PictureInput = {
@@ -35605,10 +35937,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Artisan: ArtisanCreateNestedOneWithoutBookingInput
     User: UserCreateNestedOneWithoutBookingInput
     Booking_Review?: Booking_ReviewCreateNestedOneWithoutBookingInput
@@ -35624,10 +35957,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Booking_Review?: Booking_ReviewUncheckedCreateNestedOneWithoutBookingInput
     Payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
   }
@@ -35655,10 +35989,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Artisan?: ArtisanUpdateOneRequiredWithoutBookingNestedInput
     User?: UserUpdateOneRequiredWithoutBookingNestedInput
     Booking_Review?: Booking_ReviewUpdateOneWithoutBookingNestedInput
@@ -35674,10 +36009,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Booking_Review?: Booking_ReviewUncheckedUpdateOneWithoutBookingNestedInput
     Payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
   }
@@ -35686,12 +36022,14 @@ export namespace Prisma {
     id: string
     reply: string
     created_at?: Date | string
+    report_customer_review?: boolean
   }
 
   export type Artisan_Review_ReplyUncheckedCreateWithoutBooking_ReviewInput = {
     id: string
     reply: string
     created_at?: Date | string
+    report_customer_review?: boolean
   }
 
   export type Artisan_Review_ReplyCreateOrConnectWithoutBooking_ReviewInput = {
@@ -35706,11 +36044,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     User: UserCreateNestedOneWithoutArtisanInput
     Artisan_Skill?: Artisan_SkillCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsCreateNestedOneWithoutArtisanInput
@@ -35728,11 +36068,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillUncheckedCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedCreateNestedOneWithoutArtisanInput
     Booking?: BookingUncheckedCreateNestedManyWithoutArtisanInput
@@ -35753,10 +36095,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Artisan: ArtisanCreateNestedOneWithoutBookingInput
     User: UserCreateNestedOneWithoutBookingInput
     Booking_Picture?: Booking_PictureCreateNestedManyWithoutBookingInput
@@ -35772,10 +36115,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Booking_Picture?: Booking_PictureUncheckedCreateNestedManyWithoutBookingInput
     Payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
   }
@@ -35801,7 +36145,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailCreateNestedOneWithoutUserInput
     Booking?: BookingCreateNestedManyWithoutUserInput
@@ -35826,7 +36172,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailUncheckedCreateNestedOneWithoutUserInput
     Booking?: BookingUncheckedCreateNestedManyWithoutUserInput
@@ -35855,12 +36203,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reply?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    report_customer_review?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Artisan_Review_ReplyUncheckedUpdateWithoutBooking_ReviewInput = {
     id?: StringFieldUpdateOperationsInput | string
     reply?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    report_customer_review?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ArtisanUpsertWithoutBooking_ReviewInput = {
@@ -35881,11 +36231,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutArtisanNestedInput
     Artisan_Skill?: Artisan_SkillUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUpdateOneWithoutArtisanNestedInput
@@ -35903,11 +36255,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUncheckedUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutArtisanNestedInput
@@ -35934,10 +36288,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Artisan?: ArtisanUpdateOneRequiredWithoutBookingNestedInput
     User?: UserUpdateOneRequiredWithoutBookingNestedInput
     Booking_Picture?: Booking_PictureUpdateManyWithoutBookingNestedInput
@@ -35953,10 +36308,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Booking_Picture?: Booking_PictureUncheckedUpdateManyWithoutBookingNestedInput
     Payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
   }
@@ -35988,7 +36344,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUpdateOneWithoutUserNestedInput
     Booking?: BookingUpdateManyWithoutUserNestedInput
@@ -36013,7 +36371,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUncheckedUpdateOneWithoutUserNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -36029,11 +36389,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     User: UserCreateNestedOneWithoutArtisanInput
     Artisan_Skill?: Artisan_SkillCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsCreateNestedOneWithoutArtisanInput
@@ -36051,11 +36413,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillUncheckedCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedCreateNestedOneWithoutArtisanInput
     Booking?: BookingUncheckedCreateNestedManyWithoutArtisanInput
@@ -36085,7 +36449,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailCreateNestedOneWithoutUserInput
     Booking?: BookingCreateNestedManyWithoutUserInput
@@ -36110,7 +36476,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailUncheckedCreateNestedOneWithoutUserInput
     Booking?: BookingUncheckedCreateNestedManyWithoutUserInput
@@ -36142,11 +36510,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutArtisanNestedInput
     Artisan_Skill?: Artisan_SkillUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUpdateOneWithoutArtisanNestedInput
@@ -36164,11 +36534,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUncheckedUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutArtisanNestedInput
@@ -36204,7 +36576,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUpdateOneWithoutUserNestedInput
     Booking?: BookingUpdateManyWithoutUserNestedInput
@@ -36229,7 +36603,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUncheckedUpdateOneWithoutUserNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -36254,7 +36630,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailCreateNestedOneWithoutUserInput
     Booking?: BookingCreateNestedManyWithoutUserInput
@@ -36279,7 +36657,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailUncheckedCreateNestedOneWithoutUserInput
     Booking?: BookingUncheckedCreateNestedManyWithoutUserInput
@@ -36320,7 +36700,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUpdateOneWithoutUserNestedInput
     Booking?: BookingUpdateManyWithoutUserNestedInput
@@ -36345,7 +36727,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUncheckedUpdateOneWithoutUserNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -36361,11 +36745,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     User: UserCreateNestedOneWithoutArtisanInput
     Artisan_Skill?: Artisan_SkillCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsCreateNestedOneWithoutArtisanInput
@@ -36383,11 +36769,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillUncheckedCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedCreateNestedOneWithoutArtisanInput
     Booking?: BookingUncheckedCreateNestedManyWithoutArtisanInput
@@ -36408,10 +36796,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Artisan: ArtisanCreateNestedOneWithoutBookingInput
     User: UserCreateNestedOneWithoutBookingInput
     Booking_Picture?: Booking_PictureCreateNestedManyWithoutBookingInput
@@ -36427,10 +36816,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Booking_Picture?: Booking_PictureUncheckedCreateNestedManyWithoutBookingInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedOneWithoutBookingInput
   }
@@ -36456,7 +36846,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailCreateNestedOneWithoutUserInput
     Booking?: BookingCreateNestedManyWithoutUserInput
@@ -36481,7 +36873,9 @@ export namespace Prisma {
     preferred_booking_address?: string | null
     is_deleted?: boolean
     is_suspended?: boolean
-    total_amount_spent_on_bookings?: number | null
+    total_amount_spent_on_bookings?: Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: Date | string | null
+    remember_token?: string | null
     Artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     Bank_Detail?: Bank_DetailUncheckedCreateNestedOneWithoutUserInput
     Booking?: BookingUncheckedCreateNestedManyWithoutUserInput
@@ -36513,11 +36907,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutArtisanNestedInput
     Artisan_Skill?: Artisan_SkillUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUpdateOneWithoutArtisanNestedInput
@@ -36535,11 +36931,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUncheckedUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutArtisanNestedInput
@@ -36566,10 +36964,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Artisan?: ArtisanUpdateOneRequiredWithoutBookingNestedInput
     User?: UserUpdateOneRequiredWithoutBookingNestedInput
     Booking_Picture?: Booking_PictureUpdateManyWithoutBookingNestedInput
@@ -36585,10 +36984,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Booking_Picture?: Booking_PictureUncheckedUpdateManyWithoutBookingNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateOneWithoutBookingNestedInput
   }
@@ -36620,7 +37020,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUpdateOneWithoutUserNestedInput
     Booking?: BookingUpdateManyWithoutUserNestedInput
@@ -36645,7 +37047,9 @@ export namespace Prisma {
     preferred_booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     is_suspended?: BoolFieldUpdateOperationsInput | boolean
-    total_amount_spent_on_bookings?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_amount_spent_on_bookings?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    email_verified_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remember_token?: NullableStringFieldUpdateOperationsInput | string | null
     Artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     Bank_Detail?: Bank_DetailUncheckedUpdateOneWithoutUserNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -36661,11 +37065,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     User: UserCreateNestedOneWithoutArtisanInput
     Artisan_Skill?: Artisan_SkillCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsCreateNestedOneWithoutArtisanInput
@@ -36683,11 +37089,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillUncheckedCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedCreateNestedOneWithoutArtisanInput
     Booking?: BookingUncheckedCreateNestedManyWithoutArtisanInput
@@ -36719,11 +37127,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutArtisanNestedInput
     Artisan_Skill?: Artisan_SkillUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUpdateOneWithoutArtisanNestedInput
@@ -36741,11 +37151,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUncheckedUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutArtisanNestedInput
@@ -36795,11 +37207,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsCreateNestedOneWithoutArtisanInput
     Booking?: BookingCreateNestedManyWithoutArtisanInput
@@ -36816,11 +37230,13 @@ export namespace Prisma {
     rating: number
     about_artisan?: string | null
     main_skill?: string | null
-    min_price_per_hour?: number | null
+    min_price_per_hour?: Decimal | DecimalJsLike | number | string | null
     response_time?: number | null
     verified?: boolean
-    total_money_made?: number | null
-    total_money_withdrawn?: number | null
+    total_money_made?: Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at: Date | string
     Artisan_Skill?: Artisan_SkillUncheckedCreateNestedManyWithoutArtisanInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedCreateNestedOneWithoutArtisanInput
     Booking?: BookingUncheckedCreateNestedManyWithoutArtisanInput
@@ -36861,10 +37277,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Artisan: ArtisanCreateNestedOneWithoutBookingInput
     Booking_Picture?: Booking_PictureCreateNestedManyWithoutBookingInput
     Booking_Review?: Booking_ReviewCreateNestedOneWithoutBookingInput
@@ -36879,10 +37296,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
     Booking_Picture?: Booking_PictureUncheckedCreateNestedManyWithoutBookingInput
     Booking_Review?: Booking_ReviewUncheckedCreateNestedOneWithoutBookingInput
     Payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
@@ -36933,12 +37351,12 @@ export namespace Prisma {
   }
 
   export type FavouriteCreateWithoutUserInput = {
-    id: string
+    id?: string
     Artisan: ArtisanCreateNestedOneWithoutFavouriteInput
   }
 
   export type FavouriteUncheckedCreateWithoutUserInput = {
-    id: string
+    id?: string
     artisan_id: string
   }
 
@@ -36978,19 +37396,20 @@ export namespace Prisma {
 
   export type PaymentCreateWithoutUserInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
     Artisan: ArtisanCreateNestedOneWithoutPaymentInput
     Booking: BookingCreateNestedOneWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutUserInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     artisan_id: string
@@ -36998,6 +37417,7 @@ export namespace Prisma {
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
   }
 
   export type PaymentCreateOrConnectWithoutUserInput = {
@@ -37028,11 +37448,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUpdateManyWithoutArtisanNestedInput
@@ -37049,11 +37471,13 @@ export namespace Prisma {
     rating?: FloatFieldUpdateOperationsInput | number
     about_artisan?: NullableStringFieldUpdateOperationsInput | string | null
     main_skill?: NullableStringFieldUpdateOperationsInput | string | null
-    min_price_per_hour?: NullableFloatFieldUpdateOperationsInput | number | null
+    min_price_per_hour?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     response_time?: NullableIntFieldUpdateOperationsInput | number | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    total_money_made?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_money_withdrawn?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_money_made?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_money_withdrawn?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Artisan_Skill?: Artisan_SkillUncheckedUpdateManyWithoutArtisanNestedInput
     Artisan_Verification_Documents?: Artisan_Verification_DocumentsUncheckedUpdateOneWithoutArtisanNestedInput
     Booking?: BookingUncheckedUpdateManyWithoutArtisanNestedInput
@@ -37191,10 +37615,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
   }
 
   export type Booking_ReviewCreateManyArtisanInput = {
@@ -37209,13 +37634,13 @@ export namespace Prisma {
   }
 
   export type FavouriteCreateManyArtisanInput = {
-    id: string
+    id?: string
     user_id: string
   }
 
   export type PaymentCreateManyArtisanInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     customer_id: string
@@ -37223,13 +37648,14 @@ export namespace Prisma {
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
   }
 
   export type ServiceCreateManyArtisanInput = {
     id: string
     name: string
     description: string
-    price: number
+    price: Decimal | DecimalJsLike | number | string
   }
 
   export type Artisan_SkillUpdateWithoutArtisanInput = {
@@ -37251,10 +37677,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     User?: UserUpdateOneRequiredWithoutBookingNestedInput
     Booking_Picture?: Booking_PictureUpdateManyWithoutBookingNestedInput
     Booking_Review?: Booking_ReviewUpdateOneWithoutBookingNestedInput
@@ -37269,10 +37696,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Booking_Picture?: Booking_PictureUncheckedUpdateManyWithoutBookingNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateOneWithoutBookingNestedInput
     Payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
@@ -37286,10 +37714,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Booking_ReviewUpdateWithoutArtisanInput = {
@@ -37344,19 +37773,20 @@ export namespace Prisma {
 
   export type PaymentUpdateWithoutArtisanInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
     Booking?: BookingUpdateOneRequiredWithoutPaymentNestedInput
     User?: UserUpdateOneRequiredWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutArtisanInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     customer_id?: StringFieldUpdateOperationsInput | string
@@ -37364,11 +37794,12 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
   }
 
   export type PaymentUncheckedUpdateManyWithoutArtisanInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     customer_id?: StringFieldUpdateOperationsInput | string
@@ -37376,27 +37807,28 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
   }
 
   export type ServiceUpdateWithoutArtisanInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type ServiceUncheckedUpdateWithoutArtisanInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type ServiceUncheckedUpdateManyWithoutArtisanInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type Booking_PictureCreateManyBookingInput = {
@@ -37443,10 +37875,11 @@ export namespace Prisma {
     updated_at: Date | string
     booking_address?: string | null
     booking_end_date?: Date | string | null
-    booking_price: number
+    booking_price: Decimal | DecimalJsLike | number | string
     booking_start_date: Date | string
     problem_description: string
     work_to_be_done: string
+    is_cancelled?: boolean
   }
 
   export type Booking_ReviewCreateManyUserInput = {
@@ -37461,7 +37894,7 @@ export namespace Prisma {
   }
 
   export type FavouriteCreateManyUserInput = {
-    id: string
+    id?: string
     artisan_id: string
   }
 
@@ -37474,7 +37907,7 @@ export namespace Prisma {
 
   export type PaymentCreateManyUserInput = {
     id: string
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     status?: $Enums.Payment_status
     payment_method: string
     artisan_id: string
@@ -37482,6 +37915,7 @@ export namespace Prisma {
     payment_completed_at: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    commission: number
   }
 
   export type BookingUpdateWithoutUserInput = {
@@ -37491,10 +37925,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Artisan?: ArtisanUpdateOneRequiredWithoutBookingNestedInput
     Booking_Picture?: Booking_PictureUpdateManyWithoutBookingNestedInput
     Booking_Review?: Booking_ReviewUpdateOneWithoutBookingNestedInput
@@ -37509,10 +37944,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
     Booking_Picture?: Booking_PictureUncheckedUpdateManyWithoutBookingNestedInput
     Booking_Review?: Booking_ReviewUncheckedUpdateOneWithoutBookingNestedInput
     Payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
@@ -37526,10 +37962,11 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_address?: NullableStringFieldUpdateOperationsInput | string | null
     booking_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    booking_price?: FloatFieldUpdateOperationsInput | number
+    booking_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     problem_description?: StringFieldUpdateOperationsInput | string
     work_to_be_done?: StringFieldUpdateOperationsInput | string
+    is_cancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Booking_ReviewUpdateWithoutUserInput = {
@@ -37605,19 +38042,20 @@ export namespace Prisma {
 
   export type PaymentUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
     Artisan?: ArtisanUpdateOneRequiredWithoutPaymentNestedInput
     Booking?: BookingUpdateOneRequiredWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     artisan_id?: StringFieldUpdateOperationsInput | string
@@ -37625,11 +38063,12 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
   }
 
   export type PaymentUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumPayment_statusFieldUpdateOperationsInput | $Enums.Payment_status
     payment_method?: StringFieldUpdateOperationsInput | string
     artisan_id?: StringFieldUpdateOperationsInput | string
@@ -37637,6 +38076,7 @@ export namespace Prisma {
     payment_completed_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commission?: IntFieldUpdateOperationsInput | number
   }
 
 
