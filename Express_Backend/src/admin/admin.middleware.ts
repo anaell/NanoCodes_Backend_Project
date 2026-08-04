@@ -19,6 +19,8 @@ export const verifyAdminJWTMiddleware = async (
 
     const decoded = accessTokenVerifier({ token: accessToken });
 
+    req.user = decoded;
+
     next();
   } catch (error: any) {
     // Handle JWT-specific errors

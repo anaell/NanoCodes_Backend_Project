@@ -19,7 +19,7 @@ route.get(
 );
 
 route.delete(
-  ".admin/users/:user_id",
+  "/admin/users/:user_id",
   adminController.deletePlatformUserController.bind(adminController),
 );
 

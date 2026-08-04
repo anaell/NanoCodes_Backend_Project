@@ -10,6 +10,7 @@ import {
   LoginController_RequestBodyValidator,
   SignupController_RequestBodyValidator,
 } from "./admin_auth.validation.js";
+import jwt from "jsonwebtoken";
 
 export class AdminAuthController {
   constructor(private readonly adminAuthService: AdminAuthService) {}
@@ -49,7 +50,13 @@ export class AdminAuthController {
       if (error instanceof ZodError) {
         console.error(error);
 
-        error_response = ErrorResponseStructure(error.message);
+        // Option A: Extract an array of readable issues natively supported in Zod 4
+        const formatted_errors = error.issues.map((err) => ({
+          field: err.path.join("."),
+          message: err.message,
+        }));
+
+        error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
       }
@@ -157,11 +164,14 @@ export class AdminAuthController {
         return res.status(401).json(error_response);
       }
 
-      const service_data = this.adminAuthService.RefreshAccessTokenService({
-        refresh_token,
-      });
+      const service_data =
+        await this.adminAuthService.RefreshAccessTokenService({
+          refresh_token,
+        });
 
-      return res.status(200);
+      const success_response = SuccessResponseStructure(service_data);
+
+      return res.status(200).json(success_response);
     } catch (error) {
       let error_response;
       if (error instanceof ZodError) {
@@ -176,6 +186,27 @@ export class AdminAuthController {
         error_response = ErrorResponseStructure(formatted_errors);
 
         return res.status(400).json(error_response);
+      }
+
+      // Handle JWT-specific errors
+      if (
+        error instanceof jwt.TokenExpiredError &&
+        error.name === "TokenExpiredError"
+      ) {
+        const error_message = "Token expired";
+        const error_response = ErrorResponseStructure(error_message);
+
+        return res.status(401).json(error_response);
+      }
+
+      if (
+        error instanceof jwt.JsonWebTokenError &&
+        error.name === "JsonWebTokenError"
+      ) {
+        const error_message = "Invalid token";
+        const error_response = ErrorResponseStructure(error_message);
+
+        return res.status(401).json(error_response);
       }
 
       const public_message =

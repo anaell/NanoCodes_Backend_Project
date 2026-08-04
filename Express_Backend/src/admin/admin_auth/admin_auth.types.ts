@@ -8,3 +8,7 @@ export interface createAdminUser_InputType {
   password: string;
   name: string;
 }
+
+export interface getAdminUserById_InputType {
+  admin_id: string;
+}

@@ -2,6 +2,7 @@ import { prisma } from "../../lib/prisma.js";
 import type {
   createAdminUser_InputType,
   getAdminUser_InputType,
+  getAdminUserById_InputType,
 } from "./admin_auth.types.js";
 
 export class AdminAuthRepository {
@@ -14,8 +15,8 @@ export class AdminAuthRepository {
 
       return admin_user;
     } catch (error) {
-      const error_message =
-        error instanceof Error ? error.message : "An unknown error occurred";
+      // const error_message =
+      //   error instanceof Error ? error.message : "An unknown error occurred";
       throw error;
     }
   }
@@ -33,10 +34,23 @@ export class AdminAuthRepository {
 
       return create_admin_user;
     } catch (error) {
-      const error_message =
-        error instanceof Error ? error.message : "An unknown error occurred";
-      console.error(error);
+      // const error_message =
+      //   error instanceof Error ? error.message : "An unknown error occurred";
+      // console.error(error);
 
+      throw error;
+    }
+  }
+
+  async getAdminUserById({ admin_id }: getAdminUserById_InputType) {
+    try {
+      const admin_user = await prisma.admin_User.findUniqueOrThrow({
+        where: { admin_id },
+        select: { admin_id: true, email: true, name: true },
+      });
+
+      return admin_user;
+    } catch (error) {
       throw error;
     }
   }

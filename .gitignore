@@ -4,6 +4,7 @@ Express_Backend/.env
 Express_Backend/generated/prisma
 Express_Backend/ca.pem
 Express_Backend/dist
+notes/
 
 # Laravel
 Laravel_Backend/*.log

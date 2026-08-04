@@ -69,14 +69,20 @@ export class AdminAuthService {
       token: refresh_token,
     });
 
-    // const jwt_payload = {
-    //   email: verified_refresh_token_payload_extracted.email,
-    //   name: db_response.name,
-    //   id: db_response.admin_id,
-    // };
+    const { id: admin_id } = verified_refresh_token_payload_extracted;
 
-    // const access_token = jwtAccessTokenGenerator(
-    //   verified_refresh_token_payload_extracted,
-    // );
+    const db_response = await this.adminAuthRepository.getAdminUserById({
+      admin_id,
+    });
+
+    const jwt_payload = {
+      email: db_response.email,
+      name: db_response.name,
+      id: db_response.admin_id,
+    };
+
+    const access_token = jwtAccessTokenGenerator(jwt_payload);
+
+    return { token: access_token };
   }
 }

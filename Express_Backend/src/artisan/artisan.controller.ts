@@ -36,7 +36,7 @@ export class ArtisanController {
         getArtisanByIdController_RequestParamValidation.parse(req.params);
 
       const { artisan_id } = validated_param;
-      const service_data = this.artisanService.getArtisanByIdService({
+      const service_data = await this.artisanService.getArtisanByIdService({
         artisan_id,
       });
 
@@ -80,7 +80,7 @@ export class ArtisanController {
       const { artisan_id } = validated_param;
 
       const service_data =
-        this.artisanService.getArtisanIncomingBookingRequestsService({
+        await this.artisanService.getArtisanIncomingBookingRequestsService({
           artisan_id,
         });
 
@@ -126,7 +126,7 @@ export class ArtisanController {
       const { artisan_response } = validated_body;
 
       const service_data =
-        this.artisanService.artisanBookingRequestResponseService({
+        await this.artisanService.artisanBookingRequestResponseService({
           artisan_booking_response: artisan_response,
           artisan_id,
           booking_id,
@@ -173,13 +173,14 @@ export class ArtisanController {
       const { artisan_id } = validated_param;
       const { booking_status, days, limit, page } = validated_query;
 
-      const service_data = this.artisanService.getArtisanBookingHistoryService({
-        artisan_id,
-        booking_status,
-        limit,
-        no_of_days: days,
-        page,
-      });
+      const service_data =
+        await this.artisanService.getArtisanBookingHistoryService({
+          artisan_id,
+          booking_status,
+          limit,
+          no_of_days: days,
+          page,
+        });
 
       const success_response = SuccessResponseStructure(service_data);
 
@@ -358,7 +359,9 @@ export class ArtisanController {
       const { artisan_id } = validated_param;
 
       const service_data =
-        this.artisanService.getArtisanEarningsStatsCardService({ artisan_id });
+        await this.artisanService.getArtisanEarningsStatsCardService({
+          artisan_id,
+        });
 
       const success_response = SuccessResponseStructure(service_data);
 

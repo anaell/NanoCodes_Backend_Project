@@ -111,19 +111,21 @@ export class AdminController {
   }
 
   async deletePlatformUserController(req: Request, res: Response) {
-    const validated_param = deletePlatformUser_RequestValidation.parse(
-      req.params,
-    );
     try {
+      const validated_param = deletePlatformUser_RequestValidation.parse(
+        req.params,
+      );
+
       const { user_id } = validated_param;
 
-      const service_data = await this.adminService.deletePlatformUserService({
+      await this.adminService.deletePlatformUserService({
         user_id,
       });
 
-      const success_response = SuccessResponseStructure(service_data);
+      // const success_response = SuccessResponseStructure(service_data);
 
-      res.status(204).json(success_response);
+      // res.status(204).json(success_response);
+      return res.status(204).send();
     } catch (error) {
       let error_response;
       if (error instanceof ZodError) {

@@ -20,7 +20,7 @@ if (
   !MYSQL_CA_BASE64 // If it is not required please comment this line out
 ) {
   throw new Error(
-    "Please define the MYSQL_HOST,  MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE_NAME and MYSQL_CA_BASE64 (the mysql certificate if it is required) environment variable inside .env",
+    `Please define the ${MYSQL_HOST && "MYSQL_HOST"},  ${MYSQL_PORT && "MYSQL_PORT"}, ${MYSQL_USER && "MYSQL_USER"}, ${MYSQL_PASSWORD && "MYSQL_PASSWORD"}, ${MYSQL_DATABASE_NAME && "MYSQL_DATABASE_NAME"} and ${MYSQL_CA_BASE64 && "MYSQL_CA_BASE64 (the mysql certificate if it is required)"} environment variable inside .env`,
   );
 }
 

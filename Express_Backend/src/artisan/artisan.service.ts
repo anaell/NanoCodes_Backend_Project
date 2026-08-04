@@ -47,6 +47,8 @@ export class ArtisanService {
         artisan_id,
         booking_id,
       });
+
+    return db_response;
   }
 
   async getArtisanBookingHistoryService({
