@@ -412,3 +412,179 @@
  *               type: string
  *               description: Newly generated JWT access token.
  */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *
+ *     FeaturedArtisansResponse:
+ *       type: object
+ *       properties:
+ *         status:
+ *           type: string
+ *           example: success
+ *         data:
+ *           type: object
+ *           properties:
+ *             featured_artisan:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   user:
+ *                     type: object
+ *                     properties:
+ *                       f_name:
+ *                         type: string
+ *                       l_name:
+ *                         type: string
+ *                       profile_pic_url:
+ *                         type: string
+ *                         nullable: true
+ *                   location:
+ *                     type: string
+ *                   main_skill:
+ *                     type: string
+ *                   rating:
+ *                     type: number
+ *                     format: float
+ *
+ *
+ *     ArtisansResponse:
+ *       type: object
+ *       properties:
+ *         status:
+ *           type: string
+ *           example: success
+ *         data:
+ *           type: object
+ *           properties:
+ *             artisans:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   user:
+ *                     type: object
+ *                     properties:
+ *                       f_name:
+ *                         type: string
+ *                       l_name:
+ *                         type: string
+ *                       profile_pic_url:
+ *                         type: string
+ *                         nullable: true
+ *                   rating:
+ *                     type: number
+ *                   experience:
+ *                     type: number
+ *                   location:
+ *                     type: string
+ *                   verified:
+ *                     type: boolean
+ *                   main_skill:
+ *                     type: string
+ *                   min_price_per_hour:
+ *                     type: number
+ *                   _count:
+ *                     type: object
+ *                     properties:
+ *                       reviews:
+ *                         type: integer
+ *             total_artisans:
+ *               type: integer
+ *             meta:
+ *               $ref: '#/components/schemas/PaginationMeta'
+ *
+ *
+ *     ArtisanProfileResponse:
+ *       type: object
+ *       properties:
+ *         status:
+ *           type: string
+ *           example: success
+ *         data:
+ *           type: object
+ *           properties:
+ *             artisan:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     f_name:
+ *                       type: string
+ *                     l_name:
+ *                       type: string
+ *                 experience:
+ *                   type: number
+ *                 location:
+ *                   type: string
+ *                 verified:
+ *                   type: boolean
+ *                 about_artisan:
+ *                   type: string
+ *                 response_time:
+ *                   type: string
+ *                 rating:
+ *                   type: number
+ *                 main_skill:
+ *                   type: string
+ *                 skills:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                 services:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                 reviews:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Review'
+ *                 bookings:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Booking'
+ *
+ *
+ *     CompletedBookingsResponse:
+ *       type: object
+ *       properties:
+ *         status:
+ *           type: string
+ *           example: success
+ *         data:
+ *           type: object
+ *           properties:
+ *             artisan_completed_bookings:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Booking'
+ *             total_artisan_completed_bookings:
+ *               type: integer
+ *             meta:
+ *               $ref: '#/components/schemas/PaginationMeta'
+ *
+ *
+ *     ArtisanReviewsResponse:
+ *       type: object
+ *       properties:
+ *         status:
+ *           type: string
+ *           example: success
+ *         data:
+ *           type: object
+ *           properties:
+ *             artisan_reviews:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Review'
+ *             total_artisan_reviews:
+ *               type: integer
+ *             meta:
+ *               $ref: '#/components/schemas/PaginationMeta'
+ */
